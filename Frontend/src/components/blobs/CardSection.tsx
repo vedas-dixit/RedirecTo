@@ -131,8 +131,10 @@ const CardSection = () => {
                         <h3 className="text-white text-xl font-semibold group-hover:text-orange-100 transition-colors duration-300">Easy Link Management</h3>
                     </div>
 
-                    <p className="text-gray-400 text-base mb-8 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                        Organize, edit, and search all your shortened links
+                
+                     <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                        Organize, edit, and search all your shortened links<br/>
+                        <span className="text-orange-400/80">Use password protected links to give authorized access.</span>
                     </p>
                 </div>
 
@@ -164,8 +166,10 @@ const CardSection = () => {
                         <h3 className="text-white text-xl font-semibold group-hover:text-orange-100 transition-colors duration-300">Secure & Protected Links</h3>
                     </div>
 
-                    <p className="text-gray-400 text-base mb-8 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                        Control access to your shared content.
+            
+                    <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                            Control access to your shared content.<br/>
+                            <span className="text-orange-400/80">Use password protected links to give authorized access.</span>
                     </p>
                 </div>
 
@@ -200,10 +204,10 @@ const CardSection = () => {
 
                 {/* GitHub-style contribution dots */}
                 <div className="absolute bottom-4 right-4 grid grid-cols-4 gap-1 opacity-0 group-hover:opacity-60 transition-opacity duration-500">
-                    {[...Array(12)].map((_, i) => (
+                    {[...Array(16)].map((_, i) => (
                         <div 
                             key={i}
-                            className="w-1.5 h-1.5 bg-green-500/60 rounded-sm animate-pulse"
+                            className="w-1.5 h-1.5 bg-red-500 rounded-sm animate-pulse"
                             style={{animationDelay: `${i * 100}ms`}}
                         ></div>
                     ))}
@@ -250,7 +254,7 @@ const CardSection = () => {
                     </div>
 
                     {/* Pulse indicator */}
-                    <div className="absolute top-3 right-3 w-2 h-2 bg-green-500 rounded-full opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-300"></div>
+                    <div className="absolute top-3 right-3 w-2 h-2 bg-red-500  rounded-full opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-300"></div>
                 </div>
 
                 {/* Expiring URL Card */}

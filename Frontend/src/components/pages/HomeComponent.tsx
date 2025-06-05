@@ -1,13 +1,11 @@
 import React from 'react';
-import Header from '../blobs/header';
-import CardSection from '../blobs/CardSection';
 import AnimatedStarButton from '../blobs/Button';
 
 const HomeComponent = () => {
   return (
     <>
       <div className="bg-landing fixed inset-0 -z-10" />
-      <Header />
+      
       <main className="flex flex-col items-center justify-center min-h-[80vh] px-4 text-center">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2">
           Create links instantly.<br />
@@ -23,7 +21,7 @@ const HomeComponent = () => {
           </AnimatedStarButton>
         </div>
       </main>
-      <CardSection/>
+      
     </>
   );
 };
