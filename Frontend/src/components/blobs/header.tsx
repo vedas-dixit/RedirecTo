@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image'
 import React, { useState } from 'react'
+import AnimatedStarButton from './Button'
 
 const Header = () => {
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false)
@@ -84,9 +85,10 @@ const Header = () => {
             </a>
 
             {/* Sign In Button */}
-            <button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 backdrop-blur-sm">
+              <AnimatedStarButton className='px-4 py-2'>
               Sign In
-            </button>
+              </AnimatedStarButton>
+            
           </div>
 
           {/* Mobile menu button */}

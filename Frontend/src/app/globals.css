@@ -1,15 +1,27 @@
 @import "tailwindcss";
 
 .bg-landing {
-    position: absolute;
-    inset: 0;
-    z-index: -10;
-    background-image: url('/images/bg.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background-image: url('/images/bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  background-blend-mode: multiply;
+   animation: subtlePulse 5s ease-in-out infinite;
+}
 
 body{
   background-color: #111010;
+}
+
+@keyframes subtlePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }

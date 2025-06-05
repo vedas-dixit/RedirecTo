@@ -20,7 +20,7 @@ const CardSection = () => {
     const handleExpiringHover = () => {
         const timer = setTimeout(() => {
             setShow404(true);
-        }, 200);
+        }, 300);
         setHoverTimer(timer);
     };
     
@@ -280,7 +280,10 @@ const CardSection = () => {
 
                         <div className={`transition-all duration-500 ${show404 ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
                             <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                                <span className="text-orange-400/80">Set custom expiration dates for your links.</span>
+                                <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                            URL that will expire after Clicks | Hours or maybe just a hover :)<br/>
+                            <span className="text-orange-400/80">Set custom expiration dates for your links.</span>
+                            </p>
                             </p>
                         </div>
 

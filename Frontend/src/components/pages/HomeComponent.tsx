@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../blobs/header';
 import CardSection from '../blobs/CardSection';
+import AnimatedStarButton from '../blobs/Button';
 
 const HomeComponent = () => {
   return (
@@ -17,9 +18,9 @@ const HomeComponent = () => {
           Get custom URLs, detailed click analytics, blazing-fast redirects, and powerful link management tools — all in one place.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-md text-base border border-white/20 transition-colors shadow-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">
-            Get Started
-          </button>
+          <AnimatedStarButton className='px-6 py-3'>
+              Get Started
+          </AnimatedStarButton>
         </div>
       </main>
       <CardSection/>
