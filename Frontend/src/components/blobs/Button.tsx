@@ -1,8 +1,13 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, ReactNode, ButtonHTMLAttributes } from 'react';
 
-const AnimatedStarButton = ({ children, className = "", ...props }) => {
+interface AnimatedStarButton extends ButtonHTMLAttributes<HTMLButtonElement>{
+  children: ReactNode;
+  classname?: string;
+}
+
+const AnimatedStarButton:React.FC <AnimatedStarButton> = ({ children, className = "", ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (

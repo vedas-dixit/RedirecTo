@@ -31,7 +31,7 @@ function Footer() {
       setIsChanging(true);
       setCurrentIndex(0);
 
-      const changeNextChar = (index) => {
+      const changeNextChar = (index: number) => {
         if (index >= TOTAL_CHARS) {
           // Animation complete, wait 2 seconds before next cycle
           setCurrentIndex(-1);
@@ -80,7 +80,7 @@ function Footer() {
             {/* Center - Animated Random Characters */}
             <div className="flex-1 flex justify-center">
               <div className="px-3 py-1 rounded-xl font-mono text-md tracking-wide border border-amber-800/55">
-                <span className="text-gray-300 text-xl">/</span>
+                <span className="text-orange-400 text-xl">/</span>
                 {chars.split('').map((char, index) => (
                   <span
                     key={index}
@@ -126,7 +126,7 @@ function Footer() {
             {/* Animated Characters Row - Centered */}
             <div className="flex justify-center">
               <div className="px-2 py-1 rounded-lg font-mono text-xs sm:text-sm tracking-wide border border-amber-800/55 max-w-full overflow-hidden">
-                <span className="text-gray-300 text-sm sm:text-lg">/</span>
+                <span className="text-orange-400 text-sm sm:text-lg">/</span>
                 <span className="break-all">
                   {chars.split('').map((char, index) => (
                     <span

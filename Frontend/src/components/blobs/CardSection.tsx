@@ -4,7 +4,7 @@ import { Heart } from 'lucide-react';
 
 const CardSection = () => {
     const [show404, setShow404] = useState(false);
-    const [hoverTimer, setHoverTimer] = useState(null);
+    const [hoverTimer, setHoverTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
     const [countryIndex, setCountryIndex] = useState(0);
     
     const countries = ['🇺🇸', '🇬🇧', '🇫🇷', '🇩🇪', '🇯🇵', '🇦🇺', '🇨🇦', '🇮🇳'];
@@ -18,7 +18,7 @@ const CardSection = () => {
     }, []);
     
     const handleExpiringHover = () => {
-        const timer = setTimeout(() => {
+        const timer: ReturnType<typeof setTimeout> = setTimeout(() => {
             setShow404(true);
         }, 300);
         setHoverTimer(timer);
@@ -33,7 +33,7 @@ const CardSection = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="max-w-7xl mx-auto p-8 grid grid-cols-1 lg:grid-cols-3 gap-8 select-none">
             {/* Main Card - Instant Link Shortening */}
             <div className="lg:col-span-2 bg-[#171717] rounded-3xl p-10 border border-orange-900/60 relative overflow-hidden group transition-all duration-500 hover:border-orange-700/80 hover:shadow-2xl hover:shadow-orange-900/20 hover:-translate-y-2">
                 {/* Background Image */}
@@ -59,7 +59,7 @@ const CardSection = () => {
                         Transform long URLs into clean, memorable links in seconds. Simplify sharing and enhance your brand with our fast and reliable shortening engine.
                     </p>
 
-                    <div className="space-y-1">
+                    <div className="space-y-1 cursor-none">
                         <div className="flex items-center gap-4 group/item hover:translate-x-2 transition-transform duration-200">
                             <div className="w-2 h-2 bg-orange-800/30 rounded-full group-hover/item:bg-orange-600 group-hover/item:shadow-lg group-hover/item:shadow-orange-600/50 transition-all duration-300"></div>
                             <span className="text-gray-300 text-base group-hover/item:text-white transition-colors duration-200">Fast redirection</span>
