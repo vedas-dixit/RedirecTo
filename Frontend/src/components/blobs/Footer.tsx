@@ -1,12 +1,13 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect } from "react";
 
 function Footer() {
-  const [chars, setChars] = useState('');
+  const [chars, setChars] = useState("");
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [isChanging, setIsChanging] = useState(false);
 
-  const CHAR_SET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const CHAR_SET =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const TOTAL_CHARS = 45;
 
   // Generate random character
@@ -16,7 +17,7 @@ function Footer() {
 
   // Initialize with random characters
   useEffect(() => {
-    let initialChars = '';
+    let initialChars = "";
     for (let i = 0; i < TOTAL_CHARS; i++) {
       initialChars += getRandomChar();
     }
@@ -43,10 +44,10 @@ function Footer() {
         }
 
         // Change current character
-        setChars(prevChars => {
-          const newChars = prevChars.split('');
+        setChars((prevChars) => {
+          const newChars = prevChars.split("");
           newChars[index] = getRandomChar();
-          return newChars.join('');
+          return newChars.join("");
         });
 
         setCurrentIndex(index);
@@ -68,7 +69,7 @@ function Footer() {
   return (
     <footer className="border-b border-white/20 z-50">
       {/* Main footer content */}
-      <div className='max-w-7xl mx-auto px-2 sm:px-4 lg:px-8'>
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         {/* Desktop Layout */}
         <div className="hidden md:block">
           <div className="py-4 px-6 flex items-center justify-between text-sm">
@@ -81,13 +82,13 @@ function Footer() {
             <div className="flex-1 flex justify-center">
               <div className="px-3 py-1 rounded-xl font-mono text-md tracking-wide border border-amber-800/55">
                 <span className="text-orange-400 text-xl">/</span>
-                {chars.split('').map((char, index) => (
+                {chars.split("").map((char, index) => (
                   <span
                     key={index}
                     className={`transition-colors duration-150 ${
                       currentIndex === index && isChanging
-                        ? 'text-orange-400'
-                        : 'text-gray-300'
+                        ? "text-orange-400"
+                        : "text-gray-300"
                     }`}
                   >
                     {char}
@@ -98,20 +99,20 @@ function Footer() {
 
             {/* Right - Social Links */}
             <div className="flex items-center space-x-6">
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 linkedin
               </a>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 GitHub
               </a>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 Kurama
@@ -128,13 +129,13 @@ function Footer() {
               <div className="px-2 py-1 rounded-lg font-mono text-xs sm:text-sm tracking-wide border border-amber-800/55 max-w-full overflow-hidden">
                 <span className="text-orange-400 text-sm sm:text-lg">/</span>
                 <span className="break-all">
-                  {chars.split('').map((char, index) => (
+                  {chars.split("").map((char, index) => (
                     <span
                       key={index}
                       className={`transition-colors duration-150 ${
                         currentIndex === index && isChanging
-                          ? 'text-orange-400'
-                          : 'text-gray-300'
+                          ? "text-orange-400"
+                          : "text-gray-300"
                       }`}
                     >
                       {char}
@@ -145,37 +146,42 @@ function Footer() {
             </div>
             {/* Logo and Social Links Row */}
             <div className="flex items-center justify-between text-xs mb-3 mt-3">
-              <span className="text-white font-medium text-sm">© RedirectTo</span>
+              <span className="text-white font-medium text-sm">
+                © RedirectTo
+              </span>
               <div className="flex items-center space-x-4">
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   linkedin
                 </a>
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   GitHub
                 </a>
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Kurama
                 </a>
               </div>
             </div>
-
-            
           </div>
         </div>
 
         {/* Bottom text */}
         <div className="text-center text-xs text-gray-500 pb-3 border-t border-gray-800 pt-2 px-2">
-          <span className="hidden sm:inline">Join the 60 million+ links created daily — but with smarter insights.</span>
-          <span className="sm:hidden">56-68M URLs shortened daily globally</span>
+          <span className="hidden sm:inline">
+            Join the 60 million+ links created daily — but with smarter
+            insights.
+          </span>
+          <span className="sm:hidden">
+            56-68M URLs shortened daily globally
+          </span>
         </div>
       </div>
     </footer>

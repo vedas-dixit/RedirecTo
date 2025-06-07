@@ -8,8 +8,8 @@ export default function Home() {
     <>
       <Header />
       <HomeComponent />
-      <CardSection/>
-      <Footer/>
+      <CardSection />
+      <Footer />
     </>
   );
 }
