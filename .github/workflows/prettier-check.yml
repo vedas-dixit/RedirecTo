@@ -3,8 +3,6 @@ name: Prettier Auto-Fix on Main Push
 on:
   push:
     branches: [main]
-    paths:
-      - 'frontend/**'
 
 jobs:
   prettier:
