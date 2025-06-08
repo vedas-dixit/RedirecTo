@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../component/UI/card';
+import { Button } from '../../../component/UI/button';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import {
   Link,
@@ -12,12 +12,12 @@ import {
 } from 'lucide-react';
 
 import { summaryData, clicksOverTime, countryData, guestData, recentActivity, urlsData } from './dummydata';
-import { GuestData, SummaryData } from './types/dashboard.types';
-import { URLTable } from './table/URLTable';
-import { ActivityFeed } from './activity/ActivityFeed';
-import { SummaryCard } from './summary-cards/SummaryCard';
-import { SettingsCard } from './settings/SettingsCard';
-import { GuestLimitCard } from './summary-cards/GuestLimitCard';
+import { GuestData, SummaryData } from '../../../component/dashboard/types/dashboard.types';
+import { URLTable } from '../../../component/dashboard/table/URLTable';
+import { ActivityFeed } from '../../../component/dashboard/activity/ActivityFeed';
+import { SummaryCard } from '../../../component/dashboard/summary-cards/SummaryCard';
+import { SettingsCard } from '../../../component/dashboard/settings/SettingsCard';
+import { GuestLimitCard } from '../../../component/dashboard/summary-cards/GuestLimitCard';
 
 
 // Main Dashboard Component

@@ -1,7 +1,7 @@
-import CardSection from "@/components/blobs/CardSection";
-import Footer from "@/components/blobs/Footer";
-import Header from "@/components/blobs/header";
-import HomeComponent from "@/components/pages/HomeComponent";
+import CardSection from "../../component/HomePage/CardSection";
+import Footer from "../../component/HomePage/Footer";
+import Header from "../../component/HomePage/header";
+import HomeComponent from "../../pages/HomeComponent";
 
 export default function Home() {
   return (

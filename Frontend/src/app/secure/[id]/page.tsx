@@ -1,4 +1,4 @@
-import ProtectedLinkPage from '@/components/pages/Protected'
+import ProtectedLinkPage from '../../../../pages/Protected'
 import React from 'react'
 
 
