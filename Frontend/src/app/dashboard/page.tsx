@@ -51,7 +51,7 @@ const URLShortenerDashboard: React.FC = () => {
 
         {/* Guest Limit Card */}
         {isGuest && 'limit' in data && (
-          <GuestLimitCard current={data.totalUrls} limit={data.limit} />
+          <GuestLimitCard current={data.totalUrls as number} limit={data.limit as number} />
         )}
 
         {/* Summary Cards */}

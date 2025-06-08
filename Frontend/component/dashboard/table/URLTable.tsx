@@ -82,7 +82,6 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                   <td className="p-2 text-zinc-300">{url.ttl}</td>
                   <td className="p-2">
                     <Badge 
-                      variant={url.status === 'Active' ? 'default' : 'secondary'}
                       className={url.status === 'Active' 
                         ? 'bg-green-600 hover:bg-green-700 text-white' 
                         : 'bg-zinc-700 text-zinc-300'
