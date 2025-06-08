@@ -1,25 +1,33 @@
 "use client";
 
 import React, { useState, ReactNode, ButtonHTMLAttributes } from "react";
+import { useRouter } from 'next/navigation'
 
 interface AnimatedStarButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   classname?: string;
+  Link?: string;
 }
 
 const AnimatedStarButton: React.FC<AnimatedStarButton> = ({
   children,
   className = "",
+  Link= "/",
   ...props
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter()
 
+  const handleClick = () => {
+    router.push(Link) 
+  }
   return (
     <button
       className={`relative cursor-pointer overflow-hidden bg-white/10 hover:bg-white/20 text-white font-semibold rounded-md text-base border border-white/20 transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transform hover:scale-105 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       {...props}
+      onClick={handleClick}
     >
       {/* Shooting stars container */}
       <div className="absolute inset-0 pointer-events-none">

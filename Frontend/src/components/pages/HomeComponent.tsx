@@ -19,8 +19,8 @@ const HomeComponent = () => {
           powerful link management tools — all in one place.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <AnimatedStarButton className="px-6 py-3">
-            Get Started
+          <AnimatedStarButton className="px-6 py-3" Link="/dashboard">
+            Go To Dashboard
           </AnimatedStarButton>
         </div>
       </main>
