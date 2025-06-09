@@ -165,10 +165,12 @@ const Header = () => {
                     className="flex items-center space-x-2 text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
                   >
                     {getUserAvatar() ? (
-                      <img
+                      <Image
                         src={getUserAvatar()}
                         alt="Profile"
-                        className="w-8 h-8 rounded-full"
+                        width={32}
+                        height={32}
+                        className="rounded-full"
                       />
                     ) : (
                       <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
