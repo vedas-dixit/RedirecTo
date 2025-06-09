@@ -5,19 +5,19 @@ import { Button } from "../../UI/button";
 
 export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
   const handleCreateAccount = (): void => {
-    console.log('Create account');
+    console.log("Create account");
   };
 
   const handleUpdateProfile = (): void => {
-    console.log('Update profile');
+    console.log("Update profile");
   };
 
   const handleChangeEmail = (): void => {
-    console.log('Change email');
+    console.log("Change email");
   };
 
   const handleLogout = (): void => {
-    console.log('Logout');
+    console.log("Logout");
   };
 
   return (
@@ -25,14 +25,14 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-white">
           <Settings className="h-5 w-5 text-orange-500" />
-          {isGuest ? 'Account Options' : 'Settings'}
+          {isGuest ? "Account Options" : "Settings"}
         </CardTitle>
       </CardHeader>
       <CardContent>
         {isGuest ? (
           <div className="space-y-2">
-            <Button 
-              className="w-full bg-orange-600 hover:bg-orange-700 text-white border-0" 
+            <Button
+              className="w-full bg-orange-600 hover:bg-orange-700 text-white border-0"
               onClick={handleCreateAccount}
             >
               <UserPlus className="h-4 w-4 mr-2" />
@@ -41,25 +41,25 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
           </div>
         ) : (
           <div className="space-y-2">
-            <Button 
-              variant="outline" 
-              className="w-full justify-start border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white" 
+            <Button
+              variant="outline"
+              className="w-full justify-start border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
               onClick={handleUpdateProfile}
             >
               <User className="h-4 w-4 mr-2" />
               Update Profile
             </Button>
-            <Button 
-              variant="outline" 
-              className="w-full justify-start border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white" 
+            <Button
+              variant="outline"
+              className="w-full justify-start border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
               onClick={handleChangeEmail}
             >
               <Settings className="h-4 w-4 mr-2" />
               Change Email
             </Button>
-            <Button 
-              variant="outline" 
-              className="w-full justify-start border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white" 
+            <Button
+              variant="outline"
+              className="w-full justify-start border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
               onClick={handleLogout}
             >
               <LogOut className="h-4 w-4 mr-2" />

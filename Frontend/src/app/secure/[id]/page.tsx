@@ -1,11 +1,8 @@
-import ProtectedLinkPage from '../../../../pages/Protected'
-import React from 'react'
-
+import ProtectedLinkPage from "../../../../pages/Protected";
+import React from "react";
 
 function SecurePage() {
-  return (
-    <ProtectedLinkPage/>
-  )
+  return <ProtectedLinkPage />;
 }
 
-export default SecurePage
+export default SecurePage;

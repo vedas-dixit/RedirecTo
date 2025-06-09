@@ -21,7 +21,6 @@ body {
 }
 
 @keyframes subtlePulse {
-
   0%,
   100% {
     opacity: 1;
@@ -49,7 +48,7 @@ body {
 }
 
 .shield-bounce {
-  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
   animation: bounce 2s infinite;
 }
 
@@ -67,7 +66,7 @@ body {
 }
 
 .password-indicator-active {
-  background: linear-gradient(90deg, #FF6B35 0%, #F7931E 100%);
+  background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
 }
 
 .password-indicator-inactive {
@@ -75,11 +74,11 @@ body {
 }
 
 .submit-button-active {
-  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
 }
 
 .submit-button-disabled {
-  background: #6B7280;
+  background: #6b7280;
 }
 
 .loading-spinner {
@@ -119,7 +118,6 @@ body {
 }
 
 @keyframes twinkle {
-
   0%,
   100% {
     opacity: 0.3;
@@ -131,7 +129,6 @@ body {
 }
 
 @keyframes bounce {
-
   0%,
   20%,
   53%,

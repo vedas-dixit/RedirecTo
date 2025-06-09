@@ -1,10 +1,8 @@
-import URLShortenerDashboard from '@/app/dashboard/page'
-import React from 'react'
+import URLShortenerDashboard from "@/app/dashboard/page";
+import React from "react";
 
 function Dashboard() {
-  return (
-    <URLShortenerDashboard/>
-  )
+  return <URLShortenerDashboard />;
 }
 
-export default Dashboard
+export default Dashboard;

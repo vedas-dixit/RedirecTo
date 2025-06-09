@@ -42,7 +42,7 @@ export interface URLData {
   destination: string;
   clicks: number;
   ttl: string;
-  status: 'Active' | 'Expired';
+  status: "Active" | "Expired";
   protected: boolean;
   createdAt: string;
 }

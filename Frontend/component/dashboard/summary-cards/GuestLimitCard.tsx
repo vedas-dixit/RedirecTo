@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../UI/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../UI/card";
 import { GuestLimitCardProps } from "../types/dashboard.types";
 import { User, X } from "lucide-react";
 import { Progress } from "@radix-ui/react-progress";
 import AnimatedStarButton from "../../custom/AnimatedButton";
 
-export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({ current, limit }) => {
+export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({
+  current,
+  limit,
+}) => {
   const [visible, setVisible] = useState(true);
 
   if (!visible) return null;
@@ -29,7 +38,10 @@ export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({ current, limit }
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Progress value={(current / limit) * 100} className="mb-4 bg-zinc-800" />
+          <Progress
+            value={(current / limit) * 100}
+            className="mb-4 bg-zinc-800"
+          />
           <AnimatedStarButton className="w-64 text-white border-0">
             <div className="flex items-center justify-center p-4">
               Login to make more URL&apos;s

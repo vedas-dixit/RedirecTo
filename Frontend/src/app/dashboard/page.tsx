@@ -1,24 +1,45 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../component/UI/card';
-import { Button } from '../../../component/UI/button';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import React, { useState } from "react";
 import {
-  Link,
-  BarChart3,
-  Clock,
-  Shield,
-} from 'lucide-react';
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../../component/UI/card";
+import { Button } from "../../../component/UI/button";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+import { Link, BarChart3, Clock, Shield } from "lucide-react";
 
-import { summaryData, clicksOverTime, countryData, guestData, recentActivity, urlsData } from './dummydata';
-import { GuestData, SummaryData } from '../../../component/dashboard/types/dashboard.types';
-import { URLTable } from '../../../component/dashboard/table/URLTable';
-import { ActivityFeed } from '../../../component/dashboard/activity/ActivityFeed';
-import { SummaryCard } from '../../../component/dashboard/summary-cards/SummaryCard';
-import { SettingsCard } from '../../../component/dashboard/settings/SettingsCard';
-import { GuestLimitCard } from '../../../component/dashboard/summary-cards/GuestLimitCard';
-
+import {
+  summaryData,
+  clicksOverTime,
+  countryData,
+  guestData,
+  recentActivity,
+  urlsData,
+} from "./dummydata";
+import {
+  GuestData,
+  SummaryData,
+} from "../../../component/dashboard/types/dashboard.types";
+import { URLTable } from "../../../component/dashboard/table/URLTable";
+import { ActivityFeed } from "../../../component/dashboard/activity/ActivityFeed";
+import { SummaryCard } from "../../../component/dashboard/summary-cards/SummaryCard";
+import { SettingsCard } from "../../../component/dashboard/settings/SettingsCard";
+import { GuestLimitCard } from "../../../component/dashboard/summary-cards/GuestLimitCard";
 
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
@@ -37,7 +58,9 @@ const URLShortenerDashboard: React.FC = () => {
           <div>
             <h1 className="text-3xl font-bold text-white">Dashboard</h1>
             <p className="text-zinc-400">
-              {isGuest ? 'Guest Session' : 'Welcome back! Here\'s your URL analytics.'}
+              {isGuest
+                ? "Guest Session"
+                : "Welcome back! Here's your URL analytics."}
             </p>
           </div>
           <Button
@@ -45,13 +68,16 @@ const URLShortenerDashboard: React.FC = () => {
             className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
             onClick={handleViewToggle}
           >
-            Switch to {isGuest ? 'User' : 'Guest'} View
+            Switch to {isGuest ? "User" : "Guest"} View
           </Button>
         </div>
 
         {/* Guest Limit Card */}
-        {isGuest && 'limit' in data && (
-          <GuestLimitCard current={data.totalUrls as number} limit={data.limit as number} />
+        {isGuest && "limit" in data && (
+          <GuestLimitCard
+            current={data.totalUrls as number}
+            limit={data.limit as number}
+          />
         )}
 
         {/* Summary Cards */}
@@ -88,7 +114,9 @@ const URLShortenerDashboard: React.FC = () => {
           <Card className="bg-zinc-900 border-zinc-800">
             <CardHeader>
               <CardTitle className="text-white">Clicks Over Time</CardTitle>
-              <CardDescription className="text-zinc-400">Last 7 days</CardDescription>
+              <CardDescription className="text-zinc-400">
+                Last 7 days
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -98,10 +126,10 @@ const URLShortenerDashboard: React.FC = () => {
                   <YAxis stroke="#9ca3af" />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#1f2937',
-                      border: '1px solid #374151',
-                      borderRadius: '8px',
-                      color: '#fff'
+                      backgroundColor: "#1f2937",
+                      border: "1px solid #374151",
+                      borderRadius: "8px",
+                      color: "#fff",
                     }}
                   />
                   <Line
@@ -109,7 +137,7 @@ const URLShortenerDashboard: React.FC = () => {
                     dataKey="clicks"
                     stroke="#f97316"
                     strokeWidth={3}
-                    dot={{ fill: '#f97316', strokeWidth: 2, r: 4 }}
+                    dot={{ fill: "#f97316", strokeWidth: 2, r: 4 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -119,8 +147,12 @@ const URLShortenerDashboard: React.FC = () => {
           {/* Country Distribution */}
           <Card className="bg-zinc-900 border-zinc-800">
             <CardHeader>
-              <CardTitle className="text-white">Click Distribution by Country</CardTitle>
-              <CardDescription className="text-zinc-400">Top 5 countries</CardDescription>
+              <CardTitle className="text-white">
+                Click Distribution by Country
+              </CardTitle>
+              <CardDescription className="text-zinc-400">
+                Top 5 countries
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -131,7 +163,13 @@ const URLShortenerDashboard: React.FC = () => {
                     cy="50%"
                     outerRadius={80}
                     dataKey="clicks"
-                    label={({ country, clicks }: { country: string; clicks: number }) => `${country}: ${clicks}`}
+                    label={({
+                      country,
+                      clicks,
+                    }: {
+                      country: string;
+                      clicks: number;
+                    }) => `${country}: ${clicks}`}
                   >
                     {countryData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -139,12 +177,12 @@ const URLShortenerDashboard: React.FC = () => {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#18181b',
-                      border: '1px solid #ffff',
-                      borderRadius: '20px',
+                      backgroundColor: "#18181b",
+                      border: "1px solid #ffff",
+                      borderRadius: "20px",
                     }}
-                    labelStyle={{ color: '#ffffff' }}
-                    itemStyle={{ color: '#ffffff' }}
+                    labelStyle={{ color: "#ffffff" }}
+                    itemStyle={{ color: "#ffffff" }}
                   />
                 </PieChart>
               </ResponsiveContainer>

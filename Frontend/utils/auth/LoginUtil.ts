@@ -2,7 +2,7 @@ import { supabase } from "../../lib/supabaseClient"; // adjust path
 
 export async function LoginWithGoogle() {
   const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
+    provider: "google",
   });
   if (error) {
     console.error("Google login error:", error.message);
@@ -11,7 +11,7 @@ export async function LoginWithGoogle() {
 
 export async function LoginWithGithub() {
   const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'github',
+    provider: "github",
   });
   if (error) {
     console.error("GitHub login error:", error.message);
