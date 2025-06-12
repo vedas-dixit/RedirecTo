@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from db import get_session
-from models import User
+from database.db import get_session
+from models.user import User
+
 
 app = FastAPI()
 
@@ -17,3 +18,4 @@ async def read_users(session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(User))
     users = result.scalars().all()
     return users
+
