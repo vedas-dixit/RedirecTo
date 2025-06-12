@@ -31,11 +31,11 @@ jobs:
           pip install -r requirements.txt
           pip install black ruff pytest
 
-      - name: Lint with Ruff
-        run: ruff check .
+      - name: Auto-fix lint issues with Ruff
+        run: ruff check . --fix
 
-      - name: Check formatting with Black
-        run: black --check .
+      - name: Format code with Black
+        run: black .
 
-      - name: Run Pytest
-        run: pytest || echo "No tests yet 🚧"
+      - name: Run tests with Pytest
+        run: pytest
