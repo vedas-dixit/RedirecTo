@@ -6,9 +6,11 @@ from models import User
 
 app = FastAPI()
 
+
 @app.get("/")
 async def root():
     return {"msg": "Hello World"}
+
 
 @app.get("/users")
 async def read_users(session: AsyncSession = Depends(get_session)):

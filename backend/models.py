@@ -2,6 +2,7 @@ from sqlalchemy import Column, Boolean, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from db import Base
 
+
 class User(Base):
     __tablename__ = "users"
 
