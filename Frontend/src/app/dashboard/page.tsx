@@ -40,15 +40,17 @@ import { ActivityFeed } from "../../../component/dashboard/activity/ActivityFeed
 import { SummaryCard } from "../../../component/dashboard/summary-cards/SummaryCard";
 import { SettingsCard } from "../../../component/dashboard/settings/SettingsCard";
 import { GuestLimitCard } from "../../../component/dashboard/summary-cards/GuestLimitCard";
+import AnimatedStarButton from "../../../component/custom/AnimatedButton";
+import UrlCreationForm from "../../../component/URL/urlCreationForm";
 
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
   const [isGuest, setIsGuest] = useState<boolean>(false);
   const data: SummaryData | GuestData = isGuest ? guestData : summaryData;
-
-  const handleViewToggle = (): void => {
-    setIsGuest(!isGuest);
-  };
+  const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
+  // const handleViewToggle = (): void => {
+  //   setIsGuest(!isGuest);
+  // };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -63,15 +65,17 @@ const URLShortenerDashboard: React.FC = () => {
                 : "Welcome back! Here's your URL analytics."}
             </p>
           </div>
-          <Button
-            variant="outline"
-            className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:text-white"
-            onClick={handleViewToggle}
+          <AnimatedStarButton
+            className="p-3"
+            onClick={() => setIsUrlFormOpen(true)}
           >
-            Switch to {isGuest ? "User" : "Guest"} View
-          </Button>
+            Create URL
+          </AnimatedStarButton>
         </div>
-
+        <UrlCreationForm
+          isOpen={isUrlFormOpen}
+          onClose={() => setIsUrlFormOpen(false)}
+        />
         {/* Guest Limit Card */}
         {isGuest && "limit" in data && (
           <GuestLimitCard
