@@ -1,8 +1,21 @@
-from fastapi import FastAPI
-from app.api import ping
-from app.core.config import settings
+from fastapi import FastAPI, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+from database.db import get_session
+from models.user import User
 
-app = FastAPI(title=settings.PROJECT_NAME)
 
-# Register routes
-app.include_router(ping.router)
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"msg": "Hello World"}
+
+
+@app.get("/users")
+async def read_users(session: AsyncSession = Depends(get_session)):
+    result = await session.execute(select(User))
+    users = result.scalars().all()
+    return users
+
