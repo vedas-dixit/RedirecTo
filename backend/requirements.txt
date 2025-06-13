@@ -8,3 +8,5 @@ ruff
 pytest
 python-jose[cryptography]
 httpx
+base64
+hashlib
