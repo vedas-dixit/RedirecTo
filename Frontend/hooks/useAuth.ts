@@ -39,7 +39,7 @@ export const useAuth = () => {
   // Helper functions to access tokens
   const getAccessToken = () => session?.access_token ?? null;
   const getRefreshToken = () => session?.refresh_token ?? null;
-  
+
   // Helper to check if token is expired
   const isTokenExpired = () => {
     if (!session?.expires_at) return true;
@@ -50,20 +50,20 @@ export const useAuth = () => {
   const refreshSession = async () => {
     const { data, error } = await supabase.auth.refreshSession();
     if (error) {
-      console.error('Error refreshing session:', error);
+      console.error("Error refreshing session:", error);
       return false;
     }
     return true;
   };
 
-  return { 
-    user, 
+  return {
+    user,
     session,
-    loading, 
+    loading,
     signOut,
     getAccessToken,
     getRefreshToken,
     isTokenExpired,
-    refreshSession
+    refreshSession,
   };
 };
