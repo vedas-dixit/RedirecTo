@@ -7,18 +7,18 @@ export const useCreateUrl = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('Access token:', getAccessToken());
+    console.log("Access token:", getAccessToken());
   }, [getAccessToken]);
 
   const createUrl = async (longUrl: string) => {
     if (!user) {
-      setError('User not authenticated');
+      setError("User not authenticated");
       return null;
     }
 
     const token = getAccessToken();
     if (!token) {
-      setError('No access token available');
+      setError("No access token available");
       return null;
     }
 
@@ -26,30 +26,29 @@ export const useCreateUrl = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/create-url', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:8000/create-url", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          long_url: longUrl
+          long_url: longUrl,
         }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to create URL');
+        throw new Error(errorData.detail || "Failed to create URL");
       }
 
       const data = await response.json();
-      console.log('URL created successfully:', data);
+      console.log("URL created successfully:", data);
       return data;
-
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
       setError(errorMessage);
-      console.error('Error creating URL:', errorMessage);
+      console.error("Error creating URL:", errorMessage);
       return null;
     } finally {
       setLoading(false);

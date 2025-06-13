@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { X, Link, Sparkles } from 'lucide-react';
-import { useCreateUrl } from '../../hooks/createUrl';
+import React, { useState } from "react";
+import { X, Link, Sparkles } from "lucide-react";
+import { useCreateUrl } from "../../hooks/createUrl";
 
 interface UrlCreationFormProps {
   isOpen: boolean;
@@ -9,17 +9,19 @@ interface UrlCreationFormProps {
 
 // Custom hook placeholder - you can implement this later
 
-const UrlCreationForm: React.FC<UrlCreationFormProps> = ({ isOpen, onClose }) => {
-  const [longUrl, setLongUrl] = useState('');
+const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
+  isOpen,
+  onClose,
+}) => {
+  const [longUrl, setLongUrl] = useState("");
   const { createUrl, isLoading } = useCreateUrl();
-  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!longUrl.trim()) return;
-    
+
     await createUrl(longUrl);
-    setLongUrl('');
+    setLongUrl("");
     onClose();
   };
 
@@ -32,13 +34,13 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({ isOpen, onClose }) =>
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in-0 duration-300"
       onClick={handleBackdropClick}
     >
       {/* Backdrop with blur effect */}
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-300" />
-      
+
       {/* Modal */}
       <div className="relative bg-[#171717] rounded-3xl border border-orange-900/60 p-8 w-full max-w-md mx-auto shadow-2xl shadow-orange-900/20 animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
         {/* Background gradient */}
@@ -57,9 +59,11 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({ isOpen, onClose }) =>
               <div className="w-10 h-10 bg-orange-800/30 rounded-xl flex items-center justify-center group-hover:bg-orange-700/40 transition-all duration-300">
                 <Link className="w-5 h-5 text-white" />
               </div>
-              <h2 className="text-white text-2xl font-semibold">Create Short URL</h2>
+              <h2 className="text-white text-2xl font-semibold">
+                Create Short URL
+              </h2>
             </div>
-            
+
             <button
               onClick={onClose}
               className="w-8 h-8 bg-orange-800/20 hover:bg-orange-700/30 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 group"
@@ -84,7 +88,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({ isOpen, onClose }) =>
                   className="w-full bg-[#0f0f0f] border border-orange-900/40 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-600/60 focus:ring-2 focus:ring-orange-600/20 transition-all duration-300 group-hover:border-orange-800/60"
                   required
                 />
-                
+
                 {/* Input glow effect */}
                 <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
@@ -99,7 +103,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({ isOpen, onClose }) =>
               >
                 Cancel
               </button>
-              
+
               <button
                 type="submit"
                 disabled={!longUrl.trim() || isLoading}
