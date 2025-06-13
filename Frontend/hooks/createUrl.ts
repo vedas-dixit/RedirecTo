@@ -3,7 +3,6 @@ import { useAuth } from "./useAuth";
 import { prepareAuthHeader } from "../utils/auth/prepareAuthHeader";
 import { prepareUserPayload } from "../utils/auth/prepareUserPayload";
 
-
 export const useCreateUrl = () => {
   const { user, getAccessToken } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -17,9 +16,8 @@ export const useCreateUrl = () => {
     setLoading(true);
     setError(null);
 
-
     try {
-      console.log(userPayload)
+      console.log(userPayload);
       const response = await fetch("http://127.0.0.1:8000/create-url", {
         method: "POST",
         headers: {
