@@ -1,39 +1,34 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "./useAuth";
+import { prepareAuthHeader } from "../utils/auth/prepareAuthHeader";
+import { prepareUserPayload } from "../utils/auth/prepareUserPayload";
+
 
 export const useCreateUrl = () => {
   const { user, getAccessToken } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    console.log("Access token:", getAccessToken());
-  }, [getAccessToken]);
-
   const createUrl = async (longUrl: string) => {
-    if (!user) {
-      setError("User not authenticated");
-      return null;
-    }
-
-    const token = getAccessToken();
-    if (!token) {
-      setError("No access token available");
-      return null;
-    }
+    const token = getAccessToken(); // Can be null
+    const authHeader = prepareAuthHeader(token);
+    const userPayload = prepareUserPayload(user);
 
     setLoading(true);
     setError(null);
 
+
     try {
+      console.log(userPayload)
       const response = await fetch("http://127.0.0.1:8000/create-url", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: authHeader,
         },
         body: JSON.stringify({
           long_url: longUrl,
+          user: userPayload, // Send full user object to backend
         }),
       });
 
@@ -43,7 +38,6 @@ export const useCreateUrl = () => {
       }
 
       const data = await response.json();
-      console.log("URL created successfully:", data);
       return data;
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Unknown error";
