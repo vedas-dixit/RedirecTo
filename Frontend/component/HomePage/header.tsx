@@ -1,15 +1,23 @@
 "use client";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import AnimatedStarButton from "../custom/AnimatedButton";
 import SigninModal from "../../modals/SigninModal";
+import ProductDropdown from "./ProductDropdown";
+import MobileProductCards from "./MobileProductCards";
 
 const Header = () => {
   const [isProductDropdownOpen, setIsProductDropdownOpen] = useState(false);
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Refs for outside click detection
+  const productDropdownRef = useRef<HTMLDivElement>(null);
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
 
   const { user, loading: isLoading, signOut } = useAuth();
 
@@ -23,6 +31,52 @@ const Header = () => {
     }
   }, [user, isSigninModalOpen]);
 
+  // Handle outside clicks for dropdowns - Fixed version
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      // Close product dropdown if clicked outside (desktop only)
+      if (
+        isProductDropdownOpen &&
+        productDropdownRef.current &&
+        !productDropdownRef.current.contains(target) &&
+        !isMobileMenuOpen // Don't close if mobile menu is open
+      ) {
+        setIsProductDropdownOpen(false);
+      }
+
+      // Close profile dropdown if clicked outside
+      if (
+        isProfileDropdownOpen &&
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(target)
+      ) {
+        setIsProfileDropdownOpen(false);
+      }
+
+      // Close mobile menu if clicked outside (excluding the hamburger button)
+      // Also close product dropdown if mobile menu closes
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(target) &&
+        mobileMenuButtonRef.current &&
+        !mobileMenuButtonRef.current.contains(target)
+      ) {
+        setIsMobileMenuOpen(false);
+        setIsProductDropdownOpen(false); // Close product dropdown when mobile menu closes
+      }
+    };
+
+    // Always add the event listener, regardless of dropdown state
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isProductDropdownOpen, isProfileDropdownOpen, isMobileMenuOpen]);
+
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -30,6 +84,25 @@ const Header = () => {
     } catch (error) {
       console.error("Sign out error:", error);
     }
+  };
+
+  const handleMobileProductCardClose = () => {
+    setIsProductDropdownOpen(false);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleMobileMenuToggle = () => {
+    const newMenuState = !isMobileMenuOpen;
+    setIsMobileMenuOpen(newMenuState);
+    
+    // If closing mobile menu, also close product dropdown
+    if (!newMenuState) {
+      setIsProductDropdownOpen(false);
+    }
+  };
+
+  const handleMobileProductToggle = () => {
+    setIsProductDropdownOpen(!isProductDropdownOpen);
   };
 
   const getUserDisplayName = () => {
@@ -69,21 +142,18 @@ const Header = () => {
               {/* Navigation */}
               <nav className="hidden md:flex space-x-8">
                 {/* Product Dropdown */}
-                <div className="relative">
+                <div className="relative" ref={productDropdownRef}>
+                  {/* Product Dropdown Button */}
                   <button
                     onClick={() =>
                       setIsProductDropdownOpen(!isProductDropdownOpen)
                     }
-                    className="group flex items-center text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-all duration-300 hover:scale-105 relative overflow-hidden"
+                    className="flex items-center text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
                   >
-                    <span className="relative z-10 transition-all duration-300 group-hover:translate-x-0.5">
-                      Product
-                    </span>
+                    Product
                     <svg
-                      className={`ml-1 h-4 w-4 transition-all duration-300 transform relative z-10 ${
-                        isProductDropdownOpen
-                          ? "rotate-180 text-amber-400 scale-110"
-                          : "group-hover:scale-110 group-hover:translate-y-0.5"
+                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
+                        isProductDropdownOpen ? "rotate-180" : ""
                       }`}
                       fill="none"
                       stroke="currentColor"
@@ -96,164 +166,13 @@ const Header = () => {
                         d="M19 9l-7 7-7-7"
                       />
                     </svg>
-                    {/* Subtle glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500/0 via-amber-400/5 to-amber-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-lg" />
-                    {/* Animated border */}
-                    <div className="absolute inset-0 border border-transparent group-hover:border-amber-400/20 rounded-lg transition-all duration-300" />
                   </button>
 
-                  {isProductDropdownOpen && (
-                    <div className="absolute top-full left-0 mt-2 p-4 bg-black/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl z-50 w-96">
-                      <div className="grid grid-cols-2 gap-3 h-80">
-                        <div className="row-span-2 group relative overflow-hidden bg-gradient-to-br from-orange-500/20 to-amber-600/20 hover:from-orange-500/30 hover:to-amber-600/30 border border-orange-500/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-orange-500/20">
-                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-amber-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="relative z-10 h-full flex flex-col justify-between">
-                            <div>
-                              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                                <svg
-                                  className="w-6 h-6 text-white"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M13.828 10.172a4 4 0 00-5.656 5.656l4 4a4 4 0 005.656 0l1.102-1.101m-.758-4.899a4 4 0 00-5.656-5.656l-4 4a4 4 0 005.656 0l1.1-1.1"
-                                  />
-                                </svg>
-                              </div>
-                              <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-orange-300 transition-colors">
-                                URL Shortener
-                              </h3>
-                              <p className="text-white/70 text-sm leading-relaxed">
-                                Transform long URLs into short, memorable links
-                                with custom aliases and tracking.
-                              </p>
-                            </div>
-                            <div className="flex items-center text-amber-400 text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                              Get Started
-                              <svg
-                                className="w-4 h-4 ml-1"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-amber-500/20 to-orange-600/20 hover:from-amber-500/30 hover:to-orange-600/30 border border-amber-500/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-amber-500/20">
-                          <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="relative z-10">
-                            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center mb-3 group-hover:rotate-12 transition-transform duration-300">
-                              <svg
-                                className="w-5 h-5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                                />
-                              </svg>
-                            </div>
-                            <h3 className="text-white font-semibold mb-1 group-hover:text-amber-300 transition-colors">
-                              Analytics
-                            </h3>
-                            <p className="text-white/70 text-xs">
-                              Track clicks, locations, and performance metrics.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-orange-600/20 to-amber-700/20 hover:from-orange-600/30 hover:to-amber-700/30 border border-orange-600/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-orange-600/20">
-                          <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-orange-600/10 to-amber-700/10 rounded-full group-hover:scale-150 transition-transform duration-500" />
-                          <div className="relative z-10">
-                            <div className="w-10 h-10 bg-gradient-to-br from-orange-600 to-amber-700 rounded-lg flex items-center justify-center mb-3 group-hover:pulse transition-all duration-300">
-                              <svg
-                                className="w-5 h-5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V6a1 1 0 00-1-1H5a1 1 0 00-1 1v1a1 1 0 001 1zm12 0h2a1 1 0 001-1V6a1 1 0 00-1-1h-2a1 1 0 00-1 1v1a1 1 0 001 1zM5 20h2a1 1 0 001-1v-1a1 1 0 00-1-1H5a1 1 0 00-1 1v1a1 1 0 001 1z"
-                                />
-                              </svg>
-                            </div>
-                            <h3 className="text-white font-semibold mb-1 group-hover:text-orange-300 transition-colors">
-                              QR Codes
-                            </h3>
-                            <p className="text-white/70 text-xs">
-                              Generate QR codes for easy mobile sharing.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="col-span-2 group relative overflow-hidden bg-gradient-to-r from-amber-600/20 to-orange-500/20 hover:from-amber-600/30 hover:to-orange-500/30 border border-amber-600/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-amber-600/20">
-                          <div className="absolute inset-0 bg-gradient-to-r from-amber-600/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="relative z-10 flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <div className="w-10 h-10 bg-gradient-to-r from-amber-600 to-orange-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                <svg
-                                  className="w-5 h-5 text-white"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  viewBox="0 0 24 24"
-                                >
-                                  <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9m0 9c-5 0-9-4-9-9s4-9 9-9"
-                                  />
-                                </svg>
-                              </div>
-                              <div>
-                                <h3 className="text-white font-semibold group-hover:text-amber-300 transition-colors">
-                                  Custom Domains
-                                </h3>
-                                <p className="text-white/70 text-sm">
-                                  Use your own branded domain for professional
-                                  links.
-                                </p>
-                              </div>
-                            </div>
-                            <div className="text-orange-400 group-hover:translate-x-2 transition-transform duration-300">
-                              <svg
-                                className="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
-                              </svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  {/* Product Dropdown Component */}
+                  <ProductDropdown 
+                    isOpen={isProductDropdownOpen} 
+                    onClose={() => setIsProductDropdownOpen(false)} 
+                  />
                 </div>
 
                 {/* Docs */}
@@ -291,7 +210,7 @@ const Header = () => {
                 <div className="w-8 h-8 bg-white/20 rounded-full animate-pulse"></div>
               ) : user ? (
                 // User Profile Dropdown
-                <div className="relative">
+                <div className="relative" ref={profileDropdownRef}>
                   <button
                     onClick={() =>
                       setIsProfileDropdownOpen(!isProfileDropdownOpen)
@@ -376,7 +295,8 @@ const Header = () => {
               {/* Mobile menu button */}
               <div className="md:hidden ml-2">
                 <button
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  ref={mobileMenuButtonRef}
+                  onClick={handleMobileMenuToggle}
                   className="text-white/80 hover:text-white p-2 transition-colors duration-200"
                 >
                   <svg
@@ -407,18 +327,16 @@ const Header = () => {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-              <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/20 z-40">
+              <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/20 z-40" ref={mobileMenuRef}>
                 <div className="px-4 py-6 space-y-6">
                   <div className="space-y-4">
                     <button
-                      onClick={() =>
-                        setIsProductDropdownOpen(!isProductDropdownOpen)
-                      }
-                      className="flex items-center justify-between w-full text-white/80 hover:text-white text-lg font-medium transition-colors duration-200"
+                      onClick={handleMobileProductToggle}
+                      className="flex items-center justify-center w-full text-white/80 hover:text-white text-lg font-medium transition-colors duration-200"
                     >
-                      <span>Product</span>
+                      Product
                       <svg
-                        className={`h-5 w-5 transition-transform duration-300 ${
+                        className={`ml-1 h-5 w-5 transition-transform duration-300 ${
                           isProductDropdownOpen
                             ? "rotate-180 text-amber-400"
                             : ""
@@ -435,142 +353,28 @@ const Header = () => {
                         />
                       </svg>
                     </button>
-                    // Mobile Product Cards
-                    {isProductDropdownOpen && (
-                      <div className="space-y-3 pl-4 animate-in slide-in-from-top-2 duration-300">
-                        // URL Shortener Card
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-orange-500/20 to-amber-600/20 hover:from-orange-500/30 hover:to-amber-600/30 border border-orange-500/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                          <div className="flex items-start space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <svg
-                                className="w-5 h-5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M13.828 10.172a4 4 0 00-5.656 5.656l4 4a4 4 0 005.656 0l1.102-1.101m-.758-4.899a4 4 0 00-5.656-5.656l-4 4a4 4 0 005.656 0l1.1-1.1"
-                                />
-                              </svg>
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="text-white font-semibold text-base mb-1">
-                                URL Shortener
-                              </h3>
-                              <p className="text-white/70 text-sm">
-                                Transform long URLs into short, memorable links
-                                with custom aliases.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        // Analytics Card
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-amber-500/20 to-orange-600/20 hover:from-amber-500/30 hover:to-orange-600/30 border border-amber-500/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                          <div className="flex items-start space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <svg
-                                className="w-5 h-5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                                />
-                              </svg>
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="text-white font-semibold text-base mb-1">
-                                Analytics
-                              </h3>
-                              <p className="text-white/70 text-sm">
-                                Track clicks, locations, and performance
-                                metrics.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        // QR Codes Card
-                        <div className="group relative overflow-hidden bg-gradient-to-br from-orange-600/20 to-amber-700/20 hover:from-orange-600/30 hover:to-amber-700/30 border border-orange-600/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                          <div className="flex items-start space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-br from-orange-600 to-amber-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <svg
-                                className="w-5 h-5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V6a1 1 0 00-1-1H5a1 1 0 00-1 1v1a1 1 0 001 1zm12 0h2a1 1 0 001-1V6a1 1 0 00-1-1h-2a1 1 0 00-1 1v1a1 1 0 001 1zM5 20h2a1 1 0 001-1v-1a1 1 0 00-1-1H5a1 1 0 00-1 1v1a1 1 0 001 1z"
-                                />
-                              </svg>
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="text-white font-semibold text-base mb-1">
-                                QR Codes
-                              </h3>
-                              <p className="text-white/70 text-sm">
-                                Generate QR codes for easy mobile sharing.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        // Custom Domains Card
-                        <div className="group relative overflow-hidden bg-gradient-to-r from-amber-600/20 to-orange-500/20 hover:from-amber-600/30 hover:to-orange-500/30 border border-amber-600/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]">
-                          <div className="flex items-start space-x-3">
-                            <div className="w-10 h-10 bg-gradient-to-r from-amber-600 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                              <svg
-                                className="w-5 h-5 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9m0 9c-5 0-9-4-9-9s4-9 9-9"
-                                />
-                              </svg>
-                            </div>
-                            <div className="flex-1">
-                              <h3 className="text-white font-semibold text-base mb-1">
-                                Custom Domains
-                              </h3>
-                              <p className="text-white/70 text-sm">
-                                Use your own branded domain for professional
-                                links.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                    <MobileProductCards 
+                      isOpen={isProductDropdownOpen} 
+                      onClose={handleMobileProductCardClose}
+                    />
                   </div>
 
-                  <div className="space-y-4 border-t border-white/20 pt-6">
+                  <div className="border-t border-white/20 pt-6 space-y-4">
                     <a
                       href="/blog"
-                      className="block text-white/80 hover:text-white text-lg font-medium transition-colors duration-200"
+                      className="flex items-center justify-center text-white/80 hover:text-white text-lg font-medium transition-colors duration-200"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Blog
                     </a>
 
+                    <div className="border-t border-white/20"></div>
+
                     <a
                       href="https://github.com/vedas-dixit/RedirecTo"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center space-x-3 text-white/80 hover:text-white text-lg font-medium transition-colors duration-200"
+                      className="flex items-center justify-center space-x-3 text-white/80 hover:text-white text-lg font-medium transition-colors duration-200"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       <svg
@@ -587,19 +391,6 @@ const Header = () => {
               </div>
             )}
           </div>
-
-          {(isProductDropdownOpen ||
-            isProfileDropdownOpen ||
-            isMobileMenuOpen) && (
-            <div
-              className="fixed inset-0 z-40"
-              onClick={() => {
-                setIsProductDropdownOpen(false);
-                setIsProfileDropdownOpen(false);
-                setIsMobileMenuOpen(false);
-              }}
-            />
-          )}
         </div>
       </header>
     </>
