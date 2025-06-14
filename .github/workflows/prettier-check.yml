@@ -1,19 +1,25 @@
-name: Prettier Auto-Fix on Main Push
+name: Prettier Auto-Fix on PR to Main
 
 on:
   push:
-    branches: [main]
+    paths:
+      - 'frontend/**'
+  pull_request:
+    paths:
+      - 'frontend/**'
 
 jobs:
   prettier:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Frontend
+        working-directory: frontend
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -23,10 +29,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fix Prettier issues
+      - name: Run Prettier and fix
         run: npx prettier . --write
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "style: auto-format with Prettier: Github Action"
+          commit_message: "style: auto-format with Prettier (PR)"
