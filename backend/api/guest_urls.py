@@ -5,11 +5,10 @@ from sqlalchemy import select
 from typing import Optional
 from database.db import get_session
 from models.models import User, URL
-from utils.generateUrl import generate_short_code
 from sqlalchemy.exc import SQLAlchemyError
 import datetime
 from api.users import create_user_if_not_exists
-
+from utils.addUrl import add_url_for_user
 router = APIRouter()
 
 # Pydantic models
@@ -41,49 +40,33 @@ async def create_url_guest(
     """
     payload = request.user
     try:
-        # Transform JWT payload to match your create_user_if_not_exists expectations
+        # 1. Transform payload into expected format
         user_payload = {
             "id": payload.id,
-            "is_guest": True,  # Since this is an authenticated user
+            "is_guest": True,
             "email": payload.email,
             "name": payload.name,
             "avatar_url": payload.avatar_url,
             "provider": payload.provider,
-            "provider_id": payload.provider_id  # This is the key fix
+            "provider_id": payload.provider_id
         }
-        
+
+        # 2. Create or retrieve the user
         db_user = await create_user_if_not_exists(user_payload, session)
 
-        # # Step 2: Count how many URLs they’ve already created
-        # count_stmt = select(URL).where(URL.user_id == user.id)
-        # result = await session.execute(count_stmt)
-        # existing_urls = result.scalars().all()
-
-        # if len(existing_urls) >= 5:
-        #     raise HTTPException(status_code=403, detail="Guest user limit exceeded (max 5 URLs)")
-
-        # Step 3: Generate a short code using user.id + index
-        short_code = generate_short_code(str(payload.id), 11)
-
-        # Step 4: Save the URL
-        # new_url = URL(
-        #     user_id=user.id,
-        #     short_code=short_code,
-        #     destination=request.long_url,
-        #     is_protected=False,
-        #     expires_at=None,
-        #     click_limit=None,
-        #     created_at=datetime.datetime.utcnow()
-        # )
-
-        # session.add(new_url)
-        # await session.commit()
-        # await session.refresh(new_url)
-
-        return CreateUrlResponse(
-            short_url=f"https://redirecto/{short_code}",
+        # 3. Add URL and enforce guest limit inside that function
+        new_url = await add_url_for_user(
+            session=session,
+            user_id=db_user.id,
             long_url=request.long_url,
-            user_id=str(payload.id)
+            is_guest=True
+        )
+
+        # 4. Return the response
+        return CreateUrlResponse(
+            short_url=new_url.short_code,
+            long_url=new_url.destination,
+            user_id=str(db_user.id)
         )
 
     except SQLAlchemyError as e:
@@ -91,6 +74,9 @@ async def create_url_guest(
         await session.rollback()
         raise HTTPException(status_code=500, detail="Database error")
 
+    except HTTPException as e:
+        raise e  # Re-raise known HTTP errors like 403 or 409
+
     except Exception as e:
-        print(f"Error in guest URL creation: {str(e)}")
+        print(f"Unexpected error in guest URL creation: {str(e)}")
         raise HTTPException(status_code=500, detail="Something went wrong")

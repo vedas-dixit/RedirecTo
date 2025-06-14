@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 from database.db import Base
 import uuid
 from datetime import datetime, timezone
-
+from sqlalchemy.dialects.postgresql import TIMESTAMP
 
 class User(Base):
     __tablename__ = "users"
@@ -30,9 +30,9 @@ class URL(Base):
     short_code = Column(String, unique=True, nullable=False, index=True)
     destination = Column(String, nullable=False)
     is_protected = Column(Boolean, default=False)
-    expires_at = Column(DateTime, nullable=True)
+    expires_at = Column(TIMESTAMP(timezone=True), nullable=True)
     click_limit = Column(Integer, nullable=True)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     # Relationships to USERS & URL
     user = relationship("User", back_populates="urls")

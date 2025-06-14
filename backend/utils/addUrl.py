@@ -5,7 +5,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
 from datetime import datetime, timedelta, timezone
 from utils.generateUrl import generate_short_code
-
 async def add_url_for_user(
     *,
     session: AsyncSession,
@@ -13,12 +12,8 @@ async def add_url_for_user(
     long_url: str,
     is_guest: bool
 ) -> URL:
-    """
-    Adds a shortened URL for a user (guest or authenticated).
-    - Prevents duplicate destination URLs per user.
-    - Limits guest users to max 5 URLs (outside logic).
-    - Adds expiry if not guest (24 hrs).
-    """
+ 
+    print(user_id,long_url,is_guest)
     try:
         # Step 1: Check if this user has already shortened this URL
         stmt = select(URL).where(URL.user_id == user_id, URL.destination == long_url)

@@ -25,5 +25,4 @@ def generate_short_code(user_id: str, index: int) -> str:
     short_code = base62_encode(short_int)
 
     return short_code
-
-# print(generate_short_code("2f718ad9-a7bc-4ad1-9b3b-ecdf25a6c123", 22))
+    

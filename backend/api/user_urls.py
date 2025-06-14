@@ -7,7 +7,7 @@ from utils.verifyJWT import verify_supabase_token
 from api.users import create_user_if_not_exists
 from database.db import get_session
 from sqlalchemy.ext.asyncio import AsyncSession
-from utils.generateUrl import generate_short_code
+from utils.addUrl import add_url_for_user
 
 router = APIRouter()
 security = HTTPBearer()
@@ -55,17 +55,16 @@ async def create_url(
         }
         
         db_user = await create_user_if_not_exists(user_payload, session)
-        
-        print(f"DBUSER CREATED: {session}")
-        print(f"user_id: {user_payload['provider_id']}")
-        short_code = "generate_short_code(str(user.id), 11)"
-        # Your URL shortening logic here
-        short_url = f"https://redirecto/{short_code}"
-        
-        return CreateUrlResponse(
-            short_url=short_url,
+        new_url = await add_url_for_user(
+            session=session,
+            user_id=db_user.id,
             long_url=request.long_url,
-            user_id=payload.id
+            is_guest=True
+        )
+        return CreateUrlResponse(
+            short_url=new_url.short_code,
+            long_url=new_url.destination,
+            user_id=str(db_user.id)
         )
         
     except Exception as e:
