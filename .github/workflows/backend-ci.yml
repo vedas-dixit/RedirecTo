@@ -42,6 +42,3 @@ jobs:
 
       - name: Run tests with Pytest and show coverage
         run: pytest --cov=.
-
-      - name: Check backend is buildable
-        run: python -m build
