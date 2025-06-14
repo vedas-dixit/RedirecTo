@@ -14,7 +14,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
   onClose,
 }) => {
   const [longUrl, setLongUrl] = useState("");
-  const { createUrl, isLoading } = useCreateUrl();
+  const { createUrl } = useCreateUrl();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,10 +106,10 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
 
               <button
                 type="submit"
-                disabled={!longUrl.trim() || isLoading}
+                disabled={!longUrl.trim() || false}
                 className="flex-1 bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl py-3 px-6 font-medium transition-all duration-300 shadow-lg shadow-orange-600/20 hover:shadow-orange-500/30 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 group"
               >
-                {isLoading ? (
+                {false ? (
                   <>
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     Creating...

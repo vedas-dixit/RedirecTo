@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../component/UI/card";
-import { Button } from "../../../component/UI/button";
 import {
   LineChart,
   Line,
@@ -27,7 +26,6 @@ import {
   summaryData,
   clicksOverTime,
   countryData,
-  guestData,
   recentActivity,
   urlsData,
 } from "./dummydata";
@@ -45,12 +43,9 @@ import UrlCreationForm from "../../../component/URL/urlCreationForm";
 
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
-  const [isGuest, setIsGuest] = useState<boolean>(false);
-  const data: SummaryData | GuestData = isGuest ? guestData : summaryData;
+  const data: SummaryData | GuestData = summaryData;
   const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
-  // const handleViewToggle = (): void => {
-  //   setIsGuest(!isGuest);
-  // };
+
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -60,9 +55,7 @@ const URLShortenerDashboard: React.FC = () => {
           <div>
             <h1 className="text-3xl font-bold text-white">Dashboard</h1>
             <p className="text-zinc-400">
-              {isGuest
-                ? "Guest Session"
-                : "Welcome back! Here's your URL analytics."}
+              {"Welcome back! Here's your URL analytics."}
             </p>
           </div>
           <AnimatedStarButton
@@ -77,10 +70,10 @@ const URLShortenerDashboard: React.FC = () => {
           onClose={() => setIsUrlFormOpen(false)}
         />
         {/* Guest Limit Card */}
-        {isGuest && "limit" in data && (
+        {false && "limit" in data && (
           <GuestLimitCard
             current={data.totalUrls as number}
-            limit={data.limit as number}
+            limit={12}
           />
         )}
 
@@ -89,7 +82,7 @@ const URLShortenerDashboard: React.FC = () => {
           <SummaryCard
             title="Total Short URLs"
             value={data.totalUrls}
-            subtitle={isGuest ? "3 of 5 guest URLs" : "+12 from last month"}
+            subtitle={"+12 from last month"}
             icon={Link}
           />
           <SummaryCard
@@ -199,11 +192,11 @@ const URLShortenerDashboard: React.FC = () => {
           <div className="lg:col-span-2">
             <ActivityFeed activities={recentActivity} />
           </div>
-          <SettingsCard isGuest={isGuest} />
+          <SettingsCard isGuest={false} />
         </div>
 
         {/* URLs Table */}
-        <URLTable urls={urlsData} isGuest={isGuest} />
+        <URLTable urls={urlsData} isGuest={false} />
       </div>
     </div>
   );
