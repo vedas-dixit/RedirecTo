@@ -1,3 +1,3 @@
 export function prepareAuthHeader(token: string | null): string {
-  return  `Bearer ${token}` 
+  return `Bearer ${token}`;
 }
