@@ -3,6 +3,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from models.models import User
 from sqlalchemy.ext.asyncio import AsyncSession
 
+
 async def create_user_if_not_exists(payload: dict, session: AsyncSession) -> User:
     """
     Checks if a user exists by provider_id. If not, creates one using provided payload.
@@ -21,7 +22,7 @@ async def create_user_if_not_exists(payload: dict, session: AsyncSession) -> Use
 
         # Step 2: Create new user
         new_user = User(
-            id = payload.get("id"),
+            id=payload.get("id"),
             is_guest=payload.get("is_guest", False),
             email=payload.get("email"),
             name=payload.get("name"),

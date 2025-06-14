@@ -1,10 +1,13 @@
 import httpx
 from fastapi import Request
+
+
 def country_code_to_flag_emoji(code: str) -> str:
     """
     Convert country code (e.g. 'IN') to flag emoji 🇮🇳
     """
-    return ''.join(chr(127397 + ord(c)) for c in code.upper())
+    return "".join(chr(127397 + ord(c)) for c in code.upper())
+
 
 async def get_country_and_flag(request: Request) -> tuple[str, str]:
     """

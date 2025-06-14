@@ -7,20 +7,23 @@ from jwt import PyJWTError
 SUPABASE_JWT_SECRET = os.getenv("SUPABASE_JWT_SECRET")
 security = HTTPBearer()
 
-async def verify_supabase_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
+
+async def verify_supabase_token(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+) -> dict:
     """
     Verify Supabase JWT token and return user info
     """
     token = credentials.credentials
-    
+
     try:
         if SUPABASE_JWT_SECRET:
             try:
                 payload = jwt.decode(
-                    token, 
-                    SUPABASE_JWT_SECRET, 
+                    token,
+                    SUPABASE_JWT_SECRET,
                     algorithms=["HS256"],
-                    audience="authenticated"
+                    audience="authenticated",
                 )
                 print(f"Welcome user: {payload.get('email', 'Unknown')}")
                 return payload
@@ -30,7 +33,4 @@ async def verify_supabase_token(credentials: HTTPAuthorizationCredentials = Depe
 
     except Exception as e:
         print(f"Unverified user - Error: {str(e)}")
-        raise HTTPException(
-            status_code=401, 
-            detail="Authentication failed"
-        )
+        raise HTTPException(status_code=401, detail="Authentication failed")

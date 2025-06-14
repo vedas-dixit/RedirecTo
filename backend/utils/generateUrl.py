@@ -3,6 +3,7 @@ import base64
 
 BASE62_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+
 def base62_encode(num: int) -> str:
     if num == 0:
         return BASE62_CHARS[0]
@@ -11,6 +12,7 @@ def base62_encode(num: int) -> str:
         res = BASE62_CHARS[num % 62] + res
         num //= 62
     return res
+
 
 def generate_short_code(user_id: str, index: int) -> str:
 
@@ -25,4 +27,3 @@ def generate_short_code(user_id: str, index: int) -> str:
     short_code = base62_encode(short_int)
 
     return short_code
-    

@@ -9,11 +9,13 @@ from sqlalchemy.exc import SQLAlchemyError
 import datetime
 from api.users import create_user_if_not_exists
 from utils.addUrl import add_url_for_user
+
 router = APIRouter()
+
 
 # Pydantic models
 class GuestUserPayload(BaseModel):
-    id: str                          # <-- Guest UUID (primary key now)
+    id: str  # <-- Guest UUID (primary key now)
     is_guest: bool
     email: Optional[str] = None
     name: Optional[str] = None
@@ -21,19 +23,21 @@ class GuestUserPayload(BaseModel):
     provider: Optional[str] = None
     provider_id: Optional[str] = None  # Not used for guests anymore
 
+
 class CreateGuestUrlRequest(BaseModel):
     long_url: str
     user: GuestUserPayload
+
 
 class CreateUrlResponse(BaseModel):
     short_url: str
     long_url: str
     user_id: str
 
+
 @router.post("/create-url-guest", response_model=CreateUrlResponse)
 async def create_url_guest(
-    request: CreateGuestUrlRequest,
-    session: AsyncSession = Depends(get_session)
+    request: CreateGuestUrlRequest, session: AsyncSession = Depends(get_session)
 ):
     """
     Create a shortened URL for guest users — Max 5 per guest
@@ -48,7 +52,7 @@ async def create_url_guest(
             "name": payload.name,
             "avatar_url": payload.avatar_url,
             "provider": payload.provider,
-            "provider_id": payload.provider_id
+            "provider_id": payload.provider_id,
         }
 
         # 2. Create or retrieve the user
@@ -59,14 +63,14 @@ async def create_url_guest(
             session=session,
             user_id=db_user.id,
             long_url=request.long_url,
-            is_guest=True
+            is_guest=True,
         )
 
         # 4. Return the response
         return CreateUrlResponse(
             short_url=new_url.short_code,
             long_url=new_url.destination,
-            user_id=str(db_user.id)
+            user_id=str(db_user.id),
         )
 
     except SQLAlchemyError as e:

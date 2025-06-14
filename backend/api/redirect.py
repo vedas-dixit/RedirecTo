@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Request, Depends,BackgroundTasks
+from fastapi import APIRouter, HTTPException, Request, Depends, BackgroundTasks
 from fastapi.responses import RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
@@ -6,9 +6,10 @@ from uuid import uuid4
 from datetime import datetime, timezone
 from utils.geoip import get_country_and_flag
 from models.models import URL, Click
-from database.db import async_session_maker,get_session  # your session dependency
+from database.db import async_session_maker, get_session  # your session dependency
 
 router = APIRouter()
+
 
 @router.get("/{short_code}")
 async def handle_redirect(
@@ -29,6 +30,7 @@ async def handle_redirect(
 
     # Redirect instantly
     return RedirectResponse(url=url.destination, status_code=307)
+
 
 async def record_click(url_id: str, request: Request):
     async with async_session_maker() as session:  # fresh session

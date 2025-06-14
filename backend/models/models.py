@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime, timezone
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -32,7 +33,9 @@ class URL(Base):
     is_protected = Column(Boolean, default=False)
     expires_at = Column(TIMESTAMP(timezone=True), nullable=True)
     click_limit = Column(Integer, nullable=True)
-    created_at = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc))
+    created_at = Column(
+        TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
 
     # Relationships to USERS & URL
     user = relationship("User", back_populates="urls")
@@ -46,7 +49,9 @@ class Click(Base):
     url_id = Column(UUID(as_uuid=True), ForeignKey("urls.id", ondelete="CASCADE"))
     country = Column(String, nullable=True)
     flag = Column(String, nullable=True)
-    timestamp = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(
+        TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc)
+    )
 
     # Relationship to URL
     url = relationship("URL", back_populates="clicks")
