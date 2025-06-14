@@ -1,7 +1,12 @@
 name: Prettier Auto-Fix on PR to Main
 
 on:
+  push:
+    paths:
+      - 'frontend/**'
   pull_request:
+    paths:
+      - 'frontend/**'
     branches: [main]
 
 jobs:
