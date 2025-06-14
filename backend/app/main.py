@@ -25,3 +25,4 @@ async def read_users(session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(User))
     users = result.scalars().all()
     return users
+ 
