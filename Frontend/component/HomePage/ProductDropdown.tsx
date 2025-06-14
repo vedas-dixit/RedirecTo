@@ -2,7 +2,10 @@
 import React from "react";
 import { ProductDropdownProps } from "./types/product-dropdown.types";
 
-const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen, onClose }) => {
+const ProductDropdown: React.FC<ProductDropdownProps> = ({
+  isOpen,
+  onClose,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -32,7 +35,8 @@ const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen, onClose }) =>
                 URL Shortener
               </h3>
               <p className="text-white/70 text-sm leading-relaxed">
-                Transform long URLs into short, memorable links with custom aliases and tracking.
+                Transform long URLs into short, memorable links with custom
+                aliases and tracking.
               </p>
             </div>
             <div className="flex items-center text-amber-400 text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">

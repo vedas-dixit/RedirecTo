@@ -2,7 +2,11 @@
 import React from "react";
 import { MobileProductCardsProps } from "./types/product-dropdown.types";
 
-const MobileProductCards: React.FC<MobileProductCardsProps> = ({ isOpen, className = "", onClose }) => {
+const MobileProductCards: React.FC<MobileProductCardsProps> = ({
+  isOpen,
+  className = "",
+  onClose,
+}) => {
   if (!isOpen) return null;
 
   const handleCardClick = () => {
@@ -11,8 +15,10 @@ const MobileProductCards: React.FC<MobileProductCardsProps> = ({ isOpen, classNa
     }
   };
   return (
-    <div className="space-y-3 px-4 animate-in slide-in-from-top-2 duration-300">      {/* URL Shortener Card */}
-      <div 
+    <div className="space-y-3 px-4 animate-in slide-in-from-top-2 duration-300">
+      {" "}
+      {/* URL Shortener Card */}
+      <div
         className="group relative overflow-hidden bg-gradient-to-br from-orange-500/20 to-amber-600/20 hover:from-orange-500/30 hover:to-amber-600/30 border border-orange-500/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]"
         onClick={handleCardClick}
       >
@@ -37,12 +43,14 @@ const MobileProductCards: React.FC<MobileProductCardsProps> = ({ isOpen, classNa
               URL Shortener
             </h3>
             <p className="text-white/70 text-sm">
-              Transform long URLs into short, memorable links with custom aliases.
+              Transform long URLs into short, memorable links with custom
+              aliases.
             </p>
           </div>
         </div>
-      </div>      {/* Analytics Card */}
-      <div 
+      </div>{" "}
+      {/* Analytics Card */}
+      <div
         className="group relative overflow-hidden bg-gradient-to-br from-amber-500/20 to-orange-600/20 hover:from-amber-500/30 hover:to-orange-600/30 border border-amber-500/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]"
         onClick={handleCardClick}
       >
@@ -71,8 +79,9 @@ const MobileProductCards: React.FC<MobileProductCardsProps> = ({ isOpen, classNa
             </p>
           </div>
         </div>
-      </div>      {/* QR Codes Card */}
-      <div 
+      </div>{" "}
+      {/* QR Codes Card */}
+      <div
         className="group relative overflow-hidden bg-gradient-to-br from-orange-600/20 to-amber-700/20 hover:from-orange-600/30 hover:to-amber-700/30 border border-orange-600/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]"
         onClick={handleCardClick}
       >
@@ -101,8 +110,9 @@ const MobileProductCards: React.FC<MobileProductCardsProps> = ({ isOpen, classNa
             </p>
           </div>
         </div>
-      </div>      {/* Custom Domains Card */}
-      <div 
+      </div>{" "}
+      {/* Custom Domains Card */}
+      <div
         className="group relative overflow-hidden bg-gradient-to-r from-amber-600/20 to-orange-500/20 hover:from-amber-600/30 hover:to-orange-500/30 border border-amber-600/20 rounded-xl p-4 cursor-pointer transition-all duration-300 hover:scale-[1.02]"
         onClick={handleCardClick}
       >

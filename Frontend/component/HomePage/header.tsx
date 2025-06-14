@@ -70,10 +70,10 @@ const Header = () => {
     };
 
     // Always add the event listener, regardless of dropdown state
-    document.addEventListener('mousedown', handleClickOutside);
-    
+    document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isProductDropdownOpen, isProfileDropdownOpen, isMobileMenuOpen]);
 
@@ -94,7 +94,7 @@ const Header = () => {
   const handleMobileMenuToggle = () => {
     const newMenuState = !isMobileMenuOpen;
     setIsMobileMenuOpen(newMenuState);
-    
+
     // If closing mobile menu, also close product dropdown
     if (!newMenuState) {
       setIsProductDropdownOpen(false);
@@ -169,9 +169,9 @@ const Header = () => {
                   </button>
 
                   {/* Product Dropdown Component */}
-                  <ProductDropdown 
-                    isOpen={isProductDropdownOpen} 
-                    onClose={() => setIsProductDropdownOpen(false)} 
+                  <ProductDropdown
+                    isOpen={isProductDropdownOpen}
+                    onClose={() => setIsProductDropdownOpen(false)}
                   />
                 </div>
 
@@ -327,7 +327,10 @@ const Header = () => {
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-              <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/20 z-40" ref={mobileMenuRef}>
+              <div
+                className="md:hidden absolute top-full left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/20 z-40"
+                ref={mobileMenuRef}
+              >
                 <div className="px-4 py-6 space-y-6">
                   <div className="space-y-4">
                     <button
@@ -353,8 +356,8 @@ const Header = () => {
                         />
                       </svg>
                     </button>
-                    <MobileProductCards 
-                      isOpen={isProductDropdownOpen} 
+                    <MobileProductCards
+                      isOpen={isProductDropdownOpen}
                       onClose={handleMobileProductCardClose}
                     />
                   </div>
