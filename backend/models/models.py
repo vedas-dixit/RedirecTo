@@ -46,7 +46,7 @@ class Click(Base):
     url_id = Column(UUID(as_uuid=True), ForeignKey("urls.id", ondelete="CASCADE"))
     country = Column(String, nullable=True)
     flag = Column(String, nullable=True)
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(TIMESTAMP(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     # Relationship to URL
     url = relationship("URL", back_populates="clicks")
