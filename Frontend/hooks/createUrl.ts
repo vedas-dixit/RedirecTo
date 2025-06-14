@@ -16,8 +16,9 @@ export const useCreateUrl = () => {
     setLoading(true);
     setError(null);
 
+
     try {
-      console.log(userPayload);
+      console.log(userPayload)
       const response = await fetch("http://127.0.0.1:8000/create-url", {
         method: "POST",
         headers: {
