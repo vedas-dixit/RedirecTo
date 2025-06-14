@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "./useAuth";
 import { prepareAuthHeader } from "../utils/auth/prepareAuthHeader";
 import { prepareUserPayload } from "../utils/auth/prepareUserPayload";
@@ -12,13 +12,13 @@ export const useCreateUrl = () => {
     const token = getAccessToken(); // Can be null
     const authHeader = prepareAuthHeader(token);
     const userPayload = prepareUserPayload(user);
-
+    const url = token ? "http://127.0.0.1:8000/create-url" : "http://127.0.0.1:8000/create-url-guest"
     setLoading(true);
     setError(null);
 
     try {
       console.log(userPayload);
-      const response = await fetch("http://127.0.0.1:8000/create-url", {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +26,7 @@ export const useCreateUrl = () => {
         },
         body: JSON.stringify({
           long_url: longUrl,
-          user: userPayload, // Send full user object to backend
+          user: userPayload,
         }),
       });
 

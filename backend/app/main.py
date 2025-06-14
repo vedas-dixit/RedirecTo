@@ -3,10 +3,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from database.db import get_session
 from models.models import User
-from api import urls
+from api import guest_urls,user_urls
 from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
-app.include_router(urls.router, tags=["URL Shortener"])
+app.include_router(user_urls.router, tags=["URL Shortener: Guest"])
+app.include_router(guest_urls.router, tags=["URL Shortener: Guest"])
 
 app.add_middleware(
     CORSMiddleware,
