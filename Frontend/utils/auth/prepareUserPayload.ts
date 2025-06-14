@@ -2,7 +2,7 @@ import { User as SupabaseUser } from "@supabase/supabase-js";
 import { getOrCreateGuestUuid } from "./generateGuestUuid";
 
 export interface PreparedUser {
-  id? : string
+  id?: string;
   is_guest: boolean;
   email: string | null;
   name: string | null;
@@ -12,7 +12,7 @@ export interface PreparedUser {
 }
 
 export function prepareUserPayload(user: SupabaseUser | null): PreparedUser {
-  console.log("user:", user)
+  console.log("user:", user);
   if (!user) {
     console.log(getOrCreateGuestUuid());
     return {
