@@ -12,7 +12,9 @@ export const useCreateUrl = () => {
     const token = getAccessToken(); // Can be null
     const authHeader = prepareAuthHeader(token);
     const userPayload = prepareUserPayload(user);
-    const url = token ? "http://127.0.0.1:8000/create-url" : "http://127.0.0.1:8000/create-url-guest"
+    const url = token
+      ? "http://127.0.0.1:8000/create-url"
+      : "http://127.0.0.1:8000/create-url-guest";
     setLoading(true);
     setError(null);
 
