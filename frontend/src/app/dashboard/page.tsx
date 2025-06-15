@@ -189,7 +189,11 @@ const URLShortenerDashboard: React.FC = () => {
 
         {/* Guest Limit Card */}
         {isGuest && summary.totalUrls === 5 && (
-          <GuestLimitCard current={summary.totalUrls} limit={guestLimit} setIsSigninModalOpen={setIsSigninModalOpen}/>
+          <GuestLimitCard
+            current={summary.totalUrls}
+            limit={guestLimit}
+            setIsSigninModalOpen={setIsSigninModalOpen}
+          />
         )}
 
         {/* Summary Cards */}

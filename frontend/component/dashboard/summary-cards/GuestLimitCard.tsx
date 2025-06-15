@@ -14,7 +14,7 @@ import AnimatedStarButton from "../../custom/AnimatedButton";
 export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({
   current,
   limit,
-  setIsSigninModalOpen
+  setIsSigninModalOpen,
 }) => {
   const [visible, setVisible] = useState(true);
 
@@ -43,7 +43,10 @@ export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({
             value={(current / limit) * 100}
             className="mb-4 bg-zinc-800"
           />
-          <AnimatedStarButton className="w-64 text-white border-0" onClick={() => setIsSigninModalOpen(true)}>
+          <AnimatedStarButton
+            className="w-64 text-white border-0"
+            onClick={() => setIsSigninModalOpen(true)}
+          >
             <div className="flex items-center justify-center p-4">
               Login to make more URL&apos;s
             </div>
