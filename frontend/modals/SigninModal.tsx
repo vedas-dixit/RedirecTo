@@ -1,10 +1,8 @@
 import React, { JSX, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { LoginWithGoogle, LoginWithGithub } from "../utils/auth/LoginUtil";
-interface SigninModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { SigninModalProps } from "@/types/types";
+
 
 type OAuthProvider = "github" | "google";
 

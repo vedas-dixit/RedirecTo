@@ -1,4 +1,11 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
+import { ButtonHTMLAttributes, ReactNode } from "react";
+
+export interface AnimatedStarButtonProp extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: ReactNode;
+  className?: string;
+  Link?: string;
+}
 
 export interface URLData {
   id: string;
@@ -79,4 +86,36 @@ export interface ApiError {
 
 export interface QueryProviderProps {
   children: React.ReactNode;
+}
+
+
+export interface UrlCreationFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface SigninModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export interface Star {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  opacity: number;
+  animationDelay: number;
+}
+
+export interface DynamicStar {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+}
+
+export interface ProtectedLinkPageProps {
+  id?: string;
 }

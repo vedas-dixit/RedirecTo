@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { X, Link, Sparkles } from "lucide-react";
 import { useCreateUrl } from "../../hooks/createUrl";
-
-interface UrlCreationFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { UrlCreationFormProps } from "@/types/types";
 
 // Custom hook placeholder - you can implement this later
 
