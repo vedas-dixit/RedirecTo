@@ -58,6 +58,7 @@ export interface SummaryCardProps {
 export interface GuestLimitCardProps {
   current: number;
   limit: number;
+  setIsSigninModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface ActivityFeedProps {

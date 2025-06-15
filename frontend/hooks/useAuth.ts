@@ -48,7 +48,7 @@ export const useAuth = () => {
 
   // Helper to refresh the session
   const refreshSession = async () => {
-    const { data, error } = await supabase.auth.refreshSession();
+    const { error } = await supabase.auth.refreshSession();
     if (error) {
       console.error("Error refreshing session:", error);
       return false;

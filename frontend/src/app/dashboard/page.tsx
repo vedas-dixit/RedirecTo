@@ -38,6 +38,7 @@ import AnimatedStarButton from "../../../component/custom/AnimatedButton";
 import UrlCreationForm from "../../../component/URL/urlCreationForm";
 import { useUrlManagement } from "../../../hooks/useUrlQueries";
 import { useAuth } from "../../../hooks/useAuth";
+import SigninModal from "../../../modals/SigninModal";
 
 // Loading Skeleton Component
 const LoadingSkeleton: React.FC = () => (
@@ -96,6 +97,7 @@ const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({
 
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
+  const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
   const { user } = useAuth();
   const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
 
@@ -150,6 +152,7 @@ const URLShortenerDashboard: React.FC = () => {
   const isGuest = !user;
   const guestLimit = 5;
 
+  const closeSigninModal = () => setIsSigninModalOpen(false);
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="p-6 max-w-9xl mx-auto space-y-6">
@@ -161,6 +164,7 @@ const URLShortenerDashboard: React.FC = () => {
               Welcome back! Here&apos;s your URL analytics.
             </p>
           </div>
+          <SigninModal isOpen={isSigninModalOpen} onClose={closeSigninModal} />
           <AnimatedStarButton
             className="p-3"
             onClick={() => setIsUrlFormOpen(true)}
@@ -184,8 +188,8 @@ const URLShortenerDashboard: React.FC = () => {
         />
 
         {/* Guest Limit Card */}
-        {isGuest && (
-          <GuestLimitCard current={summary.totalUrls} limit={guestLimit} />
+        {isGuest && summary.totalUrls === 5 && (
+          <GuestLimitCard current={summary.totalUrls} limit={guestLimit} setIsSigninModalOpen={setIsSigninModalOpen}/>
         )}
 
         {/* Summary Cards */}
