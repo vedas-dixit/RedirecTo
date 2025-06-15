@@ -1,4 +1,4 @@
-import ProtectedLinkPage from "../../../../pages/Protected";
+import ProtectedLinkPage from "../../../../ParentComponent/Protected";
 import React from "react";
 
 function SecurePage() {

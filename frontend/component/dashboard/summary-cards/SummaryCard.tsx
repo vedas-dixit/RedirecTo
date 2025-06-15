@@ -6,7 +6,6 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
   value,
   subtitle,
   icon: Icon,
-  trend,
 }) => (
   <Card className="bg-zinc-900 border-zinc-800 hover:bg-zinc-800/50 transition-colors">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

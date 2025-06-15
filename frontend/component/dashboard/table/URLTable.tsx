@@ -22,11 +22,11 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
     }
   };
 
-  const handleEdit = (id: number): void => {
+  const handleEdit = (id: string): void => {
     console.log("Edit URL:", id);
   };
 
-  const handleDelete = (id: number): void => {
+  const handleDelete = (id: string): void => {
     console.log("Delete URL:", id);
   };
 

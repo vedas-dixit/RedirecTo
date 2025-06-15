@@ -1,15 +1,12 @@
 "use client";
 
-import React, { useState, ReactNode, ButtonHTMLAttributes } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { AnimatedStarButtonProp } from "@/types/types";
 
-interface AnimatedStarButton extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  className?: string;
-  Link?: string;
-}
 
-const AnimatedStarButton: React.FC<AnimatedStarButton> = ({
+
+const AnimatedStarButton: React.FC<AnimatedStarButtonProp> = ({
   children,
   className = "",
   Link = "/",

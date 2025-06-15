@@ -2,28 +2,10 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Lock, Shield, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { DynamicStar, ProtectedLinkPageProps, Star } from "@/types/types";
 
 // Type definitions
-interface Star {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  animationDelay: number;
-}
 
-interface DynamicStar {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  color: string;
-}
-
-interface ProtectedLinkPageProps {
-  id?: string;
-}
 
 const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
   const [password, setPassword] = useState<string>("");
