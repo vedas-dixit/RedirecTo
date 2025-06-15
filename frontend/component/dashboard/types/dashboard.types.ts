@@ -29,7 +29,7 @@ export interface CountryData {
 }
 
 export interface Activity {
-  id: number;
+  id: string;
   shortUrl: string;
   country: string;
   flag: string;
@@ -37,12 +37,12 @@ export interface Activity {
 }
 
 export interface URLData {
-  id: number;
+  id: string;
   shortUrl: string;
   destination: string;
   clicks: number;
   ttl: string;
-  status: "Active" | "Expired";
+  status: string;
   protected: boolean;
   createdAt: string;
 }

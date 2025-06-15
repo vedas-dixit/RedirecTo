@@ -1,15 +1,7 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { getOrCreateGuestUuid } from "./generateGuestUuid";
+import { PreparedUser } from "@/types/types";
 
-export interface PreparedUser {
-  id?: string;
-  is_guest: boolean;
-  email: string | null;
-  name: string | null;
-  avatar_url: string | null;
-  provider: string | null;
-  provider_id: string | null;
-}
 
 export function prepareUserPayload(user: SupabaseUser | null): PreparedUser {
   console.log("user:", user);

@@ -24,7 +24,7 @@ export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({
       <Card className="bg-gradient-to-br from-orange-900/20 to-orange-800/20 border-orange-500/30 backdrop-blur-sm relative shadow-lg">
         <button
           onClick={() => setVisible(false)}
-          className="absolute top-2 right-2 text-orange-400 hover:text-orange-200 transition"
+          className="absolute top-2 right-2 text-orange-400 hover:text-orange-200 transition cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>

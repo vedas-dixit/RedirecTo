@@ -104,7 +104,7 @@ async def get_dashboard_overview(
             recent_activity.append(
                 {
                     "id": str(click.id),
-                    "shortUrl": f"short.ly/{short_code}",
+                    "shortUrl": f"redirecto/{short_code}",
                     "country": click.country or "Unknown",
                     "flag": click.flag or "🏳️",
                     "time": format_time_diff(click.timestamp),
