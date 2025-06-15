@@ -3,7 +3,6 @@ import { X } from "lucide-react";
 import { LoginWithGoogle, LoginWithGithub } from "../utils/auth/LoginUtil";
 import { SigninModalProps } from "@/types/types";
 
-
 type OAuthProvider = "github" | "google";
 
 function SigninModal({
