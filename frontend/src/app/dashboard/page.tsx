@@ -20,7 +20,14 @@ import {
   Pie,
   Cell,
 } from "recharts";
-import { Link, BarChart3, Clock, Shield, Loader2, AlertCircle } from "lucide-react";
+import {
+  Link,
+  BarChart3,
+  Clock,
+  Shield,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 
 import { URLTable } from "../../../component/dashboard/table/URLTable";
 import { ActivityFeed } from "../../../component/dashboard/activity/ActivityFeed";
@@ -43,18 +50,24 @@ const LoadingSkeleton: React.FC = () => (
         </div>
         <div className="h-12 w-32 bg-zinc-800 rounded animate-pulse"></div>
       </div>
-      
+
       {/* Summary Cards Skeleton */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="h-32 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"></div>
+          <div
+            key={i}
+            className="h-32 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"
+          ></div>
         ))}
       </div>
-      
+
       {/* Charts Skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {[...Array(2)].map((_, i) => (
-          <div key={i} className="h-80 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"></div>
+          <div
+            key={i}
+            className="h-80 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"
+          ></div>
         ))}
       </div>
     </div>
@@ -62,7 +75,10 @@ const LoadingSkeleton: React.FC = () => (
 );
 
 // Error Component
-const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({ error, onRetry }) => (
+const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({
+  error,
+  onRetry,
+}) => (
   <div className="min-h-screen bg-black text-white flex items-center justify-center">
     <div className="text-center space-y-4">
       <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
@@ -94,7 +110,7 @@ const URLShortenerDashboard: React.FC = () => {
     isDashboardError,
     dashboardError,
     refetchDashboard,
-    
+
     // Create URL mutation
     isCreating,
     createSuccess,
@@ -169,10 +185,7 @@ const URLShortenerDashboard: React.FC = () => {
 
         {/* Guest Limit Card */}
         {isGuest && (
-          <GuestLimitCard 
-            current={summary.totalUrls} 
-            limit={guestLimit} 
-          />
+          <GuestLimitCard current={summary.totalUrls} limit={guestLimit} />
         )}
 
         {/* Summary Cards */}
@@ -180,13 +193,15 @@ const URLShortenerDashboard: React.FC = () => {
           <SummaryCard
             title="Total Short URLs"
             value={summary.totalUrls}
-            subtitle={`${summary.totalUrls === 1 ? '1 URL' : `${summary.totalUrls} URLs`} created`}
+            subtitle={`${summary.totalUrls === 1 ? "1 URL" : `${summary.totalUrls} URLs`} created`}
             icon={Link}
           />
           <SummaryCard
             title="Total Clicks"
             value={summary.totalClicks.toLocaleString()}
-            subtitle={summary.totalClicks === 0 ? "No clicks yet" : "All time clicks"}
+            subtitle={
+              summary.totalClicks === 0 ? "No clicks yet" : "All time clicks"
+            }
             icon={BarChart3}
           />
           <SummaryCard
@@ -260,10 +275,9 @@ const URLShortenerDashboard: React.FC = () => {
                 Click Distribution by Country
               </CardTitle>
               <CardDescription className="text-zinc-400">
-                {countryData.length > 0 
+                {countryData.length > 0
                   ? `Top ${Math.min(countryData.length, 5)} countries`
-                  : "No data available"
-                }
+                  : "No data available"}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -316,7 +330,9 @@ const URLShortenerDashboard: React.FC = () => {
                       />
                     </svg>
                     <p>No geographic data available</p>
-                    <p className="text-sm">Get clicks to see country distribution</p>
+                    <p className="text-sm">
+                      Get clicks to see country distribution
+                    </p>
                   </div>
                 </div>
               )}

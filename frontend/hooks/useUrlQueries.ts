@@ -1,16 +1,17 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAuth } from './useAuth';
-import { apiClient } from '../lib/api/client';
-import { prepareUserPayload } from '../utils/auth/prepareUserPayload';
-import { ApiError, CreateUrlRequest, DashboardResponse } from '@/types/types';
-import { getOrCreateGuestUuid } from '../utils/auth/generateGuestUuid';
-import { useCallback, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "./useAuth";
+import { apiClient } from "../lib/api/client";
+import { prepareUserPayload } from "../utils/auth/prepareUserPayload";
+import { ApiError, CreateUrlRequest, DashboardResponse } from "@/types/types";
+import { getOrCreateGuestUuid } from "../utils/auth/generateGuestUuid";
+import { useCallback, useMemo } from "react";
 
 // Query Keys - More specific and hierarchical
 export const urlQueryKeys = {
-  all: ['urls'] as const,
-  dashboard: (userId: string) => [...urlQueryKeys.all, 'dashboard', userId] as const,
-  url: (urlId: string) => [...urlQueryKeys.all, 'url', urlId] as const,
+  all: ["urls"] as const,
+  dashboard: (userId: string) =>
+    [...urlQueryKeys.all, "dashboard", userId] as const,
+  url: (urlId: string) => [...urlQueryKeys.all, "url", urlId] as const,
 };
 
 // Dashboard Query Hook with better error handling and retry logic
@@ -27,7 +28,11 @@ export function useDashboardQuery(enabled: boolean = true) {
     gcTime: 5 * 60 * 1000, // 5 minutes (renamed from cacheTime)
     retry: (failureCount, error: ApiError) => {
       // Don't retry on 4xx errors (client errors)
-      if (typeof error?.status === 'number' && error?.status >= 400 && error?.status < 500) {
+      if (
+        typeof error?.status === "number" &&
+        error?.status >= 400 &&
+        error?.status < 500
+      ) {
         return false;
       }
       return failureCount < 3;
@@ -45,13 +50,15 @@ export function useCreateUrlMutation() {
     mutationFn: async (longUrl: string) => {
       const token = getAccessToken();
       const userPayload = prepareUserPayload(user);
-      
+
       const finalPayload: CreateUrlRequest = {
         long_url: longUrl,
-        user: token ? userPayload : {
-          ...userPayload,
-          guest_uuid: getOrCreateGuestUuid(),
-        },
+        user: token
+          ? userPayload
+          : {
+              ...userPayload,
+              guest_uuid: getOrCreateGuestUuid(),
+            },
       };
 
       return apiClient.createUrl(finalPayload, token);
@@ -59,29 +66,29 @@ export function useCreateUrlMutation() {
     onMutate: async (longUrl: string) => {
       // Cancel any outgoing refetches
       await queryClient.cancelQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ''),
+        queryKey: urlQueryKeys.dashboard(user?.id || ""),
       });
 
       // Snapshot the previous value
       const previousData = queryClient.getQueryData<DashboardResponse>(
-        urlQueryKeys.dashboard(user?.id || '')
+        urlQueryKeys.dashboard(user?.id || ""),
       );
 
       // Optimistically update with temporary data
       if (previousData) {
         const tempUrl = {
           id: `temp-${Date.now()}`,
-          shortUrl: 'Creating...',
+          shortUrl: "Creating...",
           destination: longUrl,
           clicks: 0,
-          ttl: 'N/A',
-          status: 'Creating',
+          ttl: "N/A",
+          status: "Creating",
           protected: false,
-          createdAt: new Date().toISOString().split('T')[0],
+          createdAt: new Date().toISOString().split("T")[0],
         };
 
         queryClient.setQueryData<DashboardResponse>(
-          urlQueryKeys.dashboard(user?.id || ''),
+          urlQueryKeys.dashboard(user?.id || ""),
           {
             ...previousData,
             urls: [tempUrl, ...previousData.urls],
@@ -89,7 +96,7 @@ export function useCreateUrlMutation() {
               ...previousData.summary,
               totalUrls: previousData.summary.totalUrls + 1,
             },
-          }
+          },
         );
       }
 
@@ -98,13 +105,15 @@ export function useCreateUrlMutation() {
     onSuccess: (data) => {
       // Update with real data
       queryClient.setQueryData<DashboardResponse>(
-        urlQueryKeys.dashboard(user?.id || ''),
+        urlQueryKeys.dashboard(user?.id || ""),
         (oldData) => {
           if (!oldData) return oldData;
-          
+
           // Remove temp entry and add real one
-          const filteredUrls = oldData.urls.filter(url => !url.id.startsWith('temp-'));
-          
+          const filteredUrls = oldData.urls.filter(
+            (url) => !url.id.startsWith("temp-"),
+          );
+
           return {
             ...oldData,
             urls: [data, ...filteredUrls],
@@ -113,23 +122,23 @@ export function useCreateUrlMutation() {
               totalUrls: filteredUrls.length + 1,
             },
           };
-        }
+        },
       );
     },
     onError: (error: ApiError, longUrl, context) => {
       // Rollback optimistic update
       if (context?.previousData) {
         queryClient.setQueryData(
-          urlQueryKeys.dashboard(user?.id || ''),
-          context.previousData
+          urlQueryKeys.dashboard(user?.id || ""),
+          context.previousData,
         );
       }
-      console.error('Error creating URL:', error.detail);
+      console.error("Error creating URL:", error.detail);
     },
     onSettled: () => {
       // Always refetch after mutation to ensure data consistency
       queryClient.invalidateQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ''),
+        queryKey: urlQueryKeys.dashboard(user?.id || ""),
       });
     },
   });
@@ -146,18 +155,20 @@ export function useDeleteUrlMutation() {
     },
     onMutate: async (urlId: string) => {
       await queryClient.cancelQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ''),
+        queryKey: urlQueryKeys.dashboard(user?.id || ""),
       });
 
       const previousData = queryClient.getQueryData<DashboardResponse>(
-        urlQueryKeys.dashboard(user?.id || '')
+        urlQueryKeys.dashboard(user?.id || ""),
       );
 
       // Optimistically remove the URL
       if (previousData) {
-        const filteredUrls = previousData.urls.filter(url => url.id !== urlId);
+        const filteredUrls = previousData.urls.filter(
+          (url) => url.id !== urlId,
+        );
         queryClient.setQueryData<DashboardResponse>(
-          urlQueryKeys.dashboard(user?.id || ''),
+          urlQueryKeys.dashboard(user?.id || ""),
           {
             ...previousData,
             urls: filteredUrls,
@@ -165,7 +176,7 @@ export function useDeleteUrlMutation() {
               ...previousData.summary,
               totalUrls: filteredUrls.length,
             },
-          }
+          },
         );
       }
 
@@ -174,14 +185,14 @@ export function useDeleteUrlMutation() {
     onError: (error: ApiError, urlId, context) => {
       if (context?.previousData) {
         queryClient.setQueryData(
-          urlQueryKeys.dashboard(user?.id || ''),
-          context.previousData
+          urlQueryKeys.dashboard(user?.id || ""),
+          context.previousData,
         );
       }
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ''),
+        queryKey: urlQueryKeys.dashboard(user?.id || ""),
       });
     },
   });
@@ -215,17 +226,26 @@ export function useUrlManagement() {
     return dashboardQuery.refetch();
   }, [dashboardQuery]);
 
-  const createUrl = useCallback((longUrl: string) => {
-    return createUrlMutation.mutate(longUrl);
-  }, [createUrlMutation]);
+  const createUrl = useCallback(
+    (longUrl: string) => {
+      return createUrlMutation.mutate(longUrl);
+    },
+    [createUrlMutation],
+  );
 
-  const createUrlAsync = useCallback((longUrl: string) => {
-    return createUrlMutation.mutateAsync(longUrl);
-  }, [createUrlMutation]);
+  const createUrlAsync = useCallback(
+    (longUrl: string) => {
+      return createUrlMutation.mutateAsync(longUrl);
+    },
+    [createUrlMutation],
+  );
 
-  const deleteUrl = useCallback((urlId: string) => {
-    return deleteUrlMutation.mutate(urlId);
-  }, [deleteUrlMutation]);
+  const deleteUrl = useCallback(
+    (urlId: string) => {
+      return deleteUrlMutation.mutate(urlId);
+    },
+    [deleteUrlMutation],
+  );
 
   return {
     // Dashboard data
@@ -234,7 +254,7 @@ export function useUrlManagement() {
     isDashboardError: dashboardQuery.isError,
     dashboardError: dashboardQuery.error as ApiError | null,
     refetchDashboard,
-    
+
     // Create URL mutation
     createUrl,
     createUrlAsync,
@@ -243,7 +263,7 @@ export function useUrlManagement() {
     createError: createUrlMutation.error as ApiError | null,
     createSuccess: createUrlMutation.isSuccess,
     resetCreateState: createUrlMutation.reset,
-    
+
     // Delete URL mutation
     deleteUrl,
     isDeleting: deleteUrlMutation.isPending,
