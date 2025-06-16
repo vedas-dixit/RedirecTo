@@ -17,7 +17,7 @@ const CardSection = () => {
     }, 1500);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [countries.length]);
 
   const handleExpiringHover = () => {
     const timer: ReturnType<typeof setTimeout> = setTimeout(() => {

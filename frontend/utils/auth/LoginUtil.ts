@@ -1,4 +1,5 @@
-import { supabase } from "../../lib/supabaseClient"; // adjust path
+import { supabase } from "@/lib/supabaseClient";
+
 
 export async function LoginWithGoogle() {
   const { error } = await supabase.auth.signInWithOAuth({

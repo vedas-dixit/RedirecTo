@@ -4,7 +4,7 @@ import {
   URLData,
   DashboardResponse,
 } from "@/types/types";
-import { prepareAuthHeader } from "../../utils/auth/prepareAuthHeader";
+import { prepareAuthHeader } from "../../../utils/auth/prepareAuthHeader";
 
 const API_BASE_URL = "http://127.0.0.1:8000";
 

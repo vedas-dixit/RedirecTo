@@ -4,7 +4,6 @@ import { MobileProductCardsProps } from "./types/product-dropdown.types";
 
 const MobileProductCards: React.FC<MobileProductCardsProps> = ({
   isOpen,
-  className = "",
   onClose,
 }) => {
   if (!isOpen) return null;

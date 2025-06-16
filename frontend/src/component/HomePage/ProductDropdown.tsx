@@ -4,7 +4,6 @@ import { ProductDropdownProps } from "./types/product-dropdown.types";
 
 const ProductDropdown: React.FC<ProductDropdownProps> = ({
   isOpen,
-  onClose,
 }) => {
   if (!isOpen) return null;
 

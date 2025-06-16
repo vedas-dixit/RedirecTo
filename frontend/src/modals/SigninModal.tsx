@@ -1,6 +1,6 @@
 import React, { JSX, useEffect, useRef } from "react";
 import { X } from "lucide-react";
-import { LoginWithGoogle, LoginWithGithub } from "../utils/auth/LoginUtil";
+import { LoginWithGoogle, LoginWithGithub } from "../../utils/auth/LoginUtil";
 import { SigninModalProps } from "@/types/types";
 
 

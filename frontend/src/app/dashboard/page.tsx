@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../../component/UI/card";
+} from "../../component/UI/card";
 import {
   LineChart,
   Line,
@@ -29,16 +29,16 @@ import {
   AlertCircle,
 } from "lucide-react";
 
-import { URLTable } from "../../../component/dashboard/table/URLTable";
-import { ActivityFeed } from "../../../component/dashboard/activity/ActivityFeed";
-import { SummaryCard } from "../../../component/dashboard/summary-cards/SummaryCard";
-import { SettingsCard } from "../../../component/dashboard/settings/SettingsCard";
-import { GuestLimitCard } from "../../../component/dashboard/summary-cards/GuestLimitCard";
-import AnimatedStarButton from "../../../component/custom/AnimatedButton";
-import UrlCreationForm from "../../../component/URL/urlCreationForm";
-import { useUrlManagement } from "../../../hooks/useUrlQueries";
-import { useAuth } from "../../../hooks/useAuth";
-import SigninModal from "../../../modals/SigninModal";
+import { URLTable } from "../../component/dashboard/table/URLTable";
+import { ActivityFeed } from "../../component/dashboard/activity/ActivityFeed";
+import { SummaryCard } from "../../component/dashboard/summary-cards/SummaryCard";
+import { SettingsCard } from "../../component/dashboard/settings/SettingsCard";
+import { GuestLimitCard } from "../../component/dashboard/summary-cards/GuestLimitCard";
+import AnimatedStarButton from "../../component/custom/AnimatedButton";
+import UrlCreationForm from "../../component/URL/urlCreationForm";
+import { useUrlManagement } from "../../hooks/useUrlQueries";
+import { useAuth } from "../../hooks/useAuth";
+import SigninModal from "../../modals/SigninModal";
 
 // Loading Skeleton Component
 const LoadingSkeleton: React.FC = () => (

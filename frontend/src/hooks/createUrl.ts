@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "./useAuth";
-import { prepareAuthHeader } from "../utils/auth/prepareAuthHeader";
-import { prepareUserPayload } from "../utils/auth/prepareUserPayload";
+import { prepareAuthHeader } from "../../utils/auth/prepareAuthHeader";
+import { prepareUserPayload } from "../../utils/auth/prepareUserPayload";
 
 export const useCreateUrl = () => {
   const { user, getAccessToken } = useAuth();

@@ -1,10 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "./useAuth";
-import { apiClient } from "../lib/api/client";
-import { prepareUserPayload } from "../utils/auth/prepareUserPayload";
+
+import { prepareUserPayload } from "../../utils/auth/prepareUserPayload";
 import { ApiError, CreateUrlRequest, DashboardResponse } from "@/types/types";
-import { getOrCreateGuestUuid } from "../utils/auth/generateGuestUuid";
+import { getOrCreateGuestUuid } from "../../utils/auth/generateGuestUuid";
 import { useCallback, useMemo } from "react";
+import { apiClient } from "@/lib/api/client";
 
 // Query Keys - More specific and hierarchical
 export const urlQueryKeys = {
