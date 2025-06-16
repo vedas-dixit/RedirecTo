@@ -50,10 +50,10 @@ class Activity(BaseModel):
 class UserPayload(BaseModel):
     id: str
     is_guest: bool
-    email: str
-    name: str
-    avatar_url: str
-    provider: str
+    email: Optional[str]
+    name: Optional[str]
+    avatar_url: Optional[str]
+    provider: Optional[str]
     provider_id: Optional[str] = None
 
 

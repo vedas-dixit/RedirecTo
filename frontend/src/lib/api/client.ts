@@ -60,7 +60,7 @@ class ApiClient {
     token: string | null,
   ): Promise<URLData> {
     const authHeader = prepareAuthHeader(token);
-    const endpoint = token ? "/create-url" : "/create-url-guest";
+    const endpoint = "/create-url";
 
     return this.makeRequest<URLData>(endpoint, {
       method: "POST",

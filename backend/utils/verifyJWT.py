@@ -29,7 +29,7 @@ async def verify_supabase_token(
                 return payload
             except PyJWTError as e:
                 print(f"JWT verification failed: {e}")
-                pass
+                return None
 
     except Exception as e:
         print(f"Unverified user - Error: {str(e)}")
