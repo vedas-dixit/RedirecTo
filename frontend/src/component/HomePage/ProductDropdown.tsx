@@ -2,9 +2,7 @@
 import React from "react";
 import { ProductDropdownProps } from "./types/product-dropdown.types";
 
-const ProductDropdown: React.FC<ProductDropdownProps> = ({
-  isOpen,
-}) => {
+const ProductDropdown: React.FC<ProductDropdownProps> = ({ isOpen }) => {
   if (!isOpen) return null;
 
   return (
