@@ -6,7 +6,6 @@ import { DynamicStar, ProtectedLinkPageProps, Star } from "@/types/types";
 
 // Type definitions
 
-
 const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);

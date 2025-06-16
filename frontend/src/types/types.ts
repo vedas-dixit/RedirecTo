@@ -1,7 +1,8 @@
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 
-export interface AnimatedStarButtonProp extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface AnimatedStarButtonProp
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
   Link?: string;
@@ -87,7 +88,6 @@ export interface ApiError {
 export interface QueryProviderProps {
   children: React.ReactNode;
 }
-
 
 export interface UrlCreationFormProps {
   isOpen: boolean;

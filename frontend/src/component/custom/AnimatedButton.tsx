@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatedStarButtonProp } from "@/types/types";
 
-
-
 const AnimatedStarButton: React.FC<AnimatedStarButtonProp> = ({
   children,
   className = "",
