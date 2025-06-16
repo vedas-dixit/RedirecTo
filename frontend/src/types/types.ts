@@ -61,7 +61,7 @@ export interface PreparedUser {
   provider_id: string | null;
 }
 
-export type UserPayload = PreparedUser  | SupabaseUser;
+export type UserPayload = PreparedUser | SupabaseUser;
 
 export interface CreateUrlRequest {
   long_url: string;
@@ -89,7 +89,6 @@ export interface ApiError {
 export interface QueryProviderProps {
   children: React.ReactNode;
 }
-
 
 export interface UrlFormData {
   destination: string;
