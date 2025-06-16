@@ -1,5 +1,5 @@
 import React from "react";
-import AnimatedStarButton from "../component/custom/AnimatedButton";
+import AnimatedStarButton from "../custom/AnimatedButton";
 
 const HomeComponent = () => {
   return (
