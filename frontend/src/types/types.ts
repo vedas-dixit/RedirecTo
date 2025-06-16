@@ -52,7 +52,7 @@ export interface Activity {
 }
 
 export interface PreparedUser {
-  id?: string;
+  id: string;
   is_guest: boolean;
   email: string | null;
   name: string | null;
@@ -61,15 +61,16 @@ export interface PreparedUser {
   provider_id: string | null;
 }
 
-export interface GuestUser extends PreparedUser {
-  guest_uuid: string;
-}
-
-export type UserPayload = PreparedUser | GuestUser | SupabaseUser;
+export type UserPayload = PreparedUser  | SupabaseUser;
 
 export interface CreateUrlRequest {
   long_url: string;
-  user?: UserPayload;
+  user: {
+    id: string;
+  };
+  expires_at?: string | null;
+  click_limit?: number;
+  password?: string | null;
 }
 
 export interface DashboardResponse {
@@ -89,9 +90,19 @@ export interface QueryProviderProps {
   children: React.ReactNode;
 }
 
+
+export interface UrlFormData {
+  destination: string;
+  is_protected: boolean;
+  password?: string;
+  expires_at?: string;
+  click_limit?: number;
+}
+
 export interface UrlCreationFormProps {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit?: (data: UrlFormData) => void;
 }
 
 export interface SigninModalProps {

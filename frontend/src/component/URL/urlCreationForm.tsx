@@ -1,132 +1,214 @@
-import React, { useState } from "react";
-import { X, Link, Sparkles } from "lucide-react";
-import { useCreateUrl } from "../../hooks/createUrl";
-import { UrlCreationFormProps } from "@/types/types";
+import React, { useState } from 'react';
+import { X, Link, Shield, Calendar, MousePointer, Eye, EyeOff } from 'lucide-react';
+import { useDisableScroll } from '@/hooks/useDisableScroll';
+import AnimatedStarButton from '../custom/AnimatedButton';
+import { UrlCreationFormProps, UrlFormData } from '@/types/types';
+import { useUrlManagement } from '@/hooks/useUrlQueries';
 
-// Custom hook placeholder - you can implement this later
+
 
 const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [longUrl, setLongUrl] = useState("");
-  const { createUrl } = useCreateUrl();
+  const [formData, setFormData] = useState<UrlFormData>({
+    destination: '',
+    is_protected: false,
+    password: '',
+    expires_at: '',
+    click_limit: 0
+  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!longUrl.trim()) return;
+  const { createUrl } = useUrlManagement();
 
-    await createUrl(longUrl);
-    setLongUrl("");
-    onClose();
+  const [showPassword, setShowPassword] = useState(false);
+  const [hasExpiry, setHasExpiry] = useState(false);
+  useDisableScroll(isOpen);
+
+
+  const handleSubmit = () => {
+    const payloadToSend = {
+      ...formData,
+      expires_at: hasExpiry ? formData.expires_at : null,
+      click_limit: formData.click_limit === 0 ? undefined : formData.click_limit,
+      password: formData.is_protected ? formData.password : null,
+      long_url: formData.destination, // key correction if needed
+    };
+
+    createUrl(payloadToSend); // perfect
   };
 
-  const handleBackdropClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+  const getTodayDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
   };
 
   if (!isOpen) return null;
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in-0 duration-300"
-      onClick={handleBackdropClick}
-    >
-      {/* Backdrop with blur effect */}
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in-0 duration-300" />
+    <div className="fixed w- w-full h-full inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50">
+      <div className="relative w-full max-w-md">
+        {/* Glassy modal container */}
+        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-orange-500/5 pointer-events-none" />
 
-      {/* Modal */}
-      <div className="relative bg-[#171717] rounded-3xl border border-orange-900/60 p-8 w-full max-w-md mx-auto shadow-2xl shadow-orange-900/20 animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
-        {/* Background gradient */}
-        <div className="absolute inset-0 opacity-10 rounded-3xl">
-          <div className="w-full h-full bg-gradient-to-br from-orange-600/20 to-transparent rounded-3xl" />
-        </div>
-
-        {/* Animated background glow */}
-        <div className="absolute inset-0 bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 rounded-3xl" />
-
-        {/* Content */}
-        <div className="relative z-10">
           {/* Header */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-orange-800/30 rounded-xl flex items-center justify-center group-hover:bg-orange-700/40 transition-all duration-300">
-                <Link className="w-5 h-5 text-white" />
+          <div className="relative flex items-center justify-between p-6 border-b border-white/10">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-orange-500/20 backdrop-blur-sm rounded-xl border border-orange-500/20">
+                <Link className="w-5 h-5 text-orange-400" />
               </div>
-              <h2 className="text-white text-2xl font-semibold">
-                Create Short URL
-              </h2>
+              <h2 className="text-xl font-semibold text-white/90">Create Short URL</h2>
             </div>
-
             <button
               onClick={onClose}
-              className="w-8 h-8 bg-orange-800/20 hover:bg-orange-700/30 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 group"
+              className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
             >
-              <X className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors duration-200" />
+              <X className="w-5 h-5 text-white/70 hover:text-white" />
             </button>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="relative p-6 space-y-6">
             {/* URL Input */}
-            <div className="space-y-2">
-              <label className="text-gray-300 text-sm font-medium block">
-                Enter your long URL
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                <Link className="w-4 h-4 text-orange-400" />
+                Long URL
               </label>
-              <div className="relative group">
+              <div className="relative">
                 <input
                   type="url"
-                  value={longUrl}
-                  onChange={(e) => setLongUrl(e.target.value)}
+                  value={formData.destination}
+                  onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
                   placeholder="https://example.com/very-long-url-that-needs-shortening"
-                  className="w-full bg-[#0f0f0f] border border-orange-900/40 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-orange-600/60 focus:ring-2 focus:ring-orange-600/20 transition-all duration-300 group-hover:border-orange-800/60"
+                  className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
                   required
                 />
-
-                {/* Input glow effect */}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex gap-3 pt-2">
+            {/* Protected URL Toggle */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-orange-400" />
+                  Password Protection
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, is_protected: !formData.is_protected })}
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${formData.is_protected
+                    ? 'bg-orange-500/80 border-orange-500/40'
+                    : 'bg-white/10 border-white/20'
+                    }`}
+                >
+                  <span
+                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${formData.is_protected ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                  />
+                </button>
+              </div>
+
+              {formData.is_protected && (
+                <div className="relative overflow-hidden">
+                  <div className="animate-in slide-in-from-top-2 duration-300">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      placeholder="Enter password for protected URL"
+                      className="w-full px-4 py-3.5 pr-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                      required={formData.is_protected}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white/80 transition-colors duration-200 p-1 rounded-lg hover:bg-white/10"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Expiry Toggle */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-orange-400" />
+                  Set Expiry Date
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setHasExpiry(!hasExpiry)}
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${hasExpiry
+                    ? 'bg-orange-500/80 border-orange-500/40'
+                    : 'bg-white/10 border-white/20'
+                    }`}
+                >
+                  <span
+                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${hasExpiry ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                  />
+                </button>
+              </div>
+
+              {hasExpiry && (
+                <div className="animate-in slide-in-from-top-2 duration-300">
+                  <input
+                    type="date"
+                    value={formData.expires_at}
+                    onChange={(e) => setFormData({ ...formData, expires_at: e.target.value })}
+                    min={getTodayDate()}
+                    className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10 [color-scheme:dark]"
+                    required={hasExpiry}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Click Limit */}
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-white/80 flex items-center gap-2">
+                <MousePointer className="w-4 h-4 text-orange-400" />
+                Click Limit
+              </label>
+              <input
+                type="number"
+                value={formData.click_limit}
+                onChange={(e) => setFormData({
+                  ...formData,
+                  click_limit: Math.min(parseInt(e.target.value) || 0, 10000)
+                })}
+                placeholder="0 (unlimited clicks)"
+                min="0"
+                className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+              />
+              <p className="text-xs text-white/50">Set to 0 for unlimited clicks</p>
+            </div>
+
+            {/* Submit Buttons */}
+            <div className="flex gap-3 pt-4">
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 bg-gray-800/50 hover:bg-gray-700/50 text-gray-300 hover:text-white rounded-xl py-3 px-6 font-medium transition-all duration-300 border border-gray-700/50 hover:border-gray-600/50"
+                className="flex-1 px-6 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 text-white/80 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-medium"
               >
                 Cancel
               </button>
-
-              <button
-                type="submit"
-                disabled={!longUrl.trim() || false}
-                className="flex-1 bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-500 hover:to-orange-600 text-white rounded-xl py-3 px-6 font-medium transition-all duration-300 shadow-lg shadow-orange-600/20 hover:shadow-orange-500/30 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2 group"
-              >
-                {false ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Creating...
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
-                    Create URL
-                  </>
-                )}
-              </button>
+              <AnimatedStarButton className={"flex-1 px-6 bg-gradient-to-r from-orange-500 to-orange-600"} onClick={handleSubmit}>
+                Create Short URL
+              </AnimatedStarButton>
             </div>
-          </form>
+          </div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute top-4 right-4 w-3 h-3 bg-orange-500 rounded-full opacity-60 animate-ping" />
-        <div className="absolute bottom-4 left-4 w-2 h-2 bg-orange-600 rounded-full opacity-40 animate-pulse" />
       </div>
     </div>
   );
 };
+
 
 export default UrlCreationForm;

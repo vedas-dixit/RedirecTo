@@ -44,3 +44,29 @@ class Activity(BaseModel):
     country: str
     flag: str
     time: str
+
+
+# Pydantic models
+class UserPayload(BaseModel):
+    id: str
+    is_guest: bool
+    email: str
+    name: str
+    avatar_url: str
+    provider: str
+    provider_id: Optional[str] = None
+
+
+class CreateUrlRequest(BaseModel):
+    long_url: str
+    user: UserPayload
+    expires_at: Optional[str] = None
+    click_limit: Optional[int] = None
+    password: Optional[str] = None
+    is_protected: Optional[bool] = False
+
+
+class CreateUrlResponse(BaseModel):
+    short_url: str
+    long_url: str
+    user_id: str

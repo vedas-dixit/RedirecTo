@@ -5,13 +5,22 @@ from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
 from datetime import datetime, timedelta, timezone
 from utils.generateUrl import generate_short_code
+from typing import Optional
 
 
 async def add_url_for_user(
-    *, session: AsyncSession, user_id: str, long_url: str, is_guest: bool
+    *,
+    session: AsyncSession,
+    user_id: str,
+    long_url: str,
+    is_guest: bool,
+    expires_at: Optional[str] = None,
+    click_limit: Optional[int] = None,
+    password: Optional[str] = None,
+    is_protected: Optional[bool] = False,
 ) -> URL:
 
-    print(user_id, long_url, is_guest)
+    print("->>>>>>>>>>>>>>>>>>>", expires_at, password, click_limit, is_protected)
     try:
         # Step 1: Check if this user has already shortened this URL
         stmt = select(URL).where(URL.user_id == user_id, URL.destination == long_url)
@@ -43,9 +52,9 @@ async def add_url_for_user(
             user_id=user_id,
             short_code=short_code,
             destination=long_url,
-            is_protected=False,
+            is_protected=is_protected,
             expires_at=None if not is_guest else now_utc + timedelta(hours=24),
-            click_limit=None,
+            click_limit=click_limit,
             created_at=now_utc,
         )
 

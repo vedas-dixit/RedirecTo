@@ -8,63 +8,50 @@ from api.users import create_user_if_not_exists
 from database.db import get_session
 from sqlalchemy.ext.asyncio import AsyncSession
 from utils.addUrl import add_url_for_user
+from schemas.dashboard import CreateUrlResponse, CreateUrlRequest
 
 router = APIRouter()
 security = HTTPBearer()
 load_dotenv()
 
 
-# Pydantic models
-class UserPayload(BaseModel):
-    id: str  # <-- Guest UUID (primary key now)
-    is_guest: bool
-    email: str
-    name: str
-    avatar_url: str
-    provider: str
-    provider_id: Optional[str] = None
-
-
-class CreateUrlRequest(BaseModel):
-    long_url: str
-    user: UserPayload
-
-
-class CreateUrlResponse(BaseModel):
-    short_url: str
-    long_url: str
-    user_id: str
-
-
 @router.post("/create-url", response_model=CreateUrlResponse)
 async def create_url(
     request: CreateUrlRequest,
-    user: dict = Depends(verify_supabase_token),
     session: AsyncSession = Depends(get_session),
 ):
     """
-    Create a shortened URL - requires valid Supabase authentication
+    Create a shortened URL — supports guests and authenticated users.
     """
-    payload = request.user
+
     try:
-        # Transform JWT payload to match your create_user_if_not_exists expectations
+        payload = request.user
+
         user_payload = {
             "id": payload.id,
-            "is_guest": False,  # Since this is an authenticated user
+            "is_guest": payload.is_guest,
             "email": payload.email,
             "name": payload.name,
             "avatar_url": payload.avatar_url,
             "provider": payload.provider,
-            "provider_id": payload.provider_id,  # This is the key fix
+            "provider_id": payload.provider_id,
         }
 
+        # Ensre user exists in DBu
         db_user = await create_user_if_not_exists(user_payload, session)
+
+        # Create the shortened URL
         new_url = await add_url_for_user(
             session=session,
             user_id=db_user.id,
             long_url=request.long_url,
-            is_guest=True,
+            expires_at=request.expires_at,
+            click_limit=request.click_limit,
+            password=request.password,
+            is_guest=payload.is_guest,
+            is_protected=request.is_protected,
         )
+
         return CreateUrlResponse(
             short_url=new_url.short_code,
             long_url=new_url.destination,
