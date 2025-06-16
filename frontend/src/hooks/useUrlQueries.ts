@@ -228,7 +228,6 @@ export function useUrlManagement() {
     [createUrlMutation],
   );
 
-
   const deleteUrl = useCallback(
     (urlId: string) => {
       return deleteUrlMutation.mutate(urlId);

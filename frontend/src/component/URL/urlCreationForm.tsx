@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-import { X, Link, Shield, Calendar, MousePointer, Eye, EyeOff } from 'lucide-react';
-import { useDisableScroll } from '@/hooks/useDisableScroll';
-import AnimatedStarButton from '../custom/AnimatedButton';
-import { UrlCreationFormProps, UrlFormData } from '@/types/types';
-import { useUrlManagement } from '@/hooks/useUrlQueries';
-
-
+import React, { useState } from "react";
+import {
+  X,
+  Link,
+  Shield,
+  Calendar,
+  MousePointer,
+  Eye,
+  EyeOff,
+} from "lucide-react";
+import { useDisableScroll } from "@/hooks/useDisableScroll";
+import AnimatedStarButton from "../custom/AnimatedButton";
+import { UrlCreationFormProps, UrlFormData } from "@/types/types";
+import { useUrlManagement } from "@/hooks/useUrlQueries";
 
 const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
   isOpen,
   onClose,
 }) => {
   const [formData, setFormData] = useState<UrlFormData>({
-    destination: '',
+    destination: "",
     is_protected: false,
-    password: '',
-    expires_at: '',
-    click_limit: 0
+    password: "",
+    expires_at: "",
+    click_limit: 0,
   });
 
   const { createUrl } = useUrlManagement();
@@ -25,12 +31,12 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
   const [hasExpiry, setHasExpiry] = useState(false);
   useDisableScroll(isOpen);
 
-
   const handleSubmit = () => {
     const payloadToSend = {
       ...formData,
       expires_at: hasExpiry ? formData.expires_at : null,
-      click_limit: formData.click_limit === 0 ? undefined : formData.click_limit,
+      click_limit:
+        formData.click_limit === 0 ? undefined : formData.click_limit,
       password: formData.is_protected ? formData.password : null,
       long_url: formData.destination, // key correction if needed
     };
@@ -40,7 +46,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
 
   const getTodayDate = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    return today.toISOString().split("T")[0];
   };
 
   if (!isOpen) return null;
@@ -59,7 +65,9 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
               <div className="p-2.5 bg-orange-500/20 backdrop-blur-sm rounded-xl border border-orange-500/20">
                 <Link className="w-5 h-5 text-orange-400" />
               </div>
-              <h2 className="text-xl font-semibold text-white/90">Create Short URL</h2>
+              <h2 className="text-xl font-semibold text-white/90">
+                Create Short URL
+              </h2>
             </div>
             <button
               onClick={onClose}
@@ -81,7 +89,9 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                 <input
                   type="url"
                   value={formData.destination}
-                  onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, destination: e.target.value })
+                  }
                   placeholder="https://example.com/very-long-url-that-needs-shortening"
                   className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
                   required
@@ -98,15 +108,22 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                 </label>
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, is_protected: !formData.is_protected })}
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${formData.is_protected
-                    ? 'bg-orange-500/80 border-orange-500/40'
-                    : 'bg-white/10 border-white/20'
-                    }`}
+                  onClick={() =>
+                    setFormData({
+                      ...formData,
+                      is_protected: !formData.is_protected,
+                    })
+                  }
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${
+                    formData.is_protected
+                      ? "bg-orange-500/80 border-orange-500/40"
+                      : "bg-white/10 border-white/20"
+                  }`}
                 >
                   <span
-                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${formData.is_protected ? 'translate-x-6' : 'translate-x-1'
-                      }`}
+                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${
+                      formData.is_protected ? "translate-x-6" : "translate-x-1"
+                    }`}
                   />
                 </button>
               </div>
@@ -115,9 +132,11 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                 <div className="relative overflow-hidden">
                   <div className="animate-in slide-in-from-top-2 duration-300">
                     <input
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, password: e.target.value })
+                      }
                       placeholder="Enter password for protected URL"
                       className="w-full px-4 py-3.5 pr-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
                       required={formData.is_protected}
@@ -127,7 +146,11 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white/80 transition-colors duration-200 p-1 rounded-lg hover:bg-white/10"
                     >
-                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      {showPassword ? (
+                        <EyeOff className="w-5 h-5" />
+                      ) : (
+                        <Eye className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -144,14 +167,16 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                 <button
                   type="button"
                   onClick={() => setHasExpiry(!hasExpiry)}
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${hasExpiry
-                    ? 'bg-orange-500/80 border-orange-500/40'
-                    : 'bg-white/10 border-white/20'
-                    }`}
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${
+                    hasExpiry
+                      ? "bg-orange-500/80 border-orange-500/40"
+                      : "bg-white/10 border-white/20"
+                  }`}
                 >
                   <span
-                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${hasExpiry ? 'translate-x-6' : 'translate-x-1'
-                      }`}
+                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition-transform duration-300 ${
+                      hasExpiry ? "translate-x-6" : "translate-x-1"
+                    }`}
                   />
                 </button>
               </div>
@@ -161,7 +186,9 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                   <input
                     type="date"
                     value={formData.expires_at}
-                    onChange={(e) => setFormData({ ...formData, expires_at: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, expires_at: e.target.value })
+                    }
                     min={getTodayDate()}
                     className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10 [color-scheme:dark]"
                     required={hasExpiry}
@@ -179,15 +206,19 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
               <input
                 type="number"
                 value={formData.click_limit}
-                onChange={(e) => setFormData({
-                  ...formData,
-                  click_limit: Math.min(parseInt(e.target.value) || 0, 10000)
-                })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    click_limit: Math.min(parseInt(e.target.value) || 0, 10000),
+                  })
+                }
                 placeholder="0 (unlimited clicks)"
                 min="0"
                 className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
               />
-              <p className="text-xs text-white/50">Set to 0 for unlimited clicks</p>
+              <p className="text-xs text-white/50">
+                Set to 0 for unlimited clicks
+              </p>
             </div>
 
             {/* Submit Buttons */}
@@ -199,7 +230,12 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
               >
                 Cancel
               </button>
-              <AnimatedStarButton className={"flex-1 px-6 bg-gradient-to-r from-orange-500 to-orange-600"} onClick={handleSubmit}>
+              <AnimatedStarButton
+                className={
+                  "flex-1 px-6 bg-gradient-to-r from-orange-500 to-orange-600"
+                }
+                onClick={handleSubmit}
+              >
                 Create Short URL
               </AnimatedStarButton>
             </div>
@@ -209,6 +245,5 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
     </div>
   );
 };
-
 
 export default UrlCreationForm;
