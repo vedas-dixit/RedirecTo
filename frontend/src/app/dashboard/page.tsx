@@ -29,7 +29,6 @@ const URLShortenerDashboard: React.FC = () => {
   const data: SummaryData | GuestData = summaryData;
   const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
 
-
   return (
     <div 
       className="min-h-screen"
@@ -66,7 +65,14 @@ const URLShortenerDashboard: React.FC = () => {
         current={data.totalUrls as number}
         limit={12}
         />
+<<<<<<< HEAD
       )}
+=======
+        {/* Guest Limit Card */}
+        {false && "limit" in data && (
+          <GuestLimitCard current={data.totalUrls as number} limit={12} />
+        )}
+>>>>>>> 1f95e455dad94affa1a89bbb9d4e094bc2b846bb
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
