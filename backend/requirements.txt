@@ -9,4 +9,3 @@ pytest
 python-jose[cryptography]
 httpx
 bcrypt
-mangum
