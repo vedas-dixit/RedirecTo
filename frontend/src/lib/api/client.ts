@@ -55,6 +55,15 @@ class ApiClient {
       `/dashboard/overview?user_id=${userId}`,
     );
   }
+  async verifyProtectedUrl(shortCode: string, password: string): Promise<{ destination: string }> {
+  return this.makeRequest<{ destination: string }>(`/verify-password`, {
+    method: "POST",
+    body: JSON.stringify({ short_code: shortCode, password }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
 
   async createUrl(
     data: CreateUrlRequest,

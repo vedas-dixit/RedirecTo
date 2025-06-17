@@ -129,3 +129,7 @@ export interface DynamicStar {
 export interface ProtectedLinkPageProps {
   id?: string;
 }
+
+export type protectedUrlPageProp = {
+  shortCode: string;
+};

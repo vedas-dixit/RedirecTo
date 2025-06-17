@@ -234,6 +234,17 @@ export function useUrlManagement() {
     },
     [deleteUrlMutation],
   );
+  const useVerifyPasswordMutation = () => {
+    return useMutation({
+      mutationFn: ({
+        shortCode,
+        password,
+      }: {
+        shortCode: string;
+        password: string;
+      }) => apiClient.verifyProtectedUrl(shortCode, password),
+    });
+  }
 
   return {
     // Dashboard data
@@ -250,7 +261,8 @@ export function useUrlManagement() {
     createError: createUrlMutation.error as ApiError | null,
     createSuccess: createUrlMutation.isSuccess,
     resetCreateState: createUrlMutation.reset,
-
+    //verify protected url
+    useVerifyPasswordMutation,
     // Delete URL mutation
     deleteUrl,
     isDeleting: deleteUrlMutation.isPending,

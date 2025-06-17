@@ -2,19 +2,20 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Lock, Shield, Eye, EyeOff, ArrowRight } from "lucide-react";
-import { DynamicStar, ProtectedLinkPageProps, Star } from "@/types/types";
+import { DynamicStar, protectedUrlPageProp, Star } from "@/types/types";
+import { useUrlManagement } from "@/hooks/useUrlQueries";
 
 // Type definitions
 
-const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
+const ProtectedLinkPage: React.FC<protectedUrlPageProp> = ({ shortCode }) => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [stars, setStars] = useState<DynamicStar[]>([]);
   const [backgroundStars, setBackgroundStars] = useState<Star[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Generate background stars on mount
+  const { useVerifyPasswordMutation } = useUrlManagement()
+  const { mutate: verifyPassword } = useVerifyPasswordMutation();
+  
   useEffect(() => {
     const generateBackgroundStars = (): void => {
       const newStars: Star[] = [];
@@ -67,23 +68,24 @@ const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
   const handleSubmit = async (): Promise<void> => {
     if (!password.trim()) return;
 
-    setIsLoading(true);
-
-    // Simulate API call
-    setTimeout(() => {
-      // Here you would validate the password and redirect
-      console.log("Password submitted:", password);
-      setIsLoading(false);
-      // Redirect logic would go here
-    }, 2000);
+    verifyPassword(
+      { shortCode, password },
+      {
+        onSuccess: (data) => {
+          window.location.href = data.destination;
+        },
+        onError: (error) => {
+          console.error("Invalid password", error);
+        },
+      },
+    );
   };
 
   const handlePasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-    if (password.length < 8) {
-      setPassword(e.target.value);
-    }
+   setPassword(e.target.value);
+    
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -173,13 +175,13 @@ const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
                     onKeyPress={handleKeyPress}
                     placeholder="Enter password"
                     className="w-full pl-10 pr-12 py-3 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-500 transition-all duration-200"
-                    disabled={isLoading}
+                    disabled={false}
                   />
                   <button
                     type="button"
                     onClick={togglePasswordVisibility}
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition-colors"
-                    disabled={isLoading}
+                    disabled={false}
                   >
                     {showPassword ? (
                       <EyeOff className="h-5 w-5" />
@@ -196,11 +198,10 @@ const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
                   {[...Array(8)].map((_, i: number) => (
                     <div
                       key={i}
-                      className={`h-1 flex-1 rounded-full transition-all duration-300 ${
-                        i < password.length
-                          ? "password-indicator-active"
-                          : "password-indicator-inactive"
-                      }`}
+                      className={`h-1 flex-1 rounded-full transition-all duration-300 ${i < password.length
+                        ? "password-indicator-active"
+                        : "password-indicator-inactive"
+                        }`}
                     />
                   ))}
                 </div>
@@ -214,14 +215,13 @@ const ProtectedLinkPage: React.FC<ProtectedLinkPageProps> = () => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={!password.trim() || isLoading}
-                className={`w-full py-3 px-4 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2 group ${
-                  !password.trim() || isLoading
-                    ? "submit-button-disabled"
-                    : "submit-button-active"
-                }`}
+                disabled={!password.trim() || false}
+                className={`w-full py-3 px-4 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2 group ${!password.trim() || false
+                  ? "submit-button-disabled"
+                  : "submit-button-active"
+                  }`}
               >
-                {isLoading ? (
+                {false ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full loading-spinner" />
                     <span>Verifying...</span>
