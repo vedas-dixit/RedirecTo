@@ -8,3 +8,4 @@ ruff
 pytest
 python-jose[cryptography]
 httpx
+bcrypt

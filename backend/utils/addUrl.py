@@ -44,6 +44,9 @@ async def add_url_for_user(
 
         # Step 3: Generate unique short code based on index
         short_code = generate_short_code(user_id, len(user_urls) + 1)
+        expires_at = (
+            datetime.strptime(expires_at, "%Y-%m-%d") if isinstance(expires_at, str) else None
+        )
 
         # Step 4: Create the new URL object
         now_utc = datetime.now(timezone.utc)
@@ -52,7 +55,8 @@ async def add_url_for_user(
             short_code=short_code,
             destination=long_url,
             is_protected=is_protected,
-            expires_at=None if not is_guest else now_utc + timedelta(hours=24),
+            password_hash= password,
+            expires_at=expires_at,
             click_limit=click_limit,
             created_at=now_utc,
         )

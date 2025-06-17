@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Boolean, DateTime, String, ForeignKey, Integer
+from sqlalchemy import Column, Boolean, DateTime, String, ForeignKey, Integer, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from database.db import Base
@@ -31,6 +31,7 @@ class URL(Base):
     short_code = Column(String, unique=True, nullable=False, index=True)
     destination = Column(String, nullable=False)
     is_protected = Column(Boolean, default=False)
+    password_hash = Column(Text, nullable=True)
     expires_at = Column(TIMESTAMP(timezone=True), nullable=True)
     click_limit = Column(Integer, nullable=True)
     created_at = Column(
