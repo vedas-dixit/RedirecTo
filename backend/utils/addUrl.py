@@ -20,7 +20,6 @@ async def add_url_for_user(
     is_protected: Optional[bool] = False,
 ) -> URL:
 
-    print("->>>>>>>>>>>>>>>>>>>", expires_at, password, click_limit, is_protected)
     try:
         # Step 1: Check if this user has already shortened this URL
         stmt = select(URL).where(URL.user_id == user_id, URL.destination == long_url)
@@ -64,6 +63,11 @@ async def add_url_for_user(
 
         return new_url
 
+    except HTTPException:
+        # Re-raise HTTPExceptions so they bubble up with proper status codes
+        await session.rollback()
+        raise
+
     except SQLAlchemyError as e:
         await session.rollback()
         print(f"Database error in add_url_for_user: {str(e)}")
@@ -72,4 +76,4 @@ async def add_url_for_user(
     except Exception as e:
         await session.rollback()
         print(f"Unexpected error in add_url_for_user: {str(e)}")
-        raise
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")

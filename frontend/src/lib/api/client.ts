@@ -5,6 +5,7 @@ import {
   DashboardResponse,
 } from "@/types/types";
 import { prepareAuthHeader } from "../../../utils/auth/prepareAuthHeader";
+import { getOrCreateGuestUuid } from "../../../utils/auth/generateGuestUuid";
 
 const API_BASE_URL = "http://127.0.0.1:8000";
 
@@ -59,14 +60,28 @@ class ApiClient {
     data: CreateUrlRequest,
     token: string | null,
   ): Promise<URLData> {
-    const authHeader = prepareAuthHeader(token);
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    // Add Authorization header if token exists
+    if (token) {
+      const authHeader = prepareAuthHeader(token);
+      headers.Authorization = authHeader;
+    }
+
+    // Always add guest UUID header for tracking
+    // This helps with rate limiting even for auth users (if needed)
+    const guestUuid = getOrCreateGuestUuid();
+    if (guestUuid) {
+      headers['X-Guest-UUID'] = guestUuid;
+    }
+
     const endpoint = "/create-url";
 
     return this.makeRequest<URLData>(endpoint, {
       method: "POST",
-      headers: {
-        Authorization: authHeader,
-      },
+      headers,
       body: JSON.stringify(data),
     });
   }

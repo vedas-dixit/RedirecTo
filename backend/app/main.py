@@ -3,13 +3,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from database.db import get_session
 from models.models import User
-from api import guest_urls, user_urls, redirect
+from api import user_urls, redirect
 from api.dashboard import dashboard_overview
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 app.include_router(user_urls.router, tags=["URL Shortener: Guest"])
-app.include_router(guest_urls.router, tags=["URL Shortener: Guest"])
 app.include_router(redirect.router, tags=["URL REDIRECTION"])
 app.include_router(dashboard_overview.router, tags=["DASHBOARD SUMMARY"])
 
