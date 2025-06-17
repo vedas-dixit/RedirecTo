@@ -11,11 +11,10 @@ import { Badge, Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
 import { Button } from "../../UI/button";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 
-
 export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
-  const {deleteUrl} = useUrlManagement()
+  const { deleteUrl } = useUrlManagement();
   const handleCopy = async (url: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(url);
