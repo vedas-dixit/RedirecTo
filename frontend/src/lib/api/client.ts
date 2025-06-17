@@ -61,7 +61,7 @@ class ApiClient {
     token: string | null,
   ): Promise<URLData> {
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     // Add Authorization header if token exists
@@ -74,7 +74,7 @@ class ApiClient {
     // This helps with rate limiting even for auth users (if needed)
     const guestUuid = getOrCreateGuestUuid();
     if (guestUuid) {
-      headers['X-Guest-UUID'] = guestUuid;
+      headers["X-Guest-UUID"] = guestUuid;
     }
 
     const endpoint = "/create-url";
