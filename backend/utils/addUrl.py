@@ -6,7 +6,7 @@ from fastapi import HTTPException
 from datetime import datetime, timedelta, timezone
 from utils.generateUrl import generate_short_code
 from typing import Optional
-
+from utils.hash_password import hash_password
 
 async def add_url_for_user(
     *,
@@ -49,13 +49,18 @@ async def add_url_for_user(
         )
 
         # Step 4: Create the new URL object
+        password_hash = None
+        if is_protected and password:
+            password_hash = hash_password(password)
+
+        # Step 4: Create the new URL object
         now_utc = datetime.now(timezone.utc)
         new_url = URL(
             user_id=user_id,
             short_code=short_code,
             destination=long_url,
             is_protected=is_protected,
-            password_hash= password,
+            password_hash= password_hash,
             expires_at=expires_at,
             click_limit=click_limit,
             created_at=now_utc,

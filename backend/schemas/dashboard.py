@@ -70,3 +70,10 @@ class CreateUrlResponse(BaseModel):
     short_url: str
     long_url: str
     user_id: str
+
+class VerifyPasswordRequest(BaseModel):
+    short_code: str
+    password: str
+
+class VerifyPasswordResponse(BaseModel):
+    destination: str
