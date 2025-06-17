@@ -85,16 +85,14 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
         <CardTitle className="text-white/90 text-lg sm:text-xl">{title}</CardTitle>
         <CardDescription className="text-white/70 text-sm">
           {description}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="relative z-10 p-3 sm:p-6">        <ResponsiveContainer width="100%" height={300}>
-          <PieChart margin={{ top: 10, right: 15, bottom: 10, left: 15 }}>
+        </CardDescription>      </CardHeader>      <CardContent className="relative z-10 p-3 sm:p-6">        <ResponsiveContainer width="100%" height={380}>
+          <PieChart margin={{ top: 0, right: 15, bottom: 5, left: 15 }}>
             <Pie
               data={data}
               cx="50%"
-              cy="50%"
-              outerRadius={isMobile ? 60 : 80}
-              innerRadius={isMobile ? 20 : 30}
+              cy="45%"
+              outerRadius={isMobile ? 85 : 130}
+              innerRadius={isMobile ? 28 : 45}
               dataKey="clicks"
               stroke="rgba(255, 255, 255, 0.1)"
               strokeWidth={1}

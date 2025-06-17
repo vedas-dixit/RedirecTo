@@ -65,16 +65,15 @@ const ChartSection: React.FC<ChartSectionProps> = ({
         <CardDescription className="text-white/70 text-sm">
           {description}
         </CardDescription>
-      </CardHeader>
-      <CardContent className="relative z-10 p-3 sm:p-6">
-        <ResponsiveContainer width="100%" height={300}>
+      </CardHeader>      <CardContent className="relative z-10 p-3 sm:p-6">
+        <ResponsiveContainer width="100%" height={380}>
           <LineChart 
             data={data}
             margin={{
-              top: 10,
+              top: 5,
               right: 15,
               left: 5,
-              bottom: 10,
+              bottom: 5,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />            <XAxis 

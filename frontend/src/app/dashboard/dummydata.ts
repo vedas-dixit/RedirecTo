@@ -50,7 +50,7 @@ export const summaryData: SummaryData = {
   totalUrls: 124,
   totalClicks: 2847,
   recentClick: {
-    time: "2 hours ago",
+    time: "2 hrs ago",
     country: "India",
     flag: "🇮🇳",
   },

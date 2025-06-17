@@ -36,7 +36,8 @@ const URLShortenerDashboard: React.FC = () => {
       backgroundImage: "url('/images/background.jpeg')",
       backgroundSize: "cover",
       backgroundPosition: "center",
-      backgroundRepeat: "no-repeat"
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed"
       }}
     >
       <div className="p-4 max-w-9xl mx-auto space-y-6">
@@ -59,20 +60,13 @@ const URLShortenerDashboard: React.FC = () => {
         isOpen={isUrlFormOpen}
         onClose={() => setIsUrlFormOpen(false)}
       />
-      {/* Guest Limit Card */}
-      {false && "limit" in data && (
-        <GuestLimitCard
-        current={data.totalUrls as number}
-        limit={12}
-        />
-<<<<<<< HEAD
-      )}
-=======
-        {/* Guest Limit Card */}
-        {false && "limit" in data && (
-          <GuestLimitCard current={data.totalUrls as number} limit={12} />
-        )}
->>>>>>> 1f95e455dad94affa1a89bbb9d4e094bc2b846bb
+{/* Guest Limit Card */}
+{false && "limit" in data && (
+  <GuestLimitCard
+  current={data.totalUrls as number}
+  limit={12}
+  />
+)}
 
       {/* Summary Cards */}
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
@@ -89,7 +83,7 @@ const URLShortenerDashboard: React.FC = () => {
         icon={BarChart3}
         />
         <SummaryCard
-        title="Most Recent Click"
+        title="Recent Click"
         value={data.recentClick.time}
         subtitle={`from ${data.recentClick.country} ${data.recentClick.flag}`}
         icon={Clock}
