@@ -244,7 +244,7 @@ export function useUrlManagement() {
         password: string;
       }) => apiClient.verifyProtectedUrl(shortCode, password),
     });
-  }
+  };
 
   return {
     // Dashboard data

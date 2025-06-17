@@ -13,9 +13,9 @@ const ProtectedLinkPage: React.FC<protectedUrlPageProp> = ({ shortCode }) => {
   const [stars, setStars] = useState<DynamicStar[]>([]);
   const [backgroundStars, setBackgroundStars] = useState<Star[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { useVerifyPasswordMutation } = useUrlManagement()
+  const { useVerifyPasswordMutation } = useUrlManagement();
   const { mutate: verifyPassword } = useVerifyPasswordMutation();
-  
+
   useEffect(() => {
     const generateBackgroundStars = (): void => {
       const newStars: Star[] = [];
@@ -84,8 +84,7 @@ const ProtectedLinkPage: React.FC<protectedUrlPageProp> = ({ shortCode }) => {
   const handlePasswordChange = (
     e: React.ChangeEvent<HTMLInputElement>,
   ): void => {
-   setPassword(e.target.value);
-    
+    setPassword(e.target.value);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -198,10 +197,11 @@ const ProtectedLinkPage: React.FC<protectedUrlPageProp> = ({ shortCode }) => {
                   {[...Array(8)].map((_, i: number) => (
                     <div
                       key={i}
-                      className={`h-1 flex-1 rounded-full transition-all duration-300 ${i < password.length
-                        ? "password-indicator-active"
-                        : "password-indicator-inactive"
-                        }`}
+                      className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                        i < password.length
+                          ? "password-indicator-active"
+                          : "password-indicator-inactive"
+                      }`}
                     />
                   ))}
                 </div>
@@ -216,10 +216,11 @@ const ProtectedLinkPage: React.FC<protectedUrlPageProp> = ({ shortCode }) => {
                 type="button"
                 onClick={handleSubmit}
                 disabled={!password.trim() || false}
-                className={`w-full py-3 px-4 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2 group ${!password.trim() || false
-                  ? "submit-button-disabled"
-                  : "submit-button-active"
-                  }`}
+                className={`w-full py-3 px-4 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2 group ${
+                  !password.trim() || false
+                    ? "submit-button-disabled"
+                    : "submit-button-active"
+                }`}
               >
                 {false ? (
                   <>
