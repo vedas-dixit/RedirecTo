@@ -5,13 +5,22 @@ from sqlalchemy.exc import SQLAlchemyError
 from fastapi import HTTPException
 from datetime import datetime, timedelta, timezone
 from utils.generateUrl import generate_short_code
+from typing import Optional
+from utils.hash_password import hash_password
 
 
 async def add_url_for_user(
-    *, session: AsyncSession, user_id: str, long_url: str, is_guest: bool
+    *,
+    session: AsyncSession,
+    user_id: str,
+    long_url: str,
+    is_guest: bool,
+    expires_at: Optional[str] = None,
+    click_limit: Optional[int] = None,
+    password: Optional[str] = None,
+    is_protected: Optional[bool] = False,
 ) -> URL:
 
-    print(user_id, long_url, is_guest)
     try:
         # Step 1: Check if this user has already shortened this URL
         stmt = select(URL).where(URL.user_id == user_id, URL.destination == long_url)
@@ -36,6 +45,16 @@ async def add_url_for_user(
 
         # Step 3: Generate unique short code based on index
         short_code = generate_short_code(user_id, len(user_urls) + 1)
+        expires_at = (
+            datetime.strptime(expires_at, "%Y-%m-%d")
+            if isinstance(expires_at, str)
+            else None
+        )
+
+        # Step 4: Create the new URL object
+        password_hash = None
+        if is_protected and password:
+            password_hash = hash_password(password)
 
         # Step 4: Create the new URL object
         now_utc = datetime.now(timezone.utc)
@@ -43,9 +62,10 @@ async def add_url_for_user(
             user_id=user_id,
             short_code=short_code,
             destination=long_url,
-            is_protected=False,
-            expires_at=None if not is_guest else now_utc + timedelta(hours=24),
-            click_limit=None,
+            is_protected=is_protected,
+            password_hash=password_hash,
+            expires_at=expires_at,
+            click_limit=click_limit,
             created_at=now_utc,
         )
 
@@ -55,6 +75,11 @@ async def add_url_for_user(
 
         return new_url
 
+    except HTTPException:
+        # Re-raise HTTPExceptions so they bubble up with proper status codes
+        await session.rollback()
+        raise
+
     except SQLAlchemyError as e:
         await session.rollback()
         print(f"Database error in add_url_for_user: {str(e)}")
@@ -63,4 +88,4 @@ async def add_url_for_user(
     except Exception as e:
         await session.rollback()
         print(f"Unexpected error in add_url_for_user: {str(e)}")
-        raise
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
