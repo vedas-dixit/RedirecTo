@@ -9,11 +9,13 @@ import {
 } from "../../UI/card";
 import { Badge, Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
 import { Button } from "../../UI/button";
+import { useUrlManagement } from "@/hooks/useUrlQueries";
+
 
 export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 5;
-
+  const {deleteUrl} = useUrlManagement()
   const handleCopy = async (url: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(url);
@@ -28,6 +30,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
 
   const handleDelete = (id: string): void => {
     console.log("Delete URL:", id);
+    deleteUrl(id);
   };
 
   const handleVisit = (url: string): void => {
