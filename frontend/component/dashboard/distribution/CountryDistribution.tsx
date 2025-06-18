@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../UI/card";
+} from "../../../src/component/UI/card";
 import {
   PieChart,
   Pie,

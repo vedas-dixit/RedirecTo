@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../UI/card";
+} from "../../../src/component/UI/card";
 import {
   LineChart,
   Line,
@@ -17,6 +17,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { BarChart3 } from "lucide-react";
 
 // Dynamic import for client-side only
 const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -66,64 +67,71 @@ const ChartSection: React.FC<ChartSectionProps> = ({
           {description}
         </CardDescription>
       </CardHeader>      <CardContent className="relative z-10 p-3 sm:p-6">
-        <ResponsiveContainer width="100%" height={380}>
-          <LineChart 
-            data={data}
-            margin={{
-              top: 5,
-              right: 15,
-              left: 5,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />            <XAxis 
-              dataKey="day" 
-              stroke="rgba(255, 255, 255, 0.7)" 
-              fontSize={10}
-              tickLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
-              axisLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
-              tick={{ fontSize: 10 }}
-              interval="preserveStartEnd"
-            />
-            <YAxis 
-              stroke="rgba(255, 255, 255, 0.7)" 
-              fontSize={10}
-              tickLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
-              axisLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
-              tick={{ fontSize: 10 }}
-              width={40}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                borderRadius: "12px",
-                color: "#ffffff",
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+        {data.length > 0 ? (
+          <ResponsiveContainer width="100%" height={380}>
+            <LineChart
+              data={data}
+              margin={{
+                top: 5,
+                right: 15,
+                left: 5,
+                bottom: 5,
               }}
-              labelStyle={{ color: "rgba(255, 255, 255, 0.9)" }}
-              itemStyle={{ color: "rgba(255, 255, 255, 0.9)" }}
-            />            <Line
-              type="monotone"
-              dataKey="clicks"
-              stroke="rgba(255, 255, 255, 0.9)"
-              strokeWidth={2}
-              dot={{ 
-                fill: "rgba(255, 255, 255, 0.9)", 
-                strokeWidth: 1, 
-                r: 3,
-                stroke: "rgba(255, 255, 255, 0.5)"
-              }}
-              activeDot={{ 
-                r: 5, 
-                fill: "#ffffff", 
-                stroke: "rgba(255, 255, 255, 0.3)",
-                strokeWidth: 2
-              }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />            <XAxis
+                dataKey="day"
+                stroke="rgba(255, 255, 255, 0.7)"
+                fontSize={10}
+                tickLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
+                axisLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
+                tick={{ fontSize: 10 }}
+                interval="preserveStartEnd"
+              />
+              <YAxis
+                stroke="rgba(255, 255, 255, 0.7)"
+                fontSize={10}
+                tickLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
+                axisLine={{ stroke: "rgba(255, 255, 255, 0.3)" }}
+                tick={{ fontSize: 10 }}
+                width={40}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  borderRadius: "12px",
+                  color: "#ffffff",
+                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+                }}
+                labelStyle={{ color: "rgba(255, 255, 255, 0.9)" }}
+                itemStyle={{ color: "rgba(255, 255, 255, 0.9)" }}
+              />            <Line
+                type="monotone"
+                dataKey="clicks"
+                stroke="rgba(255, 255, 255, 0.9)"
+                strokeWidth={2}
+                dot={{
+                  fill: "rgba(255, 255, 255, 0.9)",
+                  strokeWidth: 1,
+                  r: 3,
+                  stroke: "rgba(255, 255, 255, 0.5)"
+                }}
+                activeDot={{
+                  r: 5,
+                  fill: "#ffffff",
+                  stroke: "rgba(255, 255, 255, 0.3)",
+                  strokeWidth: 2
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>) : (<div className="h-72 flex items-center justify-center text-zinc-500">
+                  <div className="text-center">
+                    <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>No click data available</p>
+                    <p className="text-sm">Create some URLs to see analytics</p>
+                  </div>
+                </div>)}
       </CardContent>
     </Card>
   );

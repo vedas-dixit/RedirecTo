@@ -1,8 +1,11 @@
-import ProtectedLinkPage from "../../../../pages/Protected";
+import ProtectedLinkPage from "@/component/securepage/Protected";
 import React from "react";
 
-function SecurePage() {
-  return <ProtectedLinkPage />;
-}
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
 
-export default SecurePage;
+export default async function SecurePage({ params }: PageProps) {
+  const { id } = await params;
+  return <ProtectedLinkPage shortCode={id} />;
+}
