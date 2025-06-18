@@ -42,7 +42,7 @@ export function useDashboardQuery(enabled: boolean = true) {
   });
 }
 //update user
-export const useUpdateUserMutation=()=> {
+export const useUpdateUserMutation = () => {
   const { user } = useAuth();
   // Use user.id if logged in, otherwise use guest uuid
   const userId = user?.id || getOrCreateGuestUuid();
@@ -59,7 +59,7 @@ export const useUpdateUserMutation=()=> {
       console.error("Failed to update user:", error.detail);
     },
   });
-}
+};
 
 // Create URL Mutation Hook with optimistic updates
 export function useCreateUrlMutation() {
