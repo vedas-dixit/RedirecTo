@@ -10,7 +10,8 @@ function UpdateUserModal({
   isOpen,
   onClose,
 }: UpdateUserModalProps): JSX.Element | null {
-  const [isLoading, setIsLoading] = useState<boolean>(false);  const [formData, setFormData] = useState<UserUpdateData>({
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [formData, setFormData] = useState<UserUpdateData>({
     email: "",
   });
   const [errors, setErrors] = useState<Partial<UserUpdateData>>({});
@@ -49,37 +50,42 @@ function UpdateUserModal({
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+    } else if (
+      !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)
+    ) {
       newErrors.email = "Please enter a valid email address";
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };  // Handle form submission
+  }; // Handle form submission
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/update`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          // Add authorization header if you have user token
-          // 'Authorization': `Bearer ${userToken}`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/user/update`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            // Add authorization header if you have user token
+            // 'Authorization': `Bearer ${userToken}`,
+          },
+          body: JSON.stringify({
+            email: formData.email,
+          }),
         },
-        body: JSON.stringify({
-          email: formData.email
-        })
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to update user');
+        throw new Error(errorData.detail || "Failed to update user");
       }
-      
+
       // Close modal on success
       onClose();
     } catch (error) {
@@ -91,11 +97,14 @@ function UpdateUserModal({
   };
 
   // Handle input changes
-  const handleInputChange = (field: keyof UserUpdateData, value: string): void => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+  const handleInputChange = (
+    field: keyof UserUpdateData,
+    value: string,
+  ): void => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
     }
   };
 
@@ -118,7 +127,8 @@ function UpdateUserModal({
           aria-label="Close modal"
         >
           <X size={20} />
-        </button>        {/* Mobile Header with Close */}
+        </button>{" "}
+        {/* Mobile Header with Close */}
         <div className="flex items-center justify-between p-6 border-b border-gray-800 sm:hidden">
           <h2 className="text-xl font-semibold text-white">Update Email</h2>
           <button
@@ -129,22 +139,26 @@ function UpdateUserModal({
             <X size={20} />
           </button>
         </div>
-
         {/* Modal Content */}
-        <div className="p-6 sm:p-8">          {/* Header - Desktop */}
+        <div className="p-6 sm:p-8">
+          {" "}
+          {/* Header - Desktop */}
           <div className="text-center mb-8 hidden sm:block">
             <h2 className="text-2xl font-bold text-white mb-2">Update Email</h2>
             <p className="text-gray-400">Update your email address</p>
           </div>
-
           {/* Mobile Header Content */}
           <div className="text-center mb-6 sm:hidden">
             <p className="text-gray-400">Update your email address</p>
-          </div>{/* Update Form */}
+          </div>
+          {/* Update Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div className="space-y-2">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-300"
+              >
                 Email Address
               </label>
               <div className="relative">
@@ -166,7 +180,8 @@ function UpdateUserModal({
               {errors.email && (
                 <p className="text-red-400 text-sm">{errors.email}</p>
               )}
-            </div>            {/* Update Button */}
+            </div>{" "}
+            {/* Update Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -176,7 +191,6 @@ function UpdateUserModal({
               {isLoading ? "Updating Email..." : "Update Email"}
             </button>
           </form>
-
           {/* Divider */}
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">

@@ -64,163 +64,171 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
           <div className="flex flex-col items-center justify-center h-80 text-white/70">
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
-                <svg 
-                  className="w-8 h-8 text-white/50" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <svg
+                  className="w-8 h-8 text-white/50"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                  />
                 </svg>
               </div>
               <h3 className="text-lg font-medium text-white/80 mb-2">
                 No URLs Created Yet
               </h3>
               <p className="text-sm text-white/60">
-                Create your first URL to start tracking analytics and managing your links
+                Create your first URL to start tracking analytics and managing
+                your links
               </p>
             </div>
           </div>
         ) : (
           <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-white/20">
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Short URL
-                </th>
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Destination
-                </th>
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Clicks
-                </th>
-                <th className="text-left p-2 text-white/80 font-medium">TTL</th>
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Status
-                </th>
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Protected
-                </th>
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Created
-                </th>
-                <th className="text-left p-2 text-white/80 font-medium">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedUrls.map((url) => (
-                <tr
-                  key={url.id}
-                  className="border-b border-white/10 hover:bg-white/10 transition-colors"
-                >
-                  <td className="p-2">
-                    <div className="flex items-center gap-2">
-                      <code className="text-white bg-black/10 px-2 py-1 rounded text-xs border border-white/20 drop-shadow-sm">
-                        {url.shortUrl}
-                      </code>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-white/70 hover:text-white hover:bg-white/10"
-                        onClick={() => handleCopy(url.shortUrl)}
-                      >
-                        <Copy className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </td>
-                  <td className="p-2 max-w-xs">
-                    <div
-                      className="truncate text-white/80 drop-shadow-sm"
-                      title={url.destination}
-                    >
-                      {url.destination}
-                    </div>
-                  </td>
-                  <td className="p-2 text-white drop-shadow-sm">
-                    {url.clicks}
-                  </td>
-                  <td className="p-2 text-white/80">{url.ttl}</td>
-                  <td className="p-2">
-                    {url.status === "Active" ? (
-                      <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
-                        <svg
-                          className="w-4 h-4 text-black"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
-                        <svg
-                          className="w-4 h-4 text-black"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      </div>
-                    )}
-                  </td>
-                  <td className="p-2">
-                    {url.protected ? (
-                      <Shield className="h-4 w-4 text-white drop-shadow-sm" />
-                    ) : (
-                      <span className="text-white/40">—</span>
-                    )}
-                  </td>
-                  <td className="p-2 text-white/80">{url.createdAt}</td>
-                  <td className="p-2">
-                    <div className="flex gap-1">
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-white/70 hover:text-white hover:bg-white/10"
-                        onClick={() => handleVisit(url.shortUrl)}
-                      >
-                        <ExternalLink className="h-3 w-3" />
-                      </Button>
-                      {!isGuest && (
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/20">
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Short URL
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Destination
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Clicks
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    TTL
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Status
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Protected
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Created
+                  </th>
+                  <th className="text-left p-2 text-white/80 font-medium">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedUrls.map((url) => (
+                  <tr
+                    key={url.id}
+                    className="border-b border-white/10 hover:bg-white/10 transition-colors"
+                  >
+                    <td className="p-2">
+                      <div className="flex items-center gap-2">
+                        <code className="text-white bg-black/10 px-2 py-1 rounded text-xs border border-white/20 drop-shadow-sm">
+                          {url.shortUrl}
+                        </code>
                         <Button
                           size="sm"
                           variant="ghost"
                           className="text-white/70 hover:text-white hover:bg-white/10"
-                          onClick={() => handleEdit(url.id)}
+                          onClick={() => handleCopy(url.shortUrl)}
                         >
-                          <Edit className="h-3 w-3" />
+                          <Copy className="h-3 w-3" />
                         </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        className="text-white/70 hover:text-red-400 hover:bg-red-600/20"
-                        onClick={() => handleDelete(url.id)}
+                      </div>
+                    </td>
+                    <td className="p-2 max-w-xs">
+                      <div
+                        className="truncate text-white/80 drop-shadow-sm"
+                        title={url.destination}
                       >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                        {url.destination}
+                      </div>
+                    </td>
+                    <td className="p-2 text-white drop-shadow-sm">
+                      {url.clicks}
+                    </td>
+                    <td className="p-2 text-white/80">{url.ttl}</td>
+                    <td className="p-2">
+                      {url.status === "Active" ? (
+                        <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
+                          <svg
+                            className="w-4 h-4 text-black"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
+                          <svg
+                            className="w-4 h-4 text-black"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-2">
+                      {url.protected ? (
+                        <Shield className="h-4 w-4 text-white drop-shadow-sm" />
+                      ) : (
+                        <span className="text-white/40">—</span>
+                      )}
+                    </td>
+                    <td className="p-2 text-white/80">{url.createdAt}</td>
+                    <td className="p-2">
+                      <div className="flex gap-1">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-white/70 hover:text-white hover:bg-white/10"
+                          onClick={() => handleVisit(url.shortUrl)}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                        {!isGuest && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-white/70 hover:text-white hover:bg-white/10"
+                            onClick={() => handleEdit(url.id)}
+                          >
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                        )}
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-white/70 hover:text-red-400 hover:bg-red-600/20"
+                          onClick={() => handleDelete(url.id)}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
 
         {urls.length > itemsPerPage && (

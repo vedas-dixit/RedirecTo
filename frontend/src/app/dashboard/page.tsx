@@ -17,16 +17,16 @@ import ChartSection from "../../../component/dashboard/chart/ChartSection";
 import CountryDistribution from "../../../component/dashboard/distribution/CountryDistribution";
 
 const LoadingSkeleton: React.FC = () => (
-    <div
-        className="min-h-screen"
-        style={{
-          backgroundImage: "url('/images/background.jpeg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      >
+  <div
+    className="min-h-screen"
+    style={{
+      backgroundImage: "url('/images/background.jpeg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed",
+    }}
+  >
     <div className="p-4 max-w-9xl mx-auto space-y-6">
       <div className="flex justify-between items-center">
         <div>

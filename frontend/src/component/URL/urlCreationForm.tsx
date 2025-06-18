@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  X,
-  Eye,
-  EyeOff,
-} from "lucide-react";
+import { X, Eye, EyeOff } from "lucide-react";
 import { useDisableScroll } from "@/hooks/useDisableScroll";
 import AnimatedStarButton from "../custom/AnimatedButton";
 import { UrlCreationFormProps, UrlFormData } from "@/types/types";
@@ -220,9 +216,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                 Cancel
               </button>
               <AnimatedStarButton
-                className={
-                  "flex-1 px-6 "
-                }
+                className={"flex-1 px-6 "}
                 onClick={handleSubmit}
               >
                 Create

@@ -8,8 +8,12 @@ interface LiquidGlassComponent {
   default: React.ComponentType<{ children: React.ReactNode }>;
 }
 
-export const LiquidGlassWrapper: React.FC<LiquidGlassWrapperProps> = ({ children }) => {
-  const [LiquidGlass, setLiquidGlass] = useState<React.ComponentType<{ children: React.ReactNode }> | null>(null);
+export const LiquidGlassWrapper: React.FC<LiquidGlassWrapperProps> = ({
+  children,
+}) => {
+  const [LiquidGlass, setLiquidGlass] = useState<React.ComponentType<{
+    children: React.ReactNode;
+  }> | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
