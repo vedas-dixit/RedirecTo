@@ -8,13 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../../../src/component/UI/card";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 // Dynamic import for client-side only
 const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -24,7 +18,7 @@ const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
     // Dynamic import to avoid SSR issues
-    import('liquid-glass-react').then((module) => {
+    import("liquid-glass-react").then((module) => {
       setLiquidGlass(() => module.default);
     });
   }, []);
@@ -59,10 +53,10 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 640);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Create uniform color palette for consistency
@@ -82,10 +76,16 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
         </LiquidGlassWrapper>
       </div>
       <CardHeader className="relative z-10 pb-2 sm:pb-4">
-        <CardTitle className="text-white/90 text-lg sm:text-xl">{title}</CardTitle>
+        <CardTitle className="text-white/90 text-lg sm:text-xl">
+          {title}
+        </CardTitle>
         <CardDescription className="text-white/70 text-sm">
           {description}
-        </CardDescription>      </CardHeader>      <CardContent className="relative z-10 p-3 sm:p-6">        <ResponsiveContainer width="100%" height={380}>
+        </CardDescription>{" "}
+      </CardHeader>{" "}
+      <CardContent className="relative z-10 p-3 sm:p-6">
+        {" "}
+        <ResponsiveContainer width="100%" height={380}>
           <PieChart margin={{ top: 0, right: 15, bottom: 5, left: 15 }}>
             <Pie
               data={data}
@@ -104,18 +104,18 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
                 country: string;
                 clicks: number;
                 percent: number;
-              }) => 
-                isMobile 
-                  ? `${(percent * 100).toFixed(0)}%` 
+              }) =>
+                isMobile
+                  ? `${(percent * 100).toFixed(0)}%`
                   : `${country}: ${clicks}`
               }
               labelLine={false}
               fontSize={isMobile ? 10 : 12}
             >
               {data.map((entry, index) => (
-                <Cell 
-                  key={`cell-${index}`} 
-                  fill={uniformColors[index % uniformColors.length]} 
+                <Cell
+                  key={`cell-${index}`}
+                  fill={uniformColors[index % uniformColors.length]}
                 />
               ))}
             </Pie>
@@ -133,7 +133,7 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
               itemStyle={{ color: "#000000" }}
               formatter={(value: number, name: string) => [
                 `${value} clicks`,
-                name
+                name,
               ]}
             />
           </PieChart>

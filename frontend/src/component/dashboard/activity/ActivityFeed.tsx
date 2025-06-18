@@ -11,7 +11,7 @@ const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
     // Dynamic import to avoid SSR issues
-    import('liquid-glass-react').then((module) => {
+    import("liquid-glass-react").then((module) => {
       setLiquidGlass(() => module.default);
     });
   }, []);
@@ -43,7 +43,9 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => (
             className="flex items-center justify-between p-3 rounded-lg bg-black/10 hover:bg-white/15 transition-colors border border-none"
           >
             <div className="flex items-center gap-3">
-              <span className="text-lg text-white drop-shadow-sm">{activity.flag}</span>
+              <span className="text-lg text-white drop-shadow-sm">
+                {activity.flag}
+              </span>
               <div>
                 <p className="text-sm font-medium text-white drop-shadow-sm">
                   {activity.shortUrl}

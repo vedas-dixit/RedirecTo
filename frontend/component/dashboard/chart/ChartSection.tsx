@@ -27,7 +27,7 @@ const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
     // Dynamic import to avoid SSR issues
-    import('liquid-glass-react').then((module) => {
+    import("liquid-glass-react").then((module) => {
       setLiquidGlass(() => module.default);
     });
   }, []);
@@ -61,12 +61,16 @@ const ChartSection: React.FC<ChartSectionProps> = ({
         <LiquidGlassWrapper>
           <div className="w-full h-full" />
         </LiquidGlassWrapper>
-      </div>      <CardHeader className="relative z-10 pb-2 sm:pb-4">
-        <CardTitle className="text-white/90 text-lg sm:text-xl">{title}</CardTitle>
+      </div>{" "}
+      <CardHeader className="relative z-10 pb-2 sm:pb-4">
+        <CardTitle className="text-white/90 text-lg sm:text-xl">
+          {title}
+        </CardTitle>
         <CardDescription className="text-white/70 text-sm">
           {description}
         </CardDescription>
-      </CardHeader>      <CardContent className="relative z-10 p-3 sm:p-6">
+      </CardHeader>{" "}
+      <CardContent className="relative z-10 p-3 sm:p-6">
         {data.length > 0 ? (
           <ResponsiveContainer width="100%" height={380}>
             <LineChart
@@ -78,7 +82,11 @@ const ChartSection: React.FC<ChartSectionProps> = ({
                 bottom: 5,
               }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />            <XAxis
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="rgba(255, 255, 255, 0.1)"
+              />{" "}
+              <XAxis
                 dataKey="day"
                 stroke="rgba(255, 255, 255, 0.7)"
                 fontSize={10}
@@ -106,7 +114,8 @@ const ChartSection: React.FC<ChartSectionProps> = ({
                 }}
                 labelStyle={{ color: "rgba(255, 255, 255, 0.9)" }}
                 itemStyle={{ color: "rgba(255, 255, 255, 0.9)" }}
-              />            <Line
+              />{" "}
+              <Line
                 type="monotone"
                 dataKey="clicks"
                 stroke="rgba(255, 255, 255, 0.9)"
@@ -115,23 +124,26 @@ const ChartSection: React.FC<ChartSectionProps> = ({
                   fill: "rgba(255, 255, 255, 0.9)",
                   strokeWidth: 1,
                   r: 3,
-                  stroke: "rgba(255, 255, 255, 0.5)"
+                  stroke: "rgba(255, 255, 255, 0.5)",
                 }}
                 activeDot={{
                   r: 5,
                   fill: "#ffffff",
                   stroke: "rgba(255, 255, 255, 0.3)",
-                  strokeWidth: 2
+                  strokeWidth: 2,
                 }}
               />
             </LineChart>
-          </ResponsiveContainer>) : (<div className="h-72 flex items-center justify-center text-zinc-500">
-                  <div className="text-center">
-                    <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <p>No click data available</p>
-                    <p className="text-sm">Create some URLs to see analytics</p>
-                  </div>
-                </div>)}
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-72 flex items-center justify-center text-zinc-500">
+            <div className="text-center">
+              <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+              <p>No click data available</p>
+              <p className="text-sm">Create some URLs to see analytics</p>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

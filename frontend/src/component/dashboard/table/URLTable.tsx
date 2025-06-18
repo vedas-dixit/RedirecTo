@@ -19,7 +19,7 @@ const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
     // Dynamic import to avoid SSR issues
-    import('liquid-glass-react').then((module) => {
+    import("liquid-glass-react").then((module) => {
       setLiquidGlass(() => module.default);
     });
   }, []);
@@ -71,7 +71,9 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
         </LiquidGlassWrapper>
       </div>
       <CardHeader className="relative z-10">
-        <CardTitle className="text-white/90 drop-shadow-sm">Your URLs</CardTitle>
+        <CardTitle className="text-white/90 drop-shadow-sm">
+          Your URLs
+        </CardTitle>
         <CardDescription className="text-white/70">
           Manage and track your shortened URLs
         </CardDescription>
@@ -81,14 +83,28 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/20">
-                <th className="text-left p-2 text-white/80 font-medium">Short URL</th>
-                <th className="text-left p-2 text-white/80 font-medium">Destination</th>
-                <th className="text-left p-2 text-white/80 font-medium">Clicks</th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Short URL
+                </th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Destination
+                </th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Clicks
+                </th>
                 <th className="text-left p-2 text-white/80 font-medium">TTL</th>
-                <th className="text-left p-2 text-white/80 font-medium">Status</th>
-                <th className="text-left p-2 text-white/80 font-medium">Protected</th>
-                <th className="text-left p-2 text-white/80 font-medium">Created</th>
-                <th className="text-left p-2 text-white/80 font-medium">Actions</th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Status
+                </th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Protected
+                </th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Created
+                </th>
+                <th className="text-left p-2 text-white/80 font-medium">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -120,23 +136,45 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                       {url.destination}
                     </div>
                   </td>
-                  <td className="p-2 text-white drop-shadow-sm">{url.clicks}</td>
+                  <td className="p-2 text-white drop-shadow-sm">
+                    {url.clicks}
+                  </td>
                   <td className="p-2 text-white/80">{url.ttl}</td>
-                    <td className="p-2">
+                  <td className="p-2">
                     {url.status === "Active" ? (
                       <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
-                      <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                        <svg
+                          className="w-4 h-4 text-black"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
                       </div>
                     ) : (
                       <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
-                      <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
+                        <svg
+                          className="w-4 h-4 text-black"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
                       </div>
                     )}
-                    </td>
+                  </td>
                   <td className="p-2">
                     {url.protected ? (
                       <Shield className="h-4 w-4 text-white drop-shadow-sm" />

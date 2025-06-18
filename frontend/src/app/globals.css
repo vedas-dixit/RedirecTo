@@ -5,8 +5,12 @@
 
 /* Configure Geist Mono as the default font */
 @theme {
-  --font-family-sans: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --font-family-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-sans:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-mono:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .bg-landing {
@@ -24,7 +28,9 @@
 
 body {
   background-color: #111010;
-  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:
+    var(--font-geist-mono), ui-monospace, SFMono-Regular, "SF Mono", Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @keyframes subtlePulse {

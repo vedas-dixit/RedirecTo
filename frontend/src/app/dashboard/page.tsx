@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import {
-  Link,
-  BarChart3,
-  Clock,
-  Shield,
-  AlertCircle,
-} from "lucide-react";
+import { Link, BarChart3, Clock, Shield, AlertCircle } from "lucide-react";
 
 import { URLTable } from "../../component/dashboard/table/URLTable";
 import { ActivityFeed } from "../../component/dashboard/activity/ActivityFeed";
@@ -21,7 +15,6 @@ import { useAuth } from "../../hooks/useAuth";
 import SigninModal from "../../modals/SigninModal";
 import ChartSection from "../../../component/dashboard/chart/ChartSection";
 import CountryDistribution from "../../../component/dashboard/distribution/CountryDistribution";
-
 
 const LoadingSkeleton: React.FC = () => (
   <div className="min-h-screen bg-black text-white">
@@ -130,7 +123,6 @@ const URLShortenerDashboard: React.FC = () => {
     );
   }
 
-
   const isGuest = !user;
   const guestLimit = 5;
 
@@ -146,7 +138,7 @@ const URLShortenerDashboard: React.FC = () => {
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed"
+          backgroundAttachment: "fixed",
         }}
       >
         <div className="p-4 max-w-9xl mx-auto space-y-6">
@@ -193,21 +185,21 @@ const URLShortenerDashboard: React.FC = () => {
               icon={BarChart3}
             />
             <SummaryCard
-            title="Most Recent Click"
-            value={summary.recentClick?.time || "No clicks yet"}
-            subtitle={
-              summary.recentClick
-                ? `from ${summary.recentClick.country} ${summary.recentClick.flag}`
-                : "Waiting for first click"
-            }
-            icon={Clock}
-          />
+              title="Most Recent Click"
+              value={summary.recentClick?.time || "No clicks yet"}
+              subtitle={
+                summary.recentClick
+                  ? `from ${summary.recentClick.country} ${summary.recentClick.flag}`
+                  : "Waiting for first click"
+              }
+              icon={Clock}
+            />
             <SummaryCard
-            title="Protected URLs"
-            value={summary.protectedUrls}
-            subtitle="Password protected"
-            icon={Shield}
-          />
+              title="Protected URLs"
+              value={summary.protectedUrls}
+              subtitle="Password protected"
+              icon={Shield}
+            />
           </div>
 
           {/* Charts Section */}

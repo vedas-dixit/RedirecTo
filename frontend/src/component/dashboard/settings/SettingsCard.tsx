@@ -14,7 +14,7 @@ const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
     // Dynamic import to avoid SSR issues
-    import('liquid-glass-react').then((module) => {
+    import("liquid-glass-react").then((module) => {
       setLiquidGlass(() => module.default);
     });
   }, []);
@@ -31,10 +31,10 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
 
   const getUserDisplayName = () => {
     if (!user) return "Guest User";
-    
+
     const fullName = user.user_metadata?.full_name || user.user_metadata?.name;
     if (fullName) return fullName;
-    
+
     return user.email || "User";
   };
 
@@ -133,7 +133,7 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
             {/* Bento Grid Actions */}
             <div className="grid grid-cols-3 gap-4">
               {/* Update Profile */}
-              <div 
+              <div
                 className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 cursor-pointer hover:bg-white/5 group"
                 onClick={handleUpdateProfile}
               >
@@ -142,7 +142,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     <User className="h-6 w-6 text-black" />
                   </div>
                   <div>
-                    <h4 className="text-white/90 font-medium text-sm">Update Profile</h4>
+                    <h4 className="text-white/90 font-medium text-sm">
+                      Update Profile
+                    </h4>
                   </div>
                 </div>
               </div>
@@ -156,13 +158,15 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     </span>
                   </div>
                   <div>
-                    <h4 className="text-white/90 font-medium text-sm">User's country flag</h4>
+                    <h4 className="text-white/90 font-medium text-sm">
+                      User's country flag
+                    </h4>
                   </div>
                 </div>
               </div>
 
               {/* Logout */}
-              <div 
+              <div
                 className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 cursor-pointer hover:bg-white/5 group"
                 onClick={handleLogout}
               >
@@ -171,7 +175,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     <LogOut className="h-6 w-6 text-red-200" />
                   </div>
                   <div>
-                    <h4 className="text-white/90 font-medium text-sm">Logout</h4>
+                    <h4 className="text-white/90 font-medium text-sm">
+                      Logout
+                    </h4>
                   </div>
                 </div>
               </div>

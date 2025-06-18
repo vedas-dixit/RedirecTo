@@ -10,7 +10,7 @@ const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setIsClient(true);
     // Dynamic import to avoid SSR issues
-    import('liquid-glass-react').then((module) => {
+    import("liquid-glass-react").then((module) => {
       setLiquidGlass(() => module.default);
     });
   }, []);
@@ -41,7 +41,9 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
       {/* <Icon className="h-4 w-4 text-white drop-shadow-sm" /> */}
     </CardHeader>
     <CardContent className="relative z-10">
-      <div className="text-2xl font-bold text-white drop-shadow-sm mb-2">{value}</div>
+      <div className="text-2xl font-bold text-white drop-shadow-sm mb-2">
+        {value}
+      </div>
       <p className="text-xs text-white/70">{subtitle}</p>
     </CardContent>
   </Card>
