@@ -68,6 +68,22 @@ class ApiClient {
     });
   }
 
+  async updateUserDetails(data: {
+    user_id: string;
+    name?: string;
+    email?: string;
+  }): Promise<{
+    user_id: string;
+    name?: string;
+    email?: string;
+    message: string;
+  }> {
+    return this.makeRequest("/user/update", {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    });
+  }
+
   async createUrl(
     data: CreateUrlRequest,
     token: string | null,

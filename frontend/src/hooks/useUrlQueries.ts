@@ -41,6 +41,25 @@ export function useDashboardQuery(enabled: boolean = true) {
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 }
+//update user
+export const useUpdateUserMutation=()=> {
+  const { user } = useAuth();
+  // Use user.id if logged in, otherwise use guest uuid
+  const userId = user?.id || getOrCreateGuestUuid();
+
+  return useMutation({
+    mutationFn: async (data: { name?: string; email?: string }) => {
+      if (!userId) throw new Error("User ID is required");
+      return apiClient.updateUserDetails({ user_id: userId, ...data });
+    },
+    onSuccess: (data) => {
+      console.log("User updated successfully:", data);
+    },
+    onError: (error: ApiError) => {
+      console.error("Failed to update user:", error.detail);
+    },
+  });
+}
 
 // Create URL Mutation Hook with optimistic updates
 export function useCreateUrlMutation() {
@@ -253,7 +272,6 @@ export function useUrlManagement() {
     isDashboardError: dashboardQuery.isError,
     dashboardError: dashboardQuery.error as ApiError | null,
     refetchDashboard,
-
     // Create URL mutation
     createUrl,
     isCreating: createUrlMutation.isPending,
