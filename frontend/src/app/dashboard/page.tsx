@@ -17,14 +17,23 @@ import ChartSection from "../../../component/dashboard/chart/ChartSection";
 import CountryDistribution from "../../../component/dashboard/distribution/CountryDistribution";
 
 const LoadingSkeleton: React.FC = () => (
-  <div className="min-h-screen bg-black text-white">
-    <div className="p-6 max-w-9xl mx-auto space-y-6">
+    <div
+        className="min-h-screen"
+        style={{
+          backgroundImage: "url('/images/background.jpeg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+        }}
+      >
+    <div className="p-4 max-w-9xl mx-auto space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <div className="h-8 w-48 bg-zinc-800 rounded animate-pulse mb-2"></div>
-          <div className="h-4 w-64 bg-zinc-800 rounded animate-pulse"></div>
+          <div className="h-8 w-48 bg-white/10 rounded animate-pulse mb-2"></div>
+          <div className="h-4 w-64 bg-white/10 rounded animate-pulse"></div>
         </div>
-        <div className="h-12 w-32 bg-zinc-800 rounded animate-pulse"></div>
+        <div className="h-12 w-32 bg-white/10 rounded animate-pulse"></div>
       </div>
 
       {/* Summary Cards Skeleton */}
@@ -32,7 +41,7 @@ const LoadingSkeleton: React.FC = () => (
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="h-32 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"
+            className="h-40 bg-white/10 rounded-lg animate-pulse"
           ></div>
         ))}
       </div>
@@ -42,7 +51,7 @@ const LoadingSkeleton: React.FC = () => (
         {[...Array(2)].map((_, i) => (
           <div
             key={i}
-            className="h-80 bg-zinc-900 border border-zinc-800 rounded-lg animate-pulse"
+            className="h-120 bg-white/10 rounded-lg animate-pulse"
           ></div>
         ))}
       </div>
@@ -76,6 +85,10 @@ const URLShortenerDashboard: React.FC = () => {
   const { user } = useAuth();
   const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
 
+  // Guest user state
+  const isGuest = !user;
+  const guestLimit = 5;
+
   const {
     // Dashboard data
     urls,
@@ -89,7 +102,6 @@ const URLShortenerDashboard: React.FC = () => {
     refetchDashboard,
 
     // Create URL mutation
-    isCreating,
     createSuccess,
     resetCreateState,
   } = useUrlManagement();
@@ -122,9 +134,6 @@ const URLShortenerDashboard: React.FC = () => {
       />
     );
   }
-
-  const isGuest = !user;
-  const guestLimit = 5;
 
   const closeSigninModal = () => setIsSigninModalOpen(false);
   return (
@@ -216,11 +225,11 @@ const URLShortenerDashboard: React.FC = () => {
             <div className="lg:col-span-2">
               <ActivityFeed activities={recentActivity} />
             </div>
-            <SettingsCard isGuest={false} />
+            <SettingsCard isGuest={!user} />
           </div>
 
           {/* URLs Table */}
-          <URLTable urls={urls} isGuest={false} />
+          <URLTable urls={urls} isGuest={!user} />
         </div>
       </div>
     </>

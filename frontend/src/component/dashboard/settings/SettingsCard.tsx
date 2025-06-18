@@ -1,33 +1,30 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../UI/card";
 import { SettingsCardProps } from "../types/dashboard.types";
-import { LogOut, Settings, User, UserPlus, Flag } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { Button } from "../../UI/button";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../../hooks/useAuth";
+import SigninModal from "../../../modals/SigninModal";
+import UpdateUserModal from "../../../modals/UpdateUserModal";
 import Image from "next/image";
-
-// Dynamic import for client-side only
-const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
-  const [LiquidGlass, setLiquidGlass] = useState<any>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    // Dynamic import to avoid SSR issues
-    import("liquid-glass-react").then((module) => {
-      setLiquidGlass(() => module.default);
-    });
-  }, []);
-
-  if (!isClient || !LiquidGlass) {
-    return <>{children}</>;
-  }
-
-  return <LiquidGlass>{children}</LiquidGlass>;
-};
+import { LiquidGlassWrapper } from "../../UI/LiquidGlassWrapper";
 
 export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
   const { user, signOut } = useAuth();
+  const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+  const openSigninModal = () => setIsSigninModalOpen(true);
+  const closeSigninModal = () => setIsSigninModalOpen(false);
+  const openUpdateModal = () => setIsUpdateModalOpen(true);
+  const closeUpdateModal = () => setIsUpdateModalOpen(false);
+
+  // Close signin modal when user logs in
+  useEffect(() => {
+    if (user && isSigninModalOpen) {
+      closeSigninModal();
+    }
+  }, [user, isSigninModalOpen]);
 
   const getUserDisplayName = () => {
     if (!user) return "Guest User";
@@ -64,12 +61,12 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
     return flagMap[countryCode] || "🌍";
   };
 
-  const handleCreateAccount = (): void => {
-    console.log("Create account");
+  const handleSignIn = (): void => {
+    openSigninModal();
   };
 
   const handleUpdateProfile = (): void => {
-    console.log("Update profile");
+    openUpdateModal();
   };
 
   const handleLogout = (): void => {
@@ -77,27 +74,50 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
   };
 
   return (
-    <Card className="bg-white/5 backdrop-blur-md border border-none shadow-lg shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-xl hover:shadow-black/30 h-full relative overflow-hidden">
+    <>
+      <SigninModal isOpen={isSigninModalOpen} onClose={closeSigninModal} />
+      <UpdateUserModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} />
+      
+      <Card className="bg-white/5 backdrop-blur-md border border-none shadow-lg shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-xl hover:shadow-black/30 h-full relative overflow-hidden">
       <div className="absolute inset-0 opacity-30 pointer-events-none">
         <LiquidGlassWrapper>
           <div className="w-full h-full" />
         </LiquidGlassWrapper>
       </div>
       <CardHeader className="relative z-10">
-        <CardTitle className="flex items-center gap-2 text-white/90">
+        <CardTitle className="flex items-center gap-2 text-lg text-white/90">
           {isGuest ? "Account Options" : "Settings"}
         </CardTitle>
       </CardHeader>
       <CardContent className="relative z-10 p-6">
         {isGuest ? (
-          <div className="space-y-2">
-            <Button
-              className="w-full bg-orange-600 hover:bg-orange-700 text-white border-0"
-              onClick={handleCreateAccount}
-            >
-              <UserPlus className="h-4 w-4 mr-2" />
-              Create Account to Save Analytics
-            </Button>
+          <div className="space-y-6">
+            {/* Guest User Profile Section */}
+            <div className="flex items-center space-x-4 p-4 bg-black/15 rounded-2xl">
+              <div className="relative">
+                <div className="w-15 h-15 bg-gradient-to-br from-black/10 to-black/5 rounded-full flex items-center justify-center border-2 border-white/10">
+                  <span className="text-white font-bold text-xl">G</span>
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-white/90 font-semibold text-lg truncate">
+                  Guest User
+                </h3>
+                <p className="text-white/60 text-sm truncate">
+                  No email
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <Button
+                className="w-full bg-white/90 hover:bg-white text-black border-0"
+                onClick={handleSignIn}
+              >
+                Log In
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="space-y-6">
@@ -113,7 +133,7 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     className="rounded-full border-2 border-black/20"
                   />
                 ) : (
-                  <div className="w-15 h-15 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center border-2 border-white/10">
+                  <div className="w-15 h-15 bg-gradient-to-br from-black/10 to-black/5 rounded-full flex items-center justify-center border-2 border-white/10">
                     <span className="text-white font-bold text-xl">
                       {getUserDisplayName().charAt(0).toUpperCase()}
                     </span>
@@ -138,7 +158,7 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                 onClick={handleUpdateProfile}
               >
                 <div className="text-center space-y-3">
-                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center mx-auto group-hover:bg-yellow-200/80 transition-all">
+                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto group-hover:bg-yellow-200/80 transition-all">
                     <User className="h-6 w-6 text-black" />
                   </div>
                   <div>
@@ -152,14 +172,14 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
               {/* User's Country Flag */}
               <div className="bg-black/15 backdrop-blur-sm rounded-2xl p-6  transition-all duration-300 cursor-pointer hover:bg-white/5 group">
                 <div className="text-center space-y-3">
-                  <div className="w-12 h-12 bg-blue-200/80 rounded-xl flex items-center justify-center mx-auto group-hover:bg-blue-400/80 transition-all">
+                  <div className="w-12 h-12 bg-blue-200/80 rounded-full flex items-center justify-center mx-auto group-hover:bg-blue-400/80 transition-all">
                     <span className="text-2xl">
                       {getCountryFlag(getUserCountry())}
                     </span>
                   </div>
                   <div>
                     <h4 className="text-white/90 font-medium text-sm">
-                      User's country flag
+                      User&apos;s country flag
                     </h4>
                   </div>
                 </div>
@@ -171,7 +191,7 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                 onClick={handleLogout}
               >
                 <div className="text-center space-y-3">
-                  <div className="w-12 h-12 bg-red-400/80 rounded-xl flex items-center justify-center mx-auto group-hover:bg-red-500/80 transition-all">
+                  <div className="w-12 h-12 bg-red-400/80 rounded-full flex items-center justify-center mx-auto group-hover:bg-red-500/80 transition-all">
                     <LogOut className="h-6 w-6 text-red-200" />
                   </div>
                   <div>
@@ -186,5 +206,6 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
         )}
       </CardContent>
     </Card>
+    </>
   );
 };

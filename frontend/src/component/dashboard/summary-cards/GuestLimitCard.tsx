@@ -48,7 +48,7 @@ export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({
             onClick={() => setIsSigninModalOpen(true)}
           >
             <div className="flex items-center justify-center p-4">
-              Login to make more URL&apos;s
+              Log In to make more URL&apos;s
             </div>
           </AnimatedStarButton>
         </CardContent>

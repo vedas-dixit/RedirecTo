@@ -63,7 +63,7 @@ const ChartSection: React.FC<ChartSectionProps> = ({
         </LiquidGlassWrapper>
       </div>{" "}
       <CardHeader className="relative z-10 pb-2 sm:pb-4">
-        <CardTitle className="text-white/90 text-lg sm:text-xl">
+        <CardTitle className="text-white/90 text-lg">
           {title}
         </CardTitle>
         <CardDescription className="text-white/70 text-sm">
@@ -71,7 +71,28 @@ const ChartSection: React.FC<ChartSectionProps> = ({
         </CardDescription>
       </CardHeader>{" "}
       <CardContent className="relative z-10 p-3 sm:p-6">
-        {data.length > 0 ? (
+        {!data || data.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-80 text-white/70">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+                <svg 
+                  className="w-8 h-8 text-white/50" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-white/80 mb-2">
+                No Click Analytics Data Available
+              </h3>
+              <p className="text-sm text-white/60">
+                Create some URLs and share them to see click analytics here
+              </p>
+            </div>
+          </div>
+        ) : (
           <ResponsiveContainer width="100%" height={380}>
             <LineChart
               data={data}
@@ -135,14 +156,6 @@ const ChartSection: React.FC<ChartSectionProps> = ({
               />
             </LineChart>
           </ResponsiveContainer>
-        ) : (
-          <div className="h-72 flex items-center justify-center text-zinc-500">
-            <div className="text-center">
-              <BarChart3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No click data available</p>
-              <p className="text-sm">Create some URLs to see analytics</p>
-            </div>
-          </div>
         )}
       </CardContent>
     </Card>

@@ -76,68 +76,90 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
         </LiquidGlassWrapper>
       </div>
       <CardHeader className="relative z-10 pb-2 sm:pb-4">
-        <CardTitle className="text-white/90 text-lg sm:text-xl">
+        <CardTitle className="text-white/90 text-lg">
           {title}
         </CardTitle>
         <CardDescription className="text-white/70 text-sm">
           {description}
         </CardDescription>{" "}
-      </CardHeader>{" "}
+      </CardHeader>
       <CardContent className="relative z-10 p-3 sm:p-6">
-        {" "}
-        <ResponsiveContainer width="100%" height={380}>
-          <PieChart margin={{ top: 0, right: 15, bottom: 5, left: 15 }}>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="45%"
-              outerRadius={isMobile ? 85 : 130}
-              innerRadius={isMobile ? 28 : 45}
-              dataKey="clicks"
-              stroke="rgba(255, 255, 255, 0.1)"
-              strokeWidth={1}
-              label={({
-                country,
-                clicks,
-                percent,
-              }: {
-                country: string;
-                clicks: number;
-                percent: number;
-              }) =>
-                isMobile
-                  ? `${(percent * 100).toFixed(0)}%`
-                  : `${country}: ${clicks}`
-              }
-              labelLine={false}
-              fontSize={isMobile ? 10 : 12}
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={uniformColors[index % uniformColors.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "rgba(255, 255, 255, 1)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                borderRadius: "12px",
-                color: "#000000",
-                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-                fontSize: "14px",
-              }}
-              labelStyle={{ color: "#000000", fontWeight: "500" }}
-              itemStyle={{ color: "#000000" }}
-              formatter={(value: number, name: string) => [
-                `${value} clicks`,
-                name,
-              ]}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        {!data || data.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-80 text-white/70">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+                <svg 
+                  className="w-8 h-8 text-white/50" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-white/80 mb-2">
+                No Country Distribution Data Available
+              </h3>
+              <p className="text-sm text-white/60">
+                Create some URLs and share them to see country analytics here
+              </p>
+            </div>
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height={380}>
+            <PieChart margin={{ top: 0, right: 15, bottom: 5, left: 15 }}>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="45%"
+                outerRadius={isMobile ? 85 : 130}
+                innerRadius={isMobile ? 28 : 45}
+                dataKey="clicks"
+                stroke="rgba(255, 255, 255, 0.1)"
+                strokeWidth={1}
+                label={({
+                  country,
+                  clicks,
+                  percent,
+                }: {
+                  country: string;
+                  clicks: number;
+                  percent: number;
+                }) =>
+                  isMobile
+                    ? `${(percent * 100).toFixed(0)}%`
+                    : `${country}: ${clicks}`
+                }
+                labelLine={false}
+                fontSize={isMobile ? 10 : 12}
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={uniformColors[index % uniformColors.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "rgba(255, 255, 255, 1)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
+                  borderRadius: "12px",
+                  color: "#000000",
+                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+                  fontSize: "14px",
+                }}
+                labelStyle={{ color: "#000000", fontWeight: "500" }}
+                itemStyle={{ color: "#000000" }}
+                formatter={(value: number, name: string) => [
+                  `${value} clicks`,
+                  name,
+                ]}
+              />
+            </PieChart>
+          </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   );

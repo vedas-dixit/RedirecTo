@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { URLTableProps } from "../types/dashboard.types";
 import {
   Card,
@@ -7,29 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../../UI/card";
-import { Badge, Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
+import { Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
 import { Button } from "../../UI/button";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
-
-// Dynamic import for client-side only
-const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
-  const [LiquidGlass, setLiquidGlass] = useState<any>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    // Dynamic import to avoid SSR issues
-    import("liquid-glass-react").then((module) => {
-      setLiquidGlass(() => module.default);
-    });
-  }, []);
-
-  if (!isClient || !LiquidGlass) {
-    return <>{children}</>;
-  }
-
-  return <LiquidGlass>{children}</LiquidGlass>;
-};
+import { LiquidGlassWrapper } from "../../UI/LiquidGlassWrapper";
 
 export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -71,7 +52,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
         </LiquidGlassWrapper>
       </div>
       <CardHeader className="relative z-10">
-        <CardTitle className="text-white/90 drop-shadow-sm">
+        <CardTitle className="text-white/90 text-lg drop-shadow-sm">
           Your URLs
         </CardTitle>
         <CardDescription className="text-white/70">
@@ -79,7 +60,29 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
         </CardDescription>
       </CardHeader>
       <CardContent className="relative z-10">
-        <div className="overflow-x-auto">
+        {!urls || urls.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-80 text-white/70">
+            <div className="text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+                <svg 
+                  className="w-8 h-8 text-white/50" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-medium text-white/80 mb-2">
+                No URLs Created Yet
+              </h3>
+              <p className="text-sm text-white/60">
+                Create your first URL to start tracking analytics and managing your links
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/20">
@@ -218,6 +221,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
             </tbody>
           </table>
         </div>
+        )}
 
         {urls.length > itemsPerPage && (
           <div className="flex justify-center gap-2 mt-4">

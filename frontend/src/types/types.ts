@@ -109,6 +109,11 @@ export interface SigninModalProps {
   onClose: () => void;
 }
 
+export interface UpdateUserModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 export interface Star {
   id: number;
   x: number;

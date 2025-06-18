@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import {
   X,
-  Link,
-  Shield,
-  Calendar,
-  MousePointer,
   Eye,
   EyeOff,
 } from "lucide-react";
@@ -55,23 +51,20 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
     <div className="fixed w- w-full h-full inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50">
       <div className="relative w-full max-w-md">
         {/* Glassy modal container */}
-        <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
+        <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden">
           {/* Subtle gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-orange-500/5 pointer-events-none" />
 
           {/* Header */}
           <div className="relative flex items-center justify-between p-6 border-b border-white/10">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-orange-500/20 backdrop-blur-sm rounded-xl border border-orange-500/20">
-                <Link className="w-5 h-5 text-orange-400" />
-              </div>
               <h2 className="text-xl font-semibold text-white/90">
-                Create Short URL
+                Create a Short URL
               </h2>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-xl transition-all duration-200 backdrop-blur-sm"
+              className="p-2 hover:bg-white/10 rounded-lg transition-all duration-200 backdrop-blur-sm"
             >
               <X className="w-5 h-5 text-white/70 hover:text-white" />
             </button>
@@ -82,8 +75,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
             {/* URL Input */}
             <div className="space-y-3">
               <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                <Link className="w-4 h-4 text-orange-400" />
-                Long URL
+                Your Long URL
               </label>
               <div className="relative">
                 <input
@@ -93,7 +85,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                     setFormData({ ...formData, destination: e.target.value })
                   }
                   placeholder="https://example.com/very-long-url-that-needs-shortening"
-                  className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                  className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
                   required
                 />
               </div>
@@ -103,7 +95,6 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-orange-400" />
                   Password Protection
                 </label>
                 <button
@@ -138,7 +129,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                         setFormData({ ...formData, password: e.target.value })
                       }
                       placeholder="Enter password for protected URL"
-                      className="w-full px-4 py-3.5 pr-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                      className="w-full px-4 py-2 pr-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
                       required={formData.is_protected}
                     />
                     <button
@@ -161,7 +152,6 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-orange-400" />
                   Set Expiry Date
                 </label>
                 <button
@@ -200,7 +190,6 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
             {/* Click Limit */}
             <div className="space-y-3">
               <label className="text-sm font-medium text-white/80 flex items-center gap-2">
-                <MousePointer className="w-4 h-4 text-orange-400" />
                 Click Limit
               </label>
               <input
@@ -214,7 +203,7 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
                 }
                 placeholder="0 (unlimited clicks)"
                 min="0"
-                className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
               />
               <p className="text-xs text-white/50">
                 Set to 0 for unlimited clicks
@@ -226,17 +215,17 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-6 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 text-white/80 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-medium"
+                className="flex-1 px-6 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-lg hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-bold"
               >
                 Cancel
               </button>
               <AnimatedStarButton
                 className={
-                  "flex-1 px-6 bg-gradient-to-r from-orange-500 to-orange-600"
+                  "flex-1 px-6 "
                 }
                 onClick={handleSubmit}
               >
-                Create Short URL
+                Create
               </AnimatedStarButton>
             </div>
           </div>
