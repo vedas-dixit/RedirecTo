@@ -1,10 +1,10 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from ..database.db import get_session
-from ..models.models import User
-from ..api import user_urls, redirect, delete_url, verify_password
-from ..api.dashboard import dashboard_overview
+from database.db import get_session
+from models.models import User
+from api import user_urls, redirect, delete_url, verify_password
+from api.dashboard import dashboard_overview
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -22,9 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-@app.get("/users")
-async def read_users(session: AsyncSession = Depends(get_session)):
-    result = await session.execute(select(User))
-    users = result.scalars().all()
-    return users
+@app.get("/1/health")
+async def health_check():
+    return {"status": "healthy"}
