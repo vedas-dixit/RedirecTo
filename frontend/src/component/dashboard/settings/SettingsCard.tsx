@@ -79,26 +79,24 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                 </div>
               </div>
               {/* Logout */}
-                <div
-                  className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-red-500/10 group relative overflow-hidden"
-                  onClick={handleSignIn}
-                >
-     
-     
-                  <div className="relative z-10 text-center space-y-3">
-                    <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-orange-600 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
-                      <LogIn className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
-                    </div>
-                    <div>
-                      <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
-                        LogIn
-                      </h4>
-                      <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                        Sign out safely
-                      </p>
-                    </div>
+              <div
+                className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-red-500/10 group relative overflow-hidden"
+                onClick={handleSignIn}
+              >
+                <div className="relative z-10 text-center space-y-3">
+                  <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-orange-600 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
+                    <LogIn className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
+                  </div>
+                  <div>
+                    <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
+                      LogIn
+                    </h4>
+                    <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                      Sign out safely
+                    </p>
                   </div>
                 </div>
+              </div>
             </div>
           ) : (
             <div className="space-y-6">
@@ -139,10 +137,10 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                   <div className="absolute top-2 left-2 w-2 h-2 bg-blue-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-pulse"></div>
                   <div className="absolute top-3 right-3 w-1 h-1 bg-cyan-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300 group-hover:animate-pulse"></div>
                   <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-500 group-hover:animate-pulse"></div>
-                  
+
                   {/* Glass reflection effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
+
                   <div className="relative z-10 text-center space-y-3">
                     <div className="w-12 h-12 bg-blue-200/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-blue-400/30 group-hover:scale-105 transition-all duration-500 border border-white/10">
                       <Globe className="h-6 w-6 text-blue-200 group-hover:text-blue-100 transition-all duration-300 group-hover:rotate-12" />
@@ -165,14 +163,14 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                 >
                   {/* Glass reflection effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
+
                   {/* Subtle floating particles */}
                   <div className="absolute top-2 right-2 w-1 h-1 bg-red-300/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-bounce"></div>
                   <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-red-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200 group-hover:animate-bounce"></div>
-                  
+
                   {/* Ripple effect */}
                   <div className="absolute inset-0 rounded-2xl bg-red-400/5 scale-0 group-hover:scale-100 transition-transform duration-700 ease-out"></div>
-                  
+
                   <div className="relative z-10 text-center space-y-3">
                     <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-red-500/30 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
                       <LogOut className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
