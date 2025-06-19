@@ -5,11 +5,9 @@ import AnimatedStarButton from "../custom/AnimatedButton";
 import { UrlCreationFormProps, UrlFormData } from "@/types/types";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 
-const UrlCreationForm: React.FC<UrlCreationFormProps & { onSuccess?: () => void }> = ({
-  isOpen,
-  onClose,
-  onSuccess,
-}) => {
+const UrlCreationForm: React.FC<
+  UrlCreationFormProps & { onSuccess?: () => void }
+> = ({ isOpen, onClose, onSuccess }) => {
   const [formData, setFormData] = useState<UrlFormData>({
     destination: "",
     is_protected: false,

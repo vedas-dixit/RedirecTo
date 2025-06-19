@@ -161,10 +161,7 @@ const URLShortenerDashboard: React.FC = () => {
                 {"Welcome back! Here's your URL analytics."}
               </p>
             </div>
-            <AnimatedStarButton
-              className="p-3"
-              onClick={handleOpenUrlForm}
-            >
+            <AnimatedStarButton className="p-3" onClick={handleOpenUrlForm}>
               Create URL
             </AnimatedStarButton>
           </div>

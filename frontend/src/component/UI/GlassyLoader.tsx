@@ -4,7 +4,8 @@ interface GlassyLoaderProps {
   loading: boolean;
 }
 
-const CHAR_SET = "$&%#)(#@$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+const CHAR_SET =
+  "$&%#)(#@$ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 function getRandomChars(length: number) {
   let result = "";
@@ -45,4 +46,4 @@ const GlassyLoader: React.FC<GlassyLoaderProps> = ({ loading }) => {
   );
 };
 
-export default GlassyLoader; 
+export default GlassyLoader;
