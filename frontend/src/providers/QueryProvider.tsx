@@ -1,5 +1,9 @@
 "use client";
-import { QueryClientProvider, useIsFetching, useIsMutating } from "@tanstack/react-query";
+import {
+  QueryClientProvider,
+  useIsFetching,
+  useIsMutating,
+} from "@tanstack/react-query";
 import { queryClient } from "@/lib/query-client";
 import { QueryProviderProps } from "@/types/types";
 import GlassyLoader from "@/component/UI/GlassyLoader";
