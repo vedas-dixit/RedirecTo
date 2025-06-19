@@ -1,6 +1,7 @@
 import React, { JSX, useEffect, useRef, useState } from "react";
 import { X, Mail, Save } from "lucide-react";
 import { UpdateUserModalProps } from "@/types/types";
+import { useToast } from "@/providers/QueryProvider";
 
 interface UserUpdateData {
   email: string;
@@ -16,6 +17,7 @@ function UpdateUserModal({
   });
   const [errors, setErrors] = useState<Partial<UserUpdateData>>({});
   const modalRef = useRef<HTMLDivElement>(null);
+  const { showToast } = useToast();
 
   // Handle escape key press
   useEffect(() => {
@@ -83,13 +85,21 @@ function UpdateUserModal({
 
       if (!response.ok) {
         const errorData = await response.json();
+        showToast({
+          message: errorData.detail || "Failed to update user",
+          type: "error",
+        });
         throw new Error(errorData.detail || "Failed to update user");
       }
 
       // Close modal on success
+      showToast({ message: "User updated successfully!", type: "success" });
       onClose();
     } catch (error) {
       console.error("Update user error:", error);
+      if (error instanceof Error) {
+        showToast({ message: error.message, type: "error" });
+      }
       // You can add error handling here, like showing a toast notification
     } finally {
       setIsLoading(false);
