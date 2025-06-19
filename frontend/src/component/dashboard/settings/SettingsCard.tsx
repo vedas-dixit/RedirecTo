@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../UI/card";
 import { SettingsCardProps } from "../types/dashboard.types";
-import { LogOut, User } from "lucide-react";
-import { Button } from "../../UI/button";
+import { LogOut, Globe, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import SigninModal from "../../../modals/SigninModal";
@@ -16,7 +15,6 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
 
   const openSigninModal = () => setIsSigninModalOpen(true);
   const closeSigninModal = () => setIsSigninModalOpen(false);
-  const openUpdateModal = () => setIsUpdateModalOpen(true);
   const closeUpdateModal = () => setIsUpdateModalOpen(false);
 
   // Close signin modal when user logs in
@@ -39,34 +37,8 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
     return user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
   };
 
-  const getUserCountry = () => {
-    // This would typically come from user metadata or geolocation
-    return user?.user_metadata?.country || "US";
-  };
-
-  const getCountryFlag = (countryCode: string) => {
-    // Convert country code to flag emoji
-    const flagMap: { [key: string]: string } = {
-      US: "🇺🇸",
-      IN: "🇮🇳",
-      UK: "🇬🇧",
-      DE: "🇩🇪",
-      FR: "🇫🇷",
-      CA: "🇨🇦",
-      AU: "🇦🇺",
-      JP: "🇯🇵",
-      BR: "🇧🇷",
-      MX: "🇲🇽",
-    };
-    return flagMap[countryCode] || "🌍";
-  };
-
   const handleSignIn = (): void => {
     openSigninModal();
-  };
-
-  const handleUpdateProfile = (): void => {
-    openUpdateModal();
   };
 
   const handleLogout = (): void => {
@@ -106,16 +78,27 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                   <p className="text-white/60 text-sm truncate">No email</p>
                 </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="space-y-3">
-                <Button
-                  className="w-full bg-white/90 hover:bg-white text-black border-0"
+              {/* Logout */}
+                <div
+                  className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-red-500/10 group relative overflow-hidden"
                   onClick={handleSignIn}
                 >
-                  Log In
-                </Button>
-              </div>
+     
+     
+                  <div className="relative z-10 text-center space-y-3">
+                    <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-orange-600 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
+                      <LogIn className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
+                    </div>
+                    <div>
+                      <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
+                        LogIn
+                      </h4>
+                      <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                        Sign out safely
+                      </p>
+                    </div>
+                  </div>
+                </div>
             </div>
           ) : (
             <div className="space-y-6">
@@ -149,53 +132,58 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
               </div>
 
               {/* Bento Grid Actions */}
-              <div className="grid grid-cols-3 gap-4">
-                {/* Update Profile */}
-                <div
-                  className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 cursor-pointer hover:bg-white/5 group"
-                  onClick={handleUpdateProfile}
-                >
-                  <div className="text-center space-y-3">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mx-auto group-hover:bg-yellow-200/80 transition-all">
-                      <User className="h-6 w-6 text-black" />
+              <div className="grid grid-cols-2 gap-4">
+                {/* Global Network (replacing country flag) */}
+                <div className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-white/5 group relative overflow-hidden">
+                  {/* Subtle floating dots */}
+                  <div className="absolute top-2 left-2 w-2 h-2 bg-blue-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-pulse"></div>
+                  <div className="absolute top-3 right-3 w-1 h-1 bg-cyan-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300 group-hover:animate-pulse"></div>
+                  <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-500 group-hover:animate-pulse"></div>
+                  
+                  {/* Glass reflection effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  <div className="relative z-10 text-center space-y-3">
+                    <div className="w-12 h-12 bg-blue-200/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-blue-400/30 group-hover:scale-105 transition-all duration-500 border border-white/10">
+                      <Globe className="h-6 w-6 text-blue-200 group-hover:text-blue-100 transition-all duration-300 group-hover:rotate-12" />
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm">
-                        Update Profile
+                      <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
+                        Global Network
                       </h4>
-                    </div>
-                  </div>
-                </div>
-
-                {/* User's Country Flag */}
-                <div className="bg-black/15 backdrop-blur-sm rounded-2xl p-6  transition-all duration-300 cursor-pointer hover:bg-white/5 group">
-                  <div className="text-center space-y-3">
-                    <div className="w-12 h-12 bg-blue-200/80 rounded-full flex items-center justify-center mx-auto group-hover:bg-blue-400/80 transition-all">
-                      <span className="text-2xl">
-                        {getCountryFlag(getUserCountry())}
-                      </span>
-                    </div>
-                    <div>
-                      <h4 className="text-white/90 font-medium text-sm">
-                        User&apos;s country flag
-                      </h4>
+                      <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                        Worldwide reach
+                      </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Logout */}
                 <div
-                  className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-300 cursor-pointer hover:bg-white/5 group"
+                  className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-red-500/10 group relative overflow-hidden"
                   onClick={handleLogout}
                 >
-                  <div className="text-center space-y-3">
-                    <div className="w-12 h-12 bg-red-400/80 rounded-full flex items-center justify-center mx-auto group-hover:bg-red-500/80 transition-all">
-                      <LogOut className="h-6 w-6 text-red-200" />
+                  {/* Glass reflection effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  
+                  {/* Subtle floating particles */}
+                  <div className="absolute top-2 right-2 w-1 h-1 bg-red-300/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-bounce"></div>
+                  <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-red-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200 group-hover:animate-bounce"></div>
+                  
+                  {/* Ripple effect */}
+                  <div className="absolute inset-0 rounded-2xl bg-red-400/5 scale-0 group-hover:scale-100 transition-transform duration-700 ease-out"></div>
+                  
+                  <div className="relative z-10 text-center space-y-3">
+                    <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-red-500/30 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
+                      <LogOut className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm">
+                      <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
                         Logout
                       </h4>
+                      <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                        Sign out safely
+                      </p>
                     </div>
                   </div>
                 </div>
