@@ -10,7 +10,6 @@ import { getOrCreateGuestUuid } from "../../../utils/auth/generateGuestUuid";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-
 class ApiClient {
   private async makeRequest<T>(
     endpoint: string,
@@ -52,7 +51,7 @@ class ApiClient {
     }
   }
 
-    // NEW: Create/Get User method
+  // NEW: Create/Get User method
   async createUser(token: string | null): Promise<CreateUserResponse> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
