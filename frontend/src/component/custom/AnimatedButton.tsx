@@ -20,7 +20,7 @@ const AnimatedStarButton: React.FC<AnimatedStarButtonProp> = ({
   };
   return (
     <button
-      className={`relative cursor-pointer overflow-hidden bg-white/10 hover:bg-white/20 text-white font-semibold rounded-md text-base border border-white/20 transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transform hover:scale-105 ${className}`}
+      className={`relative cursor-pointer overflow-hidden bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg text-base border border-white/20 transition-all duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 transform hover:scale-105 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       {...props}

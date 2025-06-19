@@ -19,7 +19,6 @@ export const useCreateUrl = () => {
     setError(null);
 
     try {
-      console.log(userPayload);
       const response = await fetch(url, {
         method: "POST",
         headers: {

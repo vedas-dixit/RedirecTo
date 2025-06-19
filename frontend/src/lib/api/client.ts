@@ -3,11 +3,12 @@ import {
   CreateUrlRequest,
   URLData,
   DashboardResponse,
+  CreateUserResponse,
 } from "@/types/types";
 import { prepareAuthHeader } from "../../../utils/auth/prepareAuthHeader";
 import { getOrCreateGuestUuid } from "../../../utils/auth/generateGuestUuid";
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 class ApiClient {
   private async makeRequest<T>(
@@ -50,6 +51,32 @@ class ApiClient {
     }
   }
 
+  // NEW: Create/Get User method
+  async createUser(token: string | null): Promise<CreateUserResponse> {
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+
+    // Add Authorization header if token exists (for OAuth users)
+    if (token) {
+      const authHeader = prepareAuthHeader(token);
+      headers.Authorization = authHeader;
+    }
+
+    // Always add guest UUID header for guest users or fallback
+    const guestUuid = getOrCreateGuestUuid();
+    if (guestUuid) {
+      headers["X-Guest-UUID"] = guestUuid;
+    }
+
+    const endpoint = "/create-user";
+
+    return this.makeRequest<CreateUserResponse>(endpoint, {
+      method: "POST",
+      headers,
+    });
+  }
+
   async getDashboardData(userId: string): Promise<DashboardResponse> {
     return this.makeRequest<DashboardResponse>(
       `/dashboard/overview?user_id=${userId}`,
@@ -65,6 +92,22 @@ class ApiClient {
       headers: {
         "Content-Type": "application/json",
       },
+    });
+  }
+
+  async updateUserDetails(data: {
+    user_id: string;
+    name?: string;
+    email?: string;
+  }): Promise<{
+    user_id: string;
+    name?: string;
+    email?: string;
+    message: string;
+  }> {
+    return this.makeRequest("/user/update", {
+      method: "PATCH",
+      body: JSON.stringify(data),
     });
   }
 
