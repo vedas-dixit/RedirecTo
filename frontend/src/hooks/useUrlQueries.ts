@@ -102,11 +102,11 @@ export function useCreateUrlMutation() {
       const longUrl = submitData.long_url;
 
       await queryClient.cancelQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ""),
+        queryKey: urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
       });
 
       const previousData = queryClient.getQueryData<DashboardResponse>(
-        urlQueryKeys.dashboard(user?.id || ""),
+        urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
       );
 
       if (previousData) {
@@ -122,7 +122,7 @@ export function useCreateUrlMutation() {
         };
 
         queryClient.setQueryData<DashboardResponse>(
-          urlQueryKeys.dashboard(user?.id || ""),
+          urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
           {
             ...previousData,
             urls: [tempUrl, ...previousData.urls],
@@ -139,7 +139,7 @@ export function useCreateUrlMutation() {
 
     onSuccess: (data) => {
       queryClient.setQueryData<DashboardResponse>(
-        urlQueryKeys.dashboard(user?.id || ""),
+        urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
         (oldData) => {
           if (!oldData) return oldData;
 
@@ -162,7 +162,7 @@ export function useCreateUrlMutation() {
     onError: (error: ApiError, _, context) => {
       if (context?.previousData) {
         queryClient.setQueryData(
-          urlQueryKeys.dashboard(user?.id || ""),
+          urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
           context.previousData,
         );
       }
@@ -171,7 +171,7 @@ export function useCreateUrlMutation() {
 
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ""),
+        queryKey: urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
       });
     },
   });
@@ -188,11 +188,11 @@ export function useDeleteUrlMutation() {
     },
     onMutate: async (urlId: string) => {
       await queryClient.cancelQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ""),
+        queryKey: urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
       });
 
       const previousData = queryClient.getQueryData<DashboardResponse>(
-        urlQueryKeys.dashboard(user?.id || ""),
+        urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
       );
 
       // Optimistically remove the URL
@@ -201,7 +201,7 @@ export function useDeleteUrlMutation() {
           (url) => url.id !== urlId,
         );
         queryClient.setQueryData<DashboardResponse>(
-          urlQueryKeys.dashboard(user?.id || ""),
+          urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
           {
             ...previousData,
             urls: filteredUrls,
@@ -218,14 +218,14 @@ export function useDeleteUrlMutation() {
     onError: (error: ApiError, urlId, context) => {
       if (context?.previousData) {
         queryClient.setQueryData(
-          urlQueryKeys.dashboard(user?.id || ""),
+          urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
           context.previousData,
         );
       }
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: urlQueryKeys.dashboard(user?.id || ""),
+        queryKey: urlQueryKeys.dashboard(user?.id || getOrCreateGuestUuid()),
       });
     },
   });
