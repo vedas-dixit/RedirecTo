@@ -138,3 +138,13 @@ export interface ProtectedLinkPageProps {
 export type protectedUrlPageProp = {
   shortCode: string;
 };
+
+export interface CreateUserResponse {
+  user_id: string;
+  is_guest: boolean;
+  email?: string;
+  name?: string;
+  avatar_url?: string;
+  provider: string;
+  message: string;
+}

@@ -61,6 +61,26 @@ export const useUpdateUserMutation = () => {
   });
 };
 
+// NEW: Create User mutation hook
+export function useCreateUserMutation() {
+  const { getAccessToken } = useAuth();
+
+  return useMutation({
+    mutationKey: ["createUser"], // Add mutation key for better caching
+    mutationFn: async () => {
+      const token = getAccessToken();
+      return apiClient.createUser(token);
+    },
+    onSuccess: (data) => {
+      console.log("User created/retrieved successfully:", data);
+    },
+    onError: (error: ApiError) => {
+      console.error("Failed to create/retrieve user:", error.detail);
+    },
+  });
+}
+
+
 // Create URL Mutation Hook with optimistic updates
 export function useCreateUrlMutation() {
   const queryClient = useQueryClient();

@@ -3,11 +3,13 @@ import {
   CreateUrlRequest,
   URLData,
   DashboardResponse,
+  CreateUserResponse,
 } from "@/types/types";
 import { prepareAuthHeader } from "../../../utils/auth/prepareAuthHeader";
 import { getOrCreateGuestUuid } from "../../../utils/auth/generateGuestUuid";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 
 class ApiClient {
   private async makeRequest<T>(
@@ -48,6 +50,32 @@ class ApiClient {
           error instanceof Error ? error.message : "Network error occurred",
       } as ApiError;
     }
+  }
+
+    // NEW: Create/Get User method
+  async createUser(token: string | null): Promise<CreateUserResponse> {
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+    };
+
+    // Add Authorization header if token exists (for OAuth users)
+    if (token) {
+      const authHeader = prepareAuthHeader(token);
+      headers.Authorization = authHeader;
+    }
+
+    // Always add guest UUID header for guest users or fallback
+    const guestUuid = getOrCreateGuestUuid();
+    if (guestUuid) {
+      headers["X-Guest-UUID"] = guestUuid;
+    }
+
+    const endpoint = "/create-user";
+
+    return this.makeRequest<CreateUserResponse>(endpoint, {
+      method: "POST",
+      headers,
+    });
   }
 
   async getDashboardData(userId: string): Promise<DashboardResponse> {
