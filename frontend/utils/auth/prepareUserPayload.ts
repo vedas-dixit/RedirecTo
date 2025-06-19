@@ -3,9 +3,7 @@ import { getOrCreateGuestUuid } from "./generateGuestUuid";
 import { PreparedUser } from "@/types/types";
 
 export function prepareUserPayload(user: SupabaseUser | null): PreparedUser {
-  console.log("user:", user);
   if (!user) {
-    console.log(getOrCreateGuestUuid());
     return {
       id: getOrCreateGuestUuid(),
       is_guest: true,

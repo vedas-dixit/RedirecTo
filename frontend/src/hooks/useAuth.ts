@@ -13,7 +13,6 @@ export const useAuth = () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      console.log(session);
       setUser(session?.user ?? null);
       setSession(session);
       setLoading(false);
@@ -50,7 +49,6 @@ export const useAuth = () => {
   const refreshSession = async () => {
     const { error } = await supabase.auth.refreshSession();
     if (error) {
-      console.error("Error refreshing session:", error);
       return false;
     }
     return true;

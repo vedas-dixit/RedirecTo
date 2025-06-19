@@ -52,8 +52,8 @@ export const useUpdateUserMutation = () => {
       if (!userId) throw new Error("User ID is required");
       return apiClient.updateUserDetails({ user_id: userId, ...data });
     },
-    onSuccess: (data) => {
-      console.log("User updated successfully:", data);
+    onSuccess: () => {
+      // console.log("User updated successfully:", data);
     },
     onError: (error: ApiError) => {
       console.error("Failed to update user:", error.detail);
@@ -71,8 +71,8 @@ export function useCreateUserMutation() {
       const token = getAccessToken();
       return apiClient.createUser(token);
     },
-    onSuccess: (data) => {
-      console.log("User created/retrieved successfully:", data);
+    onSuccess: () => {
+      // console.log("User created/retrieved successfully:", data);
     },
     onError: (error: ApiError) => {
       console.error("Failed to create/retrieve user:", error.detail);
@@ -166,7 +166,7 @@ export function useCreateUrlMutation() {
           context.previousData,
         );
       }
-      console.error("Error creating URL:", error.detail);
+      // console.error("Error creating URL:", error.detail);
     },
 
     onSettled: () => {
