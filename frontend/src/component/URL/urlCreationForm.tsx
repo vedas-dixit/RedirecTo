@@ -5,9 +5,10 @@ import AnimatedStarButton from "../custom/AnimatedButton";
 import { UrlCreationFormProps, UrlFormData } from "@/types/types";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 
-const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
+const UrlCreationForm: React.FC<UrlCreationFormProps & { onSuccess?: () => void }> = ({
   isOpen,
   onClose,
+  onSuccess,
 }) => {
   const [formData, setFormData] = useState<UrlFormData>({
     destination: "",
@@ -17,11 +18,25 @@ const UrlCreationForm: React.FC<UrlCreationFormProps> = ({
     click_limit: 0,
   });
 
-  const { createUrl } = useUrlManagement();
+  const { createUrl, createSuccess } = useUrlManagement();
 
   const [showPassword, setShowPassword] = useState(false);
   const [hasExpiry, setHasExpiry] = useState(false);
   useDisableScroll(isOpen);
+
+  React.useEffect(() => {
+    if (createSuccess) {
+      setFormData({
+        destination: "",
+        is_protected: false,
+        password: "",
+        expires_at: "",
+        click_limit: 0,
+      });
+      if (onSuccess) onSuccess();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createSuccess]);
 
   const handleSubmit = () => {
     const payloadToSend = {

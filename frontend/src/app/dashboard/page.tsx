@@ -113,13 +113,6 @@ const URLShortenerDashboard: React.FC = () => {
     }
   }, [isUrlFormOpen, createSuccess, resetCreateState]);
 
-  // Handle create URL success
-  useEffect(() => {
-    if (createSuccess) {
-      setIsUrlFormOpen(false);
-    }
-  }, [createSuccess]);
-
   // Show loading state
   if (isDashboardLoading) {
     return <LoadingSkeleton />;
@@ -136,6 +129,15 @@ const URLShortenerDashboard: React.FC = () => {
   }
 
   const closeSigninModal = () => setIsSigninModalOpen(false);
+  const handleOpenSigninModal = () => {
+    setIsSigninModalOpen(true);
+    setIsUrlFormOpen(false);
+  };
+  const handleOpenUrlForm = () => {
+    setIsUrlFormOpen(true);
+    setIsSigninModalOpen(false);
+  };
+
   return (
     <>
       <SigninModal isOpen={isSigninModalOpen} onClose={closeSigninModal} />
@@ -161,7 +163,7 @@ const URLShortenerDashboard: React.FC = () => {
             </div>
             <AnimatedStarButton
               className="p-3"
-              onClick={() => setIsUrlFormOpen(true)}
+              onClick={handleOpenUrlForm}
             >
               Create URL
             </AnimatedStarButton>
@@ -169,13 +171,14 @@ const URLShortenerDashboard: React.FC = () => {
           <UrlCreationForm
             isOpen={isUrlFormOpen}
             onClose={() => setIsUrlFormOpen(false)}
+            onSuccess={() => setIsUrlFormOpen(false)}
           />
           {/* Guest Limit Card */}
           {isGuest && summary.totalUrls === 5 && (
             <GuestLimitCard
               current={summary.totalUrls}
               limit={guestLimit}
-              setIsSigninModalOpen={setIsSigninModalOpen}
+              setIsSigninModalOpen={handleOpenSigninModal}
             />
           )}
 
