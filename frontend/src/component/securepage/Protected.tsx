@@ -26,7 +26,9 @@ interface ProtectedUrlPageProp {
   shortCode: string;
 }
 
-const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo123" }) => {
+const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
+  shortCode = "demo123",
+}) => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [stars, setStars] = useState<DynamicStar[]>([]);
@@ -99,7 +101,9 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
     );
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handlePasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     setPassword(e.target.value);
     setError("");
   };
@@ -119,11 +123,12 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
       className="min-h-screen relative overflow-hidden"
       ref={containerRef}
       style={{
-        background: 'radial-gradient(circle,rgba(77, 39, 39, 1) 0%, rgba(158, 82, 47, 1) 50%, rgba(112, 52, 52, 1) 100%)',
+        background:
+          "radial-gradient(circle,rgba(77, 39, 39, 1) 0%, rgba(158, 82, 47, 1) 50%, rgba(112, 52, 52, 1) 100%)",
       }}
     >
       {/* Animated gradient overlay with flowing effects */}
-      <div 
+      <div
         className="absolute inset-0 opacity-60"
         style={{
           background: `
@@ -132,26 +137,28 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
             radial-gradient(ellipse at 60% 10%, rgba(204, 43, 43, 0.3) 0%, transparent 50%),
             radial-gradient(ellipse at 30% 90%, rgba(139, 26, 26, 0.2) 0%, transparent 50%)
           `,
-          animation: 'gradientShift 15s ease-in-out infinite alternate'
+          animation: "gradientShift 15s ease-in-out infinite alternate",
         }}
       />
 
       {/* Flowing curved shapes */}
       <div className="absolute inset-0 opacity-20">
-        <div 
+        <div
           className="absolute -top-1/2 -left-1/4 w-full h-full rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(255, 68, 68, 0.3) 0%, transparent 70%)',
-            transform: 'rotate(-15deg)',
-            animation: 'float 20s ease-in-out infinite'
+            background:
+              "radial-gradient(circle, rgba(255, 68, 68, 0.3) 0%, transparent 70%)",
+            transform: "rotate(-15deg)",
+            animation: "float 20s ease-in-out infinite",
           }}
         />
-        <div 
+        <div
           className="absolute -bottom-1/2 -right-1/4 w-3/4 h-3/4 rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(255, 107, 71, 0.4) 0%, transparent 70%)',
-            transform: 'rotate(25deg)',
-            animation: 'float 25s ease-in-out infinite reverse'
+            background:
+              "radial-gradient(circle, rgba(255, 107, 71, 0.4) 0%, transparent 70%)",
+            transform: "rotate(25deg)",
+            animation: "float 25s ease-in-out infinite reverse",
           }}
         />
       </div>
@@ -166,11 +173,12 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
             top: `${star.y}%`,
             width: `${star.size}px`,
             height: `${star.size}px`,
-            background: 'radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 180, 71, 0.4) 100%)',
+            background:
+              "radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 180, 71, 0.4) 100%)",
             opacity: star.opacity,
             animationDelay: `${star.animationDelay}s`,
-            animationDuration: '4s',
-            boxShadow: '0 0 10px rgba(255, 255, 255, 0.3)'
+            animationDuration: "4s",
+            boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
           }}
         />
       ))}
@@ -187,7 +195,7 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
             height: `${star.size}px`,
             backgroundColor: star.color,
             boxShadow: `0 0 20px ${star.color}, 0 0 40px ${star.color}40`,
-            animationDuration: '1.5s',
+            animationDuration: "1.5s",
           }}
         />
       ))}
@@ -198,11 +206,12 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
           {/* Logo/Brand */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-3xl mb-6 relative group">
-              <div 
+              <div
                 className="absolute inset-0 backdrop-blur-xl rounded-3xl border group-hover:bg-white/15 transition-all duration-300"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)'
+                  background:
+                    "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                  borderColor: "rgba(255, 255, 255, 0.2)",
                 }}
               />
               <Shield className="w-12 h-12 text-white relative z-10 drop-shadow-2xl" />
@@ -212,28 +221,31 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
               Protected Access
             </h1>
             <p className="text-white/90 text-base sm:text-lg max-w-sm mx-auto leading-relaxed">
-            Enter the password to access this protected content
+              Enter the password to access this protected content
             </p>
           </div>
 
           {/* Main Card */}
           <div className="relative group">
             {/* Enhanced glass background */}
-            <div 
+            <div
               className="absolute inset-0 backdrop-blur-2xl rounded-3xl shadow-2xl border"
               style={{
-                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                borderColor: 'rgba(255, 255, 255, 0.3)',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                borderColor: "rgba(255, 255, 255, 0.3)",
+                boxShadow:
+                  "0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
               }}
             />
-            <div 
+            <div
               className="absolute inset-0 rounded-3xl opacity-50"
               style={{
-                background: 'linear-gradient(135deg, rgba(255, 107, 71, 0.1) 0%, transparent 50%, rgba(255, 68, 68, 0.1) 100%)'
+                background:
+                  "linear-gradient(135deg, rgba(255, 107, 71, 0.1) 0%, transparent 50%, rgba(255, 68, 68, 0.1) 100%)",
               }}
             />
-            
+
             <div className="relative z-10 p-8 sm:p-10">
               <div className="space-y-7">
                 {/* Password Input */}
@@ -253,8 +265,8 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
                       placeholder="Enter your password"
                       className="w-full pl-14 pr-16 py-5 backdrop-blur-sm rounded-2xl focus:ring-2 focus:ring-white/40 focus:border-white/50 text-white text-lg placeholder-white/60 transition-all duration-300"
                       style={{
-                        background: 'rgba(255, 255, 255, 0.12)',
-                        border: '1px solid rgba(255, 255, 255, 0.25)',
+                        background: "rgba(255, 255, 255, 0.12)",
+                        border: "1px solid rgba(255, 255, 255, 0.25)",
                       }}
                       disabled={isPending}
                     />
@@ -285,7 +297,10 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
                             : "bg-white/25"
                         }`}
                         style={{
-                          boxShadow: i < password.length ? '0 0 10px rgba(255, 107, 71, 0.5)' : undefined
+                          boxShadow:
+                            i < password.length
+                              ? "0 0 10px rgba(255, 107, 71, 0.5)"
+                              : undefined,
                         }}
                       />
                     ))}
@@ -293,46 +308,50 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
                   {password.length > 0 && (
                     <p className="text-sm text-white/80 flex items-center gap-2">
                       <span className="w-2.5 h-2.5 bg-orange-300 rounded-full animate-pulse shadow-lg" />
-                      {password.length} character{password.length !== 1 ? "s" : ""} entered
+                      {password.length} character
+                      {password.length !== 1 ? "s" : ""} entered
                     </p>
                   )}
                 </div>
 
                 {/* Error Message */}
                 {error && (
-                  <div 
+                  <div
                     className="p-4 backdrop-blur-sm border rounded-2xl"
                     style={{
-                      background: 'rgba(255, 68, 68, 0.2)',
-                      borderColor: 'rgba(255, 68, 68, 0.4)'
+                      background: "rgba(255, 68, 68, 0.2)",
+                      borderColor: "rgba(255, 68, 68, 0.4)",
                     }}
                   >
-                    <p className="text-red-100 text-sm text-center font-medium">{error}</p>
+                    <p className="text-red-100 text-sm text-center font-medium">
+                      {error}
+                    </p>
                   </div>
                 )}
 
                 {/* Submit Button */}
                 <button
-  type="button"
-  onClick={handleSubmit}
-  disabled={!password.trim() || isPending}
-  className={`w-full py-5 px-8 text-lg font-bold rounded-2xl transition-all duration-500 ease-in-out flex items-center justify-center space-x-3 group relative overflow-hidden backdrop-blur-md ${
-    !password.trim() || isPending
-      ? "text-white/70 cursor-not-allowed"
-      : "text-orange-900 shadow-2xl hover:shadow-3xl hover:scale-[1.02] active:scale-[0.98]"
-  }`}
-  style={{
-    background: !password.trim() || isPending
-      ? 'rgba(255, 255, 255, 0.15)' // frosted white
-      : 'linear-gradient(135deg, #fff3e0 0%, #ffe0cc 50%, #ffd1b3 100%)', // light orange almost white
-    border: '1px solid rgba(255, 255, 255, 0.3)',
-    boxShadow: !password.trim() || isPending
-      ? '0 4px 20px rgba(255, 255, 255, 0.1)'
-      : '0 20px 40px -12px rgba(255, 195, 160, 0.4)',
-    transition: 'all 0.5s ease-in-out',
-  }}
->
-                  
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={!password.trim() || isPending}
+                  className={`w-full py-5 px-8 text-lg font-bold rounded-2xl transition-all duration-500 ease-in-out flex items-center justify-center space-x-3 group relative overflow-hidden backdrop-blur-md ${
+                    !password.trim() || isPending
+                      ? "text-white/70 cursor-not-allowed"
+                      : "text-orange-900 shadow-2xl hover:shadow-3xl hover:scale-[1.02] active:scale-[0.98]"
+                  }`}
+                  style={{
+                    background:
+                      !password.trim() || isPending
+                        ? "rgba(255, 255, 255, 0.15)" // frosted white
+                        : "linear-gradient(135deg, #fff3e0 0%, #ffe0cc 50%, #ffd1b3 100%)", // light orange almost white
+                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                    boxShadow:
+                      !password.trim() || isPending
+                        ? "0 4px 20px rgba(255, 255, 255, 0.1)"
+                        : "0 20px 40px -12px rgba(255, 195, 160, 0.4)",
+                    transition: "all 0.5s ease-in-out",
+                  }}
+                >
                   {isPending ? (
                     <>
                       <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -351,11 +370,11 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
 
           {/* Footer */}
           <div className="text-center mt-10">
-            <div 
+            <div
               className="inline-flex items-center gap-3 px-6 py-3 backdrop-blur-sm rounded-full border"
               style={{
-                background: 'rgba(255, 255, 255, 0.08)',
-                borderColor: 'rgba(255, 255, 255, 0.15)'
+                background: "rgba(255, 255, 255, 0.08)",
+                borderColor: "rgba(255, 255, 255, 0.15)",
               }}
             >
               <div className="w-2.5 h-2.5 bg-orange-300 rounded-full animate-pulse shadow-lg" />
@@ -370,7 +389,8 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
 
       <style jsx>{`
         @keyframes gradientShift {
-          0%, 100% {
+          0%,
+          100% {
             transform: scale(1) rotate(0deg);
             opacity: 0.6;
           }
@@ -379,9 +399,10 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({ shortCode = "demo12
             opacity: 0.4;
           }
         }
-        
+
         @keyframes float {
-          0%, 100% {
+          0%,
+          100% {
             transform: translateY(0px) rotate(-15deg);
           }
           50% {
