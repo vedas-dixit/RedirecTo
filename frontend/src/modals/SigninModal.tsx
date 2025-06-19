@@ -96,7 +96,9 @@ function SigninModal({
         <div className="p-6 sm:p-8">
           {/* Header - Desktop */}
           <div className="text-center mb-8 hidden sm:block">
-            <h2 className="text-2xl font-bold text-white mb-2">Welcome to RedirecTo</h2>
+            <h2 className="text-2xl font-bold text-white mb-2">
+              Welcome to RedirecTo
+            </h2>
             <p className="text-gray-400">Sign in to continue</p>
           </div>
 
@@ -162,7 +164,6 @@ function SigninModal({
               </span>
             </div>
           </div>
-
         </div>
       </div>
     </div>

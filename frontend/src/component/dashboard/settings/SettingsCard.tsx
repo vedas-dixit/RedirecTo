@@ -104,18 +104,17 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
 
                 <div className="relative z-10 text-center space-y-3">
                   <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-lg flex items-center justify-center mx-auto group-hover:bg-red-500 group-hover:scale-105 transition-all duration-500">
-                  <LogIn className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
+                    <LogIn className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
                   </div>
                   <div>
-                  <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
-                    Sign In
-                  </h4>
-                  <p>
-                    <span className="text-white/50 text-xs  transition-all duration-300 delay-100">
-                    Sign in to unlock true potential
-                    </span>
-                  </p>
-                   
+                    <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
+                      Sign In
+                    </h4>
+                    <p>
+                      <span className="text-white/50 text-xs  transition-all duration-300 delay-100">
+                        Sign in to unlock true potential
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>

@@ -115,9 +115,7 @@ const UrlCreationForm: React.FC<
                     })
                   }
                   className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none backdrop-blur-sm ${
-                    formData.is_protected
-                      ? "bg-white/80"
-                      : "bg-white/10"
+                    formData.is_protected ? "bg-white/80" : "bg-white/10"
                   }`}
                 >
                   <span
@@ -167,9 +165,7 @@ const UrlCreationForm: React.FC<
                   type="button"
                   onClick={() => setHasExpiry(!hasExpiry)}
                   className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none backdrop-blur-sm ${
-                    hasExpiry
-                      ? "bg-white/80"
-                      : "bg-white/10"
+                    hasExpiry ? "bg-white/80" : "bg-white/10"
                   }`}
                 >
                   <span
