@@ -38,22 +38,16 @@ const LoadingSkeleton: React.FC = () => (
 
       {/* Summary Cards Skeleton */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={i}
-            className="h-40 bg-white/10 rounded-lg animate-pulse"
-          ></div>
-        ))}
+        <div className="h-40 bg-white/10 rounded-lg animate-pulse"></div>
+        <div className="h-40 bg-white/10 rounded-lg animate-pulse"></div>
+        <div className="h-40 bg-white/10 rounded-lg animate-pulse"></div>
+        <div className="h-40 bg-white/10 rounded-lg animate-pulse"></div>
       </div>
 
       {/* Charts Skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {[...Array(2)].map((_, i) => (
-          <div
-            key={i}
-            className="h-120 bg-white/10 rounded-lg animate-pulse"
-          ></div>
-        ))}
+        <div className="h-120 bg-white/10 rounded-lg animate-pulse"></div>
+        <div className="h-120 bg-white/10 rounded-lg animate-pulse"></div>
       </div>
     </div>
   </div>
@@ -82,8 +76,9 @@ const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
-  const { user } = useAuth();
   const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { user } = useAuth();
 
   // Guest user state
   const isGuest = !user;
@@ -106,12 +101,22 @@ const URLShortenerDashboard: React.FC = () => {
     resetCreateState,
   } = useUrlManagement();
 
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Reset create state when form closes
   useEffect(() => {
     if (!isUrlFormOpen && createSuccess) {
       resetCreateState();
     }
   }, [isUrlFormOpen, createSuccess, resetCreateState]);
+
+  // Prevent hydration mismatch by showing loading until mounted
+  if (!mounted) {
+    return <LoadingSkeleton />;
+  }
 
   // Show loading state
   if (isDashboardLoading) {
@@ -182,7 +187,7 @@ const URLShortenerDashboard: React.FC = () => {
           {/* Summary Cards */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             <SummaryCard
-              title="Total Short URLs"
+              title="Total URLs"
               value={summary.totalUrls}
               subtitle={`${summary.totalUrls === 1 ? "1 URL" : `${summary.totalUrls} URLs`} created`}
               icon={Link}

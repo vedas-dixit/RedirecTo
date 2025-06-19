@@ -62,10 +62,10 @@ const UrlCreationForm: React.FC<
         {/* Glassy modal container */}
         <div className="relative bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden">
           {/* Subtle gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-orange-500/5 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 pointer-events-none" />
 
           {/* Header */}
-          <div className="relative flex items-center justify-between p-6 border-b border-white/10">
+          <div className="relative flex items-center justify-between p-6">
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-semibold text-white/90">
                 Create a Short URL
@@ -94,7 +94,7 @@ const UrlCreationForm: React.FC<
                     setFormData({ ...formData, destination: e.target.value })
                   }
                   placeholder="https://example.com/very-long-url-that-needs-shortening"
-                  className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                  className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm rounded-lg text-white/90 placeholder-white/40 focus:outline-none transition-all duration-200 hover:bg-white/10"
                   required
                 />
               </div>
@@ -114,10 +114,10 @@ const UrlCreationForm: React.FC<
                       is_protected: !formData.is_protected,
                     })
                   }
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none backdrop-blur-sm ${
                     formData.is_protected
-                      ? "bg-orange-500/80 border-orange-500/40"
-                      : "bg-white/10 border-white/20"
+                      ? "bg-white/80"
+                      : "bg-white/10"
                   }`}
                 >
                   <span
@@ -138,7 +138,7 @@ const UrlCreationForm: React.FC<
                         setFormData({ ...formData, password: e.target.value })
                       }
                       placeholder="Enter password for protected URL"
-                      className="w-full px-4 py-2 pr-12 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                      className="w-full px-4 py-2 pr-12 bg-white/5 backdrop-blur-sm rounded-lg text-white/90 placeholder-white/40 focus:outline-none transition-all duration-200 hover:bg-white/10"
                       required={formData.is_protected}
                     />
                     <button
@@ -166,10 +166,10 @@ const UrlCreationForm: React.FC<
                 <button
                   type="button"
                   onClick={() => setHasExpiry(!hasExpiry)}
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-orange-500/50 backdrop-blur-sm border ${
+                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-all duration-300 focus:outline-none backdrop-blur-sm ${
                     hasExpiry
-                      ? "bg-orange-500/80 border-orange-500/40"
-                      : "bg-white/10 border-white/20"
+                      ? "bg-white/80"
+                      : "bg-white/10"
                   }`}
                 >
                   <span
@@ -189,7 +189,7 @@ const UrlCreationForm: React.FC<
                       setFormData({ ...formData, expires_at: e.target.value })
                     }
                     min={getTodayDate()}
-                    className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl text-white/90 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10 [color-scheme:dark]"
+                    className="w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm rounded-2xl text-white/90 focus:outline-none transition-all duration-200 hover:bg-white/10 [color-scheme:dark]"
                     required={hasExpiry}
                   />
                 </div>
@@ -212,7 +212,7 @@ const UrlCreationForm: React.FC<
                 }
                 placeholder="0 (unlimited clicks)"
                 min="0"
-                className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg text-white/90 placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/30 transition-all duration-200 hover:bg-white/10"
+                className="w-full px-4 py-2 bg-white/5 backdrop-blur-sm rounded-lg text-white/90 placeholder-white/40 focus:outline-none transition-all duration-200 hover:bg-white/10"
               />
               <p className="text-xs text-white/50">
                 Set to 0 for unlimited clicks
@@ -224,7 +224,7 @@ const UrlCreationForm: React.FC<
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-6 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 text-white rounded-lg hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-bold"
+                className="flex-1 px-6 py-3.5 bg-white/5 backdrop-blur-sm text-white rounded-lg hover:bg-white/10 transition-all duration-200 font-bold"
               >
                 Cancel
               </button>

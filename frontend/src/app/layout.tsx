@@ -17,7 +17,7 @@ export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "RedirecTo. | Modern Link Shortening & Analytics Platform",
+  title: "RedirecTo - Modern URL Protection & Analytics Platform",
   description:
     "Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening. Get custom URLs, detailed click analytics, blazing-fast redirects, and powerful link management tools — all in one place.",
   keywords: [

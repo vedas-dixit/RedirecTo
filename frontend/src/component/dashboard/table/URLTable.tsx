@@ -11,14 +11,19 @@ import { Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
 import { Button } from "../../UI/button";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 import { LiquidGlassWrapper } from "../../UI/LiquidGlassWrapper";
+import GlassyToast from "../../UI/GlassyToast";
 
 export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showToast, setShowToast] = useState<boolean>(false);
   const itemsPerPage = 5;
   const { deleteUrl } = useUrlManagement();
   const handleCopy = async (url: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(url);
+      setShowToast(true);
+      // Auto-hide toast after 3 seconds
+      setTimeout(() => setShowToast(false), 3000);
     } catch (error) {
       console.error("Failed to copy URL:", error);
     }
@@ -56,7 +61,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
           Your URLs
         </CardTitle>
         <CardDescription className="text-white/70">
-          Manage and track your shortened URLs
+          Manage and track your URLs
         </CardDescription>
       </CardHeader>
       <CardContent className="relative z-10">
@@ -93,7 +98,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
               <thead>
                 <tr className="border-b border-white/20">
                   <th className="text-left p-2 text-white/80 font-medium">
-                    Short URL
+                    URL
                   </th>
                   <th className="text-left p-2 text-white/80 font-medium">
                     Destination
@@ -259,6 +264,13 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
           </div>
         )}
       </CardContent>
+      {showToast && (
+        <GlassyToast
+          message="URL Copied"
+          type="success"
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </Card>
   );
 };
