@@ -7,7 +7,13 @@ import {
 import { queryClient } from "@/lib/query-client";
 import { QueryProviderProps } from "@/types/types";
 import GlassyLoader from "@/component/UI/GlassyLoader";
-import React, { createContext, useContext, useState, ReactNode, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useCallback,
+} from "react";
 import GlassyToast from "@/component/UI/GlassyToast";
 
 function QueryLoader() {

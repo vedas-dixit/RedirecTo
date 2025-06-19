@@ -45,7 +45,10 @@ export function useDashboardQuery(enabled: boolean = true) {
   // Show toast on error
   React.useEffect(() => {
     if (queryResult.isError && queryResult.error) {
-      showToast({ message: queryResult.error.detail || "Failed to load dashboard", type: "error" });
+      showToast({
+        message: queryResult.error.detail || "Failed to load dashboard",
+        type: "error",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryResult.isError, queryResult.error]);
@@ -67,7 +70,10 @@ export const useUpdateUserMutation = () => {
       showToast({ message: "User updated successfully", type: "success" });
     },
     onError: (error: ApiError) => {
-      showToast({ message: error.detail || "Failed to update user", type: "error" });
+      showToast({
+        message: error.detail || "Failed to update user",
+        type: "error",
+      });
     },
   });
 };
@@ -84,10 +90,16 @@ export function useCreateUserMutation() {
       return apiClient.createUser(token);
     },
     onSuccess: () => {
-      showToast({ message: "User created/retrieved successfully", type: "success" });
+      showToast({
+        message: "User created/retrieved successfully",
+        type: "success",
+      });
     },
     onError: (error: ApiError) => {
-      showToast({ message: error.detail || "Failed to create/retrieve user", type: "error" });
+      showToast({
+        message: error.detail || "Failed to create/retrieve user",
+        type: "error",
+      });
     },
   });
 }
@@ -168,7 +180,10 @@ export function useCreateUrlMutation() {
           context.previousData,
         );
       }
-      showToast({ message: error.detail || "Error creating URL", type: "error" });
+      showToast({
+        message: error.detail || "Error creating URL",
+        type: "error",
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({
@@ -223,7 +238,10 @@ export function useDeleteUrlMutation() {
           context.previousData,
         );
       }
-      showToast({ message: error.detail || "Error deleting URL", type: "error" });
+      showToast({
+        message: error.detail || "Error deleting URL",
+        type: "error",
+      });
     },
     onSettled: () => {
       queryClient.invalidateQueries({
@@ -281,7 +299,10 @@ export function useUrlManagement() {
         password: string;
       }) => apiClient.verifyProtectedUrl(shortCode, password),
       onError: (error: ApiError) => {
-        showToast({ message: error.detail || "Password verification failed", type: "error" });
+        showToast({
+          message: error.detail || "Password verification failed",
+          type: "error",
+        });
       },
       onSuccess: () => {
         showToast({ message: "Password verified!", type: "success" });

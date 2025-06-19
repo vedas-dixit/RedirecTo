@@ -85,7 +85,10 @@ function UpdateUserModal({
 
       if (!response.ok) {
         const errorData = await response.json();
-        showToast({ message: errorData.detail || "Failed to update user", type: "error" });
+        showToast({
+          message: errorData.detail || "Failed to update user",
+          type: "error",
+        });
         throw new Error(errorData.detail || "Failed to update user");
       }
 
