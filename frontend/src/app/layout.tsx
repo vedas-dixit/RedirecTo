@@ -13,54 +13,70 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'RedirecTo. | Modern Link Shortening & Analytics Platform',
-  description: 'Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening. Get custom URLs, detailed click analytics, blazing-fast redirects, and powerful link management tools — all in one place.',
+  title: "RedirecTo. | Modern Link Shortening & Analytics Platform",
+  description:
+    "Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening. Get custom URLs, detailed click analytics, blazing-fast redirects, and powerful link management tools — all in one place.",
   keywords: [
-    'link shortener', 'URL shortener', 'analytics', 'custom URLs', 'click tracking', 'RedirecTo', 'link management', 'short links', 'PWA', 'SEO', 'open graph', 'twitter cards'
+    "link shortener",
+    "URL shortener",
+    "analytics",
+    "custom URLs",
+    "click tracking",
+    "RedirecTo",
+    "link management",
+    "short links",
+    "PWA",
+    "SEO",
+    "open graph",
+    "twitter cards",
   ],
-  authors: [{ name: 'RedirecTo Team', url: 'https://redirec-to.vercel.app/about' }],
-  publisher: 'RedirecTo',
-  creator: 'RedirecTo',
-  robots: 'index, follow',
+  authors: [
+    { name: "RedirecTo Team", url: "https://redirec-to.vercel.app/about" },
+  ],
+  publisher: "RedirecTo",
+  creator: "RedirecTo",
+  robots: "index, follow",
   openGraph: {
-    title: 'RedirecTo. | Modern Link Shortening & Analytics Platform',
-    description: 'Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening.',
-    url: 'https://redirec-to.vercel.app/',
-    siteName: 'RedirecTo',
+    title: "RedirecTo. | Modern Link Shortening & Analytics Platform",
+    description:
+      "Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening.",
+    url: "https://redirec-to.vercel.app/",
+    siteName: "RedirecTo",
     images: [
       {
-        url: 'https://redirec-to.vercel.app/og-image.png',
+        url: "https://redirec-to.vercel.app/og-image.png",
         width: 1200,
         height: 630,
-        alt: 'RedirecTo - Modern Link Shortening Platform',
+        alt: "RedirecTo - Modern Link Shortening Platform",
       },
     ],
-    locale: 'en_US',
-    type: 'website',
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
-    card: 'summary_large_image',
-    site: '@redirecto',
-    creator: '@redirecto',
-    title: 'RedirecTo. | Modern Link Shortening & Analytics Platform',
-    description: 'Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening.',
-    images: ['https://redirec-to.vercel.app/og-image.png'],
+    card: "summary_large_image",
+    site: "@redirecto",
+    creator: "@redirecto",
+    title: "RedirecTo. | Modern Link Shortening & Analytics Platform",
+    description:
+      "Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening.",
+    images: ["https://redirec-to.vercel.app/og-image.png"],
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
-    shortcut: '/favicon.ico',
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
   },
-  manifest: '/manifest.json',
+  manifest: "/manifest.json",
   verification: {
-    google: 'YOUR_GOOGLE_SITE_VERIFICATION_CODE',
+    google: "YOUR_GOOGLE_SITE_VERIFICATION_CODE",
   },
   alternates: {
-    canonical: 'https://redirec-to.vercel.app/',
+    canonical: "https://redirec-to.vercel.app/",
   },
 };
 
@@ -73,7 +89,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preload" as="image" href="/images/background.jpeg" />
         <link rel="preload" as="audio" href="/audio/notification.mp3" />
@@ -83,20 +102,21 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "RedirecTo",
-              "url": "https://redirec-to.vercel.app/",
-              "description": "Create links instantly, monitor traffic effortlessly, and manage your URLs with RedirecTo.",
-              "publisher": {
+              name: "RedirecTo",
+              url: "https://redirec-to.vercel.app/",
+              description:
+                "Create links instantly, monitor traffic effortlessly, and manage your URLs with RedirecTo.",
+              publisher: {
                 "@type": "Organization",
-                "name": "RedirecTo",
-                "url": "https://redirec-to.vercel.app/"
+                name: "RedirecTo",
+                url: "https://redirec-to.vercel.app/",
               },
-              "potentialAction": {
+              potentialAction: {
                 "@type": "SearchAction",
-                "target": "https://redirec-to.vercel.app/?q={search_term_string}",
-                "query-input": "required name=search_term_string"
-              }
-            })
+                target: "https://redirec-to.vercel.app/?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
           }}
         />
       </head>
