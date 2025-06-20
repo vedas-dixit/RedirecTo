@@ -78,7 +78,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
         {!urls || urls.length === 0 ? (
           <div className={`flex flex-col items-center justify-center h-80 ${styles.text('muted')}`}>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/20 to-white/30 dark:from-slate-800/40 dark:to-slate-700/60 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-white/20">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-800/20 dark:to-orange-700/30 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-white/20">
                 <svg
                   className="w-8 h-8 text-white/70 dark:text-white/70"
                   fill="none"

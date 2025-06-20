@@ -54,25 +54,31 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-black via-gray-950 to-slate-950">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.08]">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: `
               radial-gradient(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)
             `,
-            backgroundSize: '20px 20px',
+            backgroundSize: "20px 20px",
           }}
         />
       </div>
 
       {/* Gentle floating elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-xl animate-pulse" 
-             style={{ animationDuration: '4s' }} />
-        <div className="absolute bottom-1/3 right-1/4 w-24 h-24 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl animate-pulse" 
-             style={{ animationDuration: '6s', animationDelay: '2s' }} />
-        <div className="absolute top-1/2 right-1/3 w-16 h-16 bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-full blur-xl animate-pulse" 
-             style={{ animationDuration: '5s', animationDelay: '1s' }} />
+        <div
+          className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-full blur-xl animate-pulse"
+          style={{ animationDuration: "4s" }}
+        />
+        <div
+          className="absolute bottom-1/3 right-1/4 w-24 h-24 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-xl animate-pulse"
+          style={{ animationDuration: "6s", animationDelay: "2s" }}
+        />
+        <div
+          className="absolute top-1/2 right-1/3 w-16 h-16 bg-gradient-to-r from-emerald-500/10 to-green-500/10 rounded-full blur-xl animate-pulse"
+          style={{ animationDuration: "5s", animationDelay: "1s" }}
+        />
       </div>
 
       {/* Main Content */}
@@ -87,21 +93,26 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
               Protected Content
             </h1>
             <p className="text-gray-400 text-base leading-relaxed">
-              This content is password protected. Please enter the password to continue.
+              This content is password protected. Please enter the password to
+              continue.
             </p>
           </div>
 
           {/* Glassmorphic Main Card */}
-          <div className="relative backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/10 p-8"
-               style={{
-                 background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
-                 boxShadow: '0 25px 45px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(255, 255, 255, 0.05)'
-               }}>
+          <div
+            className="relative backdrop-blur-2xl rounded-2xl shadow-2xl border border-white/10 p-8"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+              boxShadow:
+                "0 25px 45px -10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(255, 255, 255, 0.05)",
+            }}
+          >
             {/* Glass reflection effect */}
             <div className="absolute inset-0 rounded-2xl overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-white/[0.08] to-transparent" />
             </div>
-            
+
             <div className="relative z-10 space-y-6">
               {/* Password Input */}
               <div className="space-y-3">
@@ -120,8 +131,8 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
                     placeholder="Enter password"
                     className="w-full pl-12 pr-12 py-4 backdrop-blur-sm rounded-xl focus:ring-2 focus:ring-indigo-400/50 focus:border-indigo-400/50 text-white placeholder-gray-500 transition-all duration-200 border border-white/20"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.08)',
-                      boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.1)'
+                      background: "rgba(255, 255, 255, 0.08)",
+                      boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.1)",
                     }}
                     disabled={isPending}
                   />
@@ -170,14 +181,14 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
 
               {/* Error Message */}
               {error && (
-                <div className="p-4 backdrop-blur-sm border border-red-500/30 rounded-xl"
-                     style={{
-                       background: 'rgba(239, 68, 68, 0.1)',
-                       boxShadow: 'inset 0 1px 0 rgba(239, 68, 68, 0.2)'
-                     }}>
-                  <p className="text-red-300 text-sm text-center">
-                    {error}
-                  </p>
+                <div
+                  className="p-4 backdrop-blur-sm border border-red-500/30 rounded-xl"
+                  style={{
+                    background: "rgba(239, 68, 68, 0.1)",
+                    boxShadow: "inset 0 1px 0 rgba(239, 68, 68, 0.2)",
+                  }}
+                >
+                  <p className="text-red-300 text-sm text-center">{error}</p>
                 </div>
               )}
 
@@ -192,12 +203,14 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
                     : "text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0 border border-indigo-400/30"
                 }`}
                 style={{
-                  background: !password.trim() || isPending 
-                    ? 'rgba(255, 255, 255, 0.05)' 
-                    : 'linear-gradient(135deg, rgba(99, 102, 241, 0.8) 0%, rgba(139, 92, 246, 0.8) 100%)',
-                  boxShadow: !password.trim() || isPending 
-                    ? 'inset 0 1px 0 rgba(255, 255, 255, 0.05)' 
-                    : '0 8px 32px rgba(99, 102, 241, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                  background:
+                    !password.trim() || isPending
+                      ? "rgba(255, 255, 255, 0.05)"
+                      : "linear-gradient(135deg, rgba(99, 102, 241, 0.8) 0%, rgba(139, 92, 246, 0.8) 100%)",
+                  boxShadow:
+                    !password.trim() || isPending
+                      ? "inset 0 1px 0 rgba(255, 255, 255, 0.05)"
+                      : "0 8px 32px rgba(99, 102, 241, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
                 }}
               >
                 {isPending ? (
@@ -217,14 +230,19 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
 
           {/* Footer */}
           <div className="text-center mt-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 backdrop-blur-sm rounded-full border border-white/10 shadow-sm"
-                 style={{
-                   background: 'rgba(255, 255, 255, 0.05)',
-                   boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-                 }}>
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 backdrop-blur-sm rounded-full border border-white/10 shadow-sm"
+              style={{
+                background: "rgba(255, 255, 255, 0.05)",
+                boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+              }}
+            >
               <div className="w-2 h-2 bg-green-400 rounded-full" />
               <p className="text-xs text-gray-400 font-medium">
-                Secured by <span className="text-indigo-400 font-semibold">RedirectTo</span>
+                Secured by{" "}
+                <span className="text-indigo-400 font-semibold">
+                  RedirectTo
+                </span>
               </p>
             </div>
           </div>
