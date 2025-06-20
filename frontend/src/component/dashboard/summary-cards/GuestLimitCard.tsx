@@ -22,26 +22,26 @@ export const GuestLimitCard: React.FC<GuestLimitCardProps> = ({
 
   return (
     <div className="fixed bottom-0 right-4 z-50 max-w-sm">
-      <Card className="bg-gradient-to-br from-orange-900/20 to-orange-800/20 border-orange-500/30 backdrop-blur-sm relative shadow-lg">
+      <Card className="bg-gradient-to-br from-orange-950/15 to-orange-900/20 border-orange-400/15 backdrop-blur-sm relative shadow-lg">
         <button
           onClick={() => setVisible(false)}
-          className="absolute top-2 right-2 text-orange-400 hover:text-orange-200 transition cursor-pointer"
+          className="absolute top-2 right-2 text-orange-300/60 hover:text-orange-200/80 transition cursor-pointer"
         >
           <X className="w-4 h-4" />
         </button>
         <CardHeader>
           <CardTitle className="text-lg flex items-center gap-2 text-white">
-            <User className="h-5 w-5 text-orange-500" />
+            <User className="h-5 w-5 text-orange-400/70" />
             Guest Limits
           </CardTitle>
-          <CardDescription className="text-zinc-300">
+          <CardDescription className="text-orange-100/70">
             You&apos;ve created {current}/{limit} temporary URLs
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Progress
             value={(current / limit) * 100}
-            className="mb-4 bg-zinc-800"
+            className="mb-4 bg-orange-950"
           />
           <AnimatedStarButton
             className="w-64 text-white border-0"

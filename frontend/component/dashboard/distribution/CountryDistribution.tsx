@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "../../../src/component/UI/card";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { useThemeStyles } from "../../../src/hooks/useThemeStyles";
 
 // Dynamic import for client-side only
 const LiquidGlassWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -48,6 +49,8 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
   description = "Top 5 countries",
 }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const styles = useThemeStyles();
+  const gradients = styles.gradientAccents();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -69,25 +72,31 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
   ];
 
   return (
-    <Card className="bg-white/5 backdrop-blur-xl border border-none shadow-lg shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-xl hover:shadow-black/30 h-full relative overflow-hidden">
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+    <Card className={`${styles.glassmorphicCard('primary')} h-full group`}>
+      {/* Gradient overlay for extra depth */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`} />
+      
+      <div className="absolute inset-0 opacity-40 dark:opacity-60 group-hover:opacity-60 dark:group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
         <LiquidGlassWrapper>
           <div className="w-full h-full" />
         </LiquidGlassWrapper>
       </div>
+      
+      {/* Glowing accent border */}
+      <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 pointer-events-none`} />
       <CardHeader className="relative z-10 pb-2 sm:pb-4">
-        <CardTitle className="text-white/90 text-lg">{title}</CardTitle>
-        <CardDescription className="text-white/70 text-sm">
+        <CardTitle className={`${styles.text('primary')} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 text-lg`}>{title}</CardTitle>
+        <CardDescription className={`${styles.text('muted')} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300 text-sm`}>
           {description}
-        </CardDescription>{" "}
+        </CardDescription>
       </CardHeader>
       <CardContent className="relative z-10 p-3 sm:p-6">
         {!data || data.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-80 text-white/70">
+          <div className={`flex flex-col items-center justify-center h-80 ${styles.text('muted')}`}>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-950/30 dark:to-orange-900/40 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-orange-400/10">
                 <svg
-                  className="w-8 h-8 text-white/50"
+                  className="w-8 h-8 text-white/70 dark:text-orange-300/60"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -100,10 +109,10 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-white/80 mb-2">
+              <h3 className={`text-lg font-medium mb-2 ${styles.text('secondary')}`}>
                 No Country Distribution Data Available
               </h3>
-              <p className="text-sm text-white/60">
+              <p className={`text-sm ${styles.text('muted')}`}>
                 Create some URLs and share them to see country analytics here
               </p>
             </div>
