@@ -300,8 +300,8 @@ input[type="number"] {
 .glassy-loader-box {
   box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.18);
   border-radius: 1.25rem;
-  background: rgba(30, 41, 59, 0.972);
-  backdrop-filter: blur(16px);
+  background: rgba(30, 41, 59, 0.55);
+  backdrop-filter: blur(36px);
   border: 1.5px solid rgba(255, 255, 255, 0.18);
 }
 

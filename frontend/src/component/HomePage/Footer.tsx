@@ -75,7 +75,7 @@ function Footer() {
           {/* Animated Characters Row - Always centered and on top */}
           <div className="flex justify-center mb-4 px-4">
             <div className="px-3 py-1 rounded-xl font-mono text-xs sm:text-sm md:text-md tracking-wide border border-amber-800/55">
-              <span className="text-white text-sm sm:text-lg md:text-xl">
+              <span className="text-orange-500 text-sm sm:text-lg md:text-xl">
                 /
               </span>
               {chars.split("").map((char, index) => (
@@ -83,7 +83,7 @@ function Footer() {
                   key={index}
                   className={`transition-colors duration-150 ${
                     currentIndex === index && isChanging
-                      ? "text-white"
+                      ? "text-orange-500"
                       : "text-gray-300"
                   }`}
                 >

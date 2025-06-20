@@ -94,7 +94,7 @@ const CountryDistribution: React.FC<CountryDistributionProps> = ({
         {!data || data.length === 0 ? (
           <div className={`flex flex-col items-center justify-center h-80 ${styles.text('muted')}`}>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-950/30 dark:to-orange-900/40 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-orange-400/10">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-black/5 to-black/10 dark:from-orange-950/30 dark:to-orange-900/40 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-orange-400/10">
                 <svg
                   className="w-8 h-8 text-white/70 dark:text-orange-300/60"
                   fill="none"

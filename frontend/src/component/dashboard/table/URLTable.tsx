@@ -7,14 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "../../UI/card";
-import { Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
+import { Copy, ExternalLink, Shield, Trash2 } from "lucide-react";
 import { Button } from "../../UI/button";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 import { LiquidGlassWrapper } from "../../UI/LiquidGlassWrapper";
 import GlassyToast from "../../UI/GlassyToast";
 import { useThemeStyles } from "../../../hooks/useThemeStyles";
 
-export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
+export const URLTable: React.FC<URLTableProps> = ({ urls }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showToast, setShowToast] = useState<boolean>(false);
   const itemsPerPage = 5;
@@ -32,9 +32,9 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
     }
   };
 
-  const handleEdit = (id: string): void => {
-    console.log("Edit URL:", id);
-  };
+  // const handleEdit = (id: string): void => {
+  //   console.log("Edit URL:", id);
+  // };
 
   const handleDelete = (id: string): void => {
     console.log("Delete URL:", id);
@@ -78,7 +78,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
         {!urls || urls.length === 0 ? (
           <div className={`flex flex-col items-center justify-center h-80 ${styles.text('muted')}`}>
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-800/20 dark:to-orange-700/30 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-white/20">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/5 to-white/10 dark:from-orange-800/20 dark:to-orange-700/30 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-white/20">
                 <svg
                   className="w-8 h-8 text-white/70 dark:text-white/70"
                   fill="none"
@@ -137,11 +137,11 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                 {paginatedUrls.map((url) => (
                   <tr
                     key={url.id}
-                    className="border-b border-white/20 dark:border-orange-400/10 hover:bg-gradient-to-r hover:from-white/10 hover:to-white/15 dark:hover:from-orange-900/20 dark:hover:to-orange-800/25 transition-all duration-300 group"
+                    className="border-b border-white/20 dark:border-orange-400/10 hover:bg-gradient-to-r hover:from-white/5 hover:to-white/10 dark:hover:from-orange-900/20 dark:hover:to-orange-800/25 transition-all duration-300 group"
                   >
                     <td className="p-2">
                       <div className="flex items-center gap-2">
-                        <code className={`bg-gradient-to-r from-white/20 to-white/25 dark:from-orange-900/30 dark:to-orange-800/35 px-2 py-1 rounded text-xs border border-white/30 dark:border-orange-400/20 drop-shadow-sm backdrop-blur-sm ${styles.text('primary')}`}>
+                        <code className={`bg-gradient-to-r from-black/25 to-black/30 dark:from-orange-900/30 dark:to-orange-800/35 px-2 py-1 rounded text-xs  dark:border-orange-400/20 drop-shadow-sm backdrop-blur-sm ${styles.text('primary')}`}>
                           {url.shortUrl}
                         </code>
                         <Button
@@ -212,6 +212,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                     <td className="p-2">
                       <div className="flex gap-1">
                         <Button
+                          key={`visit-${url.id}`}
                           size="sm"
                           variant="ghost"
                           className={`${styles.text('muted')} hover:text-white/100 dark:hover:text-orange-200 hover:bg-black/20 dark:hover:bg-orange-900/20 border border-white/20 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/30 transition-all duration-300`}
@@ -219,8 +220,9 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                         >
                           <ExternalLink className="h-3 w-3" />
                         </Button>
-                        {!isGuest && (
+                        {/* {!isGuest && (
                           <Button
+                            key={`edit-${url.id}`}
                             size="sm"
                             variant="ghost"
                             className={`${styles.text('muted')} hover:text-white/100 dark:hover:text-orange-200 hover:bg-black/20 dark:hover:bg-orange-900/20 border border-white/20 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/30 transition-all duration-300`}
@@ -228,11 +230,12 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                           >
                             <Edit className="h-3 w-3" />
                           </Button>
-                        )}
+                        )} */}
                         <Button
+                          key={`delete-${url.id}`}
                           size="sm"
                           variant="ghost"
-                          className={`${styles.text('muted')} hover:text-red-200 hover:bg-red-200/20 dark:hover:bg-red-900/20 border border-white/20 dark:border-orange-400/10 hover:border-red-300/40 dark:hover:border-red-400/30 transition-all duration-300`}
+                          className={`${styles.text('muted')} hover:text-red-200 hover:bg-red-400/80 dark:hover:bg-red-900/20 border border-white/20 dark:border-orange-400/10 hover:border-red-300/40 dark:hover:border-red-400/30 transition-all duration-300`}
                           onClick={() => handleDelete(url.id)}
                         >
                           <Trash2 className="h-3 w-3" />

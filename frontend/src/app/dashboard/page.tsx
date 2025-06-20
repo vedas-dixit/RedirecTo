@@ -15,7 +15,6 @@ import { useAuth } from "../../hooks/useAuth";
 import SigninModal from "../../modals/SigninModal";
 import ChartSection from "../../../component/dashboard/chart/ChartSection";
 import CountryDistribution from "../../../component/dashboard/distribution/CountryDistribution";
-import { ThemeToggle } from "../../component/UI/ThemeToggle";
 import { useTheme } from "../../providers/ThemeProvider";
 
 const LoadingSkeleton: React.FC = () => {
@@ -187,7 +186,6 @@ const URLShortenerDashboard: React.FC = () => {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <ThemeToggle />
               <AnimatedStarButton className="p-3" onClick={handleOpenUrlForm}>
                 Create URL
               </AnimatedStarButton>
