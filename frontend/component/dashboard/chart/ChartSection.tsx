@@ -58,29 +58,39 @@ const ChartSection: React.FC<ChartSectionProps> = ({
 }) => {
   const styles = useThemeStyles();
   const gradients = styles.gradientAccents();
-  
+
   return (
-    <Card className={`${styles.glassmorphicCard('primary')} h-full group`}>
+    <Card className={`${styles.glassmorphicCard("primary")} h-full group`}>
       {/* Gradient overlay for extra depth */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`} />
-      
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`}
+      />
       <div className="absolute inset-0 opacity-30 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none">
         <LiquidGlassWrapper>
           <div className="w-full h-full" />
         </LiquidGlassWrapper>
       </div>
-      
       {/* Glowing accent border */}
-      <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 pointer-events-none`} />{" "}
+      <div
+        className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 pointer-events-none`}
+      />{" "}
       <CardHeader className="relative z-10 pb-2 sm:pb-4">
-        <CardTitle className={`${styles.text('primary')} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 text-lg`}>{title}</CardTitle>
-        <CardDescription className={`${styles.text('muted')} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300 text-sm`}>
+        <CardTitle
+          className={`${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 text-lg`}
+        >
+          {title}
+        </CardTitle>
+        <CardDescription
+          className={`${styles.text("muted")} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300 text-sm`}
+        >
           {description}
         </CardDescription>
       </CardHeader>{" "}
       <CardContent className="relative z-10 p-3 sm:p-6">
         {!data || data.length === 0 ? (
-          <div className={`flex flex-col items-center justify-center h-80 ${styles.text('muted')}`}>
+          <div
+            className={`flex flex-col items-center justify-center h-80 ${styles.text("muted")}`}
+          >
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-950/30 dark:to-orange-900/40 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-orange-400/10">
                 <svg
@@ -97,10 +107,12 @@ const ChartSection: React.FC<ChartSectionProps> = ({
                   />
                 </svg>
               </div>
-              <h3 className={`text-lg font-medium mb-2 ${styles.text('secondary')}`}>
+              <h3
+                className={`text-lg font-medium mb-2 ${styles.text("secondary")}`}
+              >
                 No Click Analytics Data Available
               </h3>
-              <p className={`text-sm ${styles.text('muted')}`}>
+              <p className={`text-sm ${styles.text("muted")}`}>
                 Create some URLs and share them to see click analytics here
               </p>
             </div>

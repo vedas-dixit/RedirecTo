@@ -20,12 +20,12 @@ import { useTheme } from "../../providers/ThemeProvider";
 
 const LoadingSkeleton: React.FC = () => {
   const { theme } = useTheme();
-  
+
   return (
     <div
       className="min-h-screen"
       style={{
-        backgroundImage: `url('/images/${theme === 'dark' ? 'background-dark.png' : 'background.jpeg'}')`,
+        backgroundImage: `url('/images/${theme === "dark" ? "background-dark.png" : "background.jpeg"}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -65,12 +65,12 @@ const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({
   onRetry,
 }) => {
   const { theme } = useTheme();
-  
+
   return (
-    <div 
+    <div
       className="min-h-screen flex items-center justify-center"
       style={{
-        backgroundImage: `url('/images/${theme === 'dark' ? 'background-dark.png' : 'background.jpeg'}')`,
+        backgroundImage: `url('/images/${theme === "dark" ? "background-dark.png" : "background.jpeg"}')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -79,7 +79,9 @@ const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({
     >
       <div className="text-center space-y-4 bg-white/3 dark:bg-black/50 backdrop-blur-xl rounded-lg p-8 border border-white/15 dark:border-white/25 shadow-2xl shadow-black/40 dark:shadow-black/80">
         <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
-        <h2 className="text-xl font-semibold text-white">Failed to load dashboard</h2>
+        <h2 className="text-xl font-semibold text-white">
+          Failed to load dashboard
+        </h2>
         <p className="text-white/70 dark:text-white/80">{error}</p>
         <button
           onClick={onRetry}
@@ -170,7 +172,7 @@ const URLShortenerDashboard: React.FC = () => {
       <div
         className="min-h-screen"
         style={{
-          backgroundImage: `url('/images/${theme === 'dark' ? 'background-dark.png' : 'background.jpeg'}')`,
+          backgroundImage: `url('/images/${theme === "dark" ? "background-dark.png" : "background.jpeg"}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

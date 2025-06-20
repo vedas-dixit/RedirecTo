@@ -53,21 +53,27 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
       <SigninModal isOpen={isSigninModalOpen} onClose={closeSigninModal} />
       <UpdateUserModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} />
 
-      <Card className={`${styles.glassmorphicCard('primary')} h-full group`}>
+      <Card className={`${styles.glassmorphicCard("primary")} h-full group`}>
         {/* Orange gradient overlay for extra depth */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`} />
-        
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`}
+        />
+
         <div className="absolute inset-0 opacity-40 dark:opacity-60 group-hover:opacity-60 dark:group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
           <LiquidGlassWrapper>
             <div className="w-full h-full" />
           </LiquidGlassWrapper>
         </div>
-        
+
         {/* Orange glowing accent border */}
-        <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`} />
-        
+        <div
+          className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`}
+        />
+
         <CardHeader className="relative z-10">
-          <CardTitle className={`flex items-center gap-2 text-lg ${styles.text('primary')} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}>
+          <CardTitle
+            className={`flex items-center gap-2 text-lg ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}
+          >
             {isGuest ? "Account Options" : "Settings"}
           </CardTitle>
         </CardHeader>
@@ -78,14 +84,22 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
               <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 rounded-2xl backdrop-blur-sm ">
                 <div className="relative">
                   <div className="w-15 h-15 bg-gradient-to-br from-black/20 to-black/30 dark:from-orange-950/30 dark:to-orange-900/40 rounded-full flex items-center justify-center">
-                    <span className={`font-bold text-xl ${styles.text('primary')}`}>G</span>
+                    <span
+                      className={`font-bold text-xl ${styles.text("primary")}`}
+                    >
+                      G
+                    </span>
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-semibold text-lg truncate ${styles.text('primary')}`}>
+                  <h3
+                    className={`font-semibold text-lg truncate ${styles.text("primary")}`}
+                  >
                     Guest User
                   </h3>
-                  <p className={`text-sm truncate ${styles.text('muted')}`}>No email</p>
+                  <p className={`text-sm truncate ${styles.text("muted")}`}>
+                    No email
+                  </p>
                 </div>
               </div>
               {/* login */}
@@ -94,7 +108,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                 onClick={handleSignIn}
               >
                 {/* Glass reflection effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                ></div>
 
                 <div className="absolute top-2 left-2 text-xs text-white/40 dark:text-orange-200/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-pulse font-mono">
                   https://
@@ -117,11 +133,15 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     <LogIn className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-white/100 dark:group-hover:text-orange-100 transition-colors duration-300" />
                   </div>
                   <div>
-                    <h4 className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text('primary')}`}>
+                    <h4
+                      className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text("primary")}`}
+                    >
                       Sign In
                     </h4>
                     <p>
-                      <span className={`text-xs transition-all duration-300 delay-100 ${styles.text('muted')} group-hover:text-white/90 dark:group-hover:text-orange-200/80`}>
+                      <span
+                        className={`text-xs transition-all duration-300 delay-100 ${styles.text("muted")} group-hover:text-white/90 dark:group-hover:text-orange-200/80`}
+                      >
                         Sign in to unlock true potential
                       </span>
                     </p>
@@ -144,17 +164,21 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     />
                   ) : (
                     <div className="w-15 h-15 bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-950/30 dark:to-orange-900/40 rounded-full flex items-center justify-center border-2 border-white/40 dark:border-orange-400/20">
-                      <span className={`font-bold text-xl ${styles.text('primary')}`}>
+                      <span
+                        className={`font-bold text-xl ${styles.text("primary")}`}
+                      >
                         {getUserDisplayName().charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-semibold text-lg truncate ${styles.text('primary')}`}>
+                  <h3
+                    className={`font-semibold text-lg truncate ${styles.text("primary")}`}
+                  >
                     {getUserDisplayName()}
                   </h3>
-                  <p className={`text-sm truncate ${styles.text('muted')}`}>
+                  <p className={`text-sm truncate ${styles.text("muted")}`}>
                     {user?.email || "No email"}
                   </p>
                 </div>
@@ -170,17 +194,23 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                   <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-white/50 dark:bg-orange-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-500 group-hover:animate-pulse"></div>
 
                   {/* Glass reflection effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  ></div>
 
                   <div className="relative z-10 text-center space-y-3">
                     <div className="w-12 h-12 bg-gradient-to-br from-white/40 to-white/50 dark:from-orange-600/20 dark:to-orange-500/25 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:from-white/60 group-hover:to-white/70 dark:group-hover:from-orange-600/35 dark:group-hover:to-orange-500/40 group-hover:scale-105 transition-all duration-500 border border-white/40 dark:border-orange-400/20">
                       <Globe className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-white/100 dark:group-hover:text-orange-100 transition-all duration-300 group-hover:rotate-12" />
                     </div>
                     <div>
-                      <h4 className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text('primary')}`}>
+                      <h4
+                        className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text("primary")}`}
+                      >
                         Global Network
                       </h4>
-                      <p className={`text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 ${styles.text('muted')} group-hover:text-white/90 dark:group-hover:text-orange-200/80`}>
+                      <p
+                        className={`text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 ${styles.text("muted")} group-hover:text-white/90 dark:group-hover:text-orange-200/80`}
+                      >
                         Worldwide reach
                       </p>
                     </div>
@@ -197,10 +227,14 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       <LogOut className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-red-100 transition-colors duration-300" />
                     </div>
                     <div>
-                      <h4 className={`font-medium text-sm group-hover:text-red-100 transition-colors duration-300 ${styles.text('primary')}`}>
+                      <h4
+                        className={`font-medium text-sm group-hover:text-red-100 transition-colors duration-300 ${styles.text("primary")}`}
+                      >
                         Logout
                       </h4>
-                      <p className={`text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 ${styles.text('muted')} group-hover:text-red-200`}>
+                      <p
+                        className={`text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100 ${styles.text("muted")} group-hover:text-red-200`}
+                      >
                         Sign out safely
                       </p>
                     </div>

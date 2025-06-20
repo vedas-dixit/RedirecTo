@@ -36,7 +36,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       setTheme(savedTheme);
     } else {
       // Check system preference
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
       setTheme(systemTheme);
     }
   }, []);
@@ -57,7 +60,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   if (!mounted) {
     // Provide a default context during mounting to prevent errors
     return (
-      <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => {}, setTheme: () => {} }}>
+      <ThemeContext.Provider
+        value={{ theme: "dark", toggleTheme: () => {}, setTheme: () => {} }}
+      >
         {children}
       </ThemeContext.Provider>
     );
