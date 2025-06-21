@@ -5,7 +5,6 @@ import AnimatedStarButton from "../custom/AnimatedButton";
 import { UrlCreationFormProps, UrlFormData } from "@/types/types";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 
-
 // Error Message Component
 const ErrorMessage: React.FC<{ message: string }> = ({ message }) => {
   return (
@@ -57,10 +56,10 @@ const UrlCreationForm: React.FC<
   // Validation functions
   const validateUrl = (url: string): boolean => {
     if (!url.trim()) return false;
-    
+
     try {
       const urlObj = new URL(url);
-      return urlObj.protocol === 'http:' || urlObj.protocol === 'https:';
+      return urlObj.protocol === "http:" || urlObj.protocol === "https:";
     } catch {
       return false;
     }
@@ -89,7 +88,8 @@ const UrlCreationForm: React.FC<
     if (!formData.destination.trim()) {
       newErrors.destination = "URL is required";
     } else if (!validateUrl(formData.destination)) {
-      newErrors.destination = "Please enter a valid URL (must start with http:// or https://)";
+      newErrors.destination =
+        "Please enter a valid URL (must start with http:// or https://)";
     }
 
     // Password validation
@@ -121,7 +121,7 @@ const UrlCreationForm: React.FC<
 
   const handleSubmit = async () => {
     if (isSubmitting) return;
-    
+
     if (!validateForm()) {
       return;
     }
@@ -132,7 +132,8 @@ const UrlCreationForm: React.FC<
       ...formData,
       destination: formData.destination.trim(),
       expires_at: hasExpiry ? formData.expires_at : null,
-      click_limit: formData.click_limit === 0 ? undefined : formData.click_limit,
+      click_limit:
+        formData.click_limit === 0 ? undefined : formData.click_limit,
       password: formData.is_protected ? formData.password : null,
       long_url: formData.destination.trim(),
     };
@@ -141,7 +142,7 @@ const UrlCreationForm: React.FC<
       await createUrl(payloadToSend);
     } catch (error) {
       setIsSubmitting(false);
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -152,7 +153,7 @@ const UrlCreationForm: React.FC<
 
   const clearError = (field: string) => {
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: "" }));
+      setErrors((prev) => ({ ...prev, [field]: "" }));
     }
   };
 
@@ -194,18 +195,20 @@ const UrlCreationForm: React.FC<
                   value={formData.destination}
                   onChange={(e) => {
                     setFormData({ ...formData, destination: e.target.value });
-                    clearError('destination');
+                    clearError("destination");
                   }}
                   placeholder="https://example.com/very-long-url-that-needs-shortening"
                   className={`w-full px-4 py-2 bg-white/5 backdrop-blur-sm rounded-lg text-white/90 placeholder-white/40 focus:outline-none transition-all duration-200 hover:bg-white/10 ${
-                    errors.destination 
-                      ? 'border border-red-500/50 bg-red-500/5' 
-                      : 'border border-transparent'
+                    errors.destination
+                      ? "border border-red-500/50 bg-red-500/5"
+                      : "border border-transparent"
                   }`}
                   required
                 />
               </div>
-              {errors.destination && <ErrorMessage message={errors.destination} />}
+              {errors.destination && (
+                <ErrorMessage message={errors.destination} />
+              )}
             </div>
 
             {/* Protected URL Toggle */}
@@ -242,19 +245,21 @@ const UrlCreationForm: React.FC<
                         type={showPassword ? "text" : "password"}
                         value={formData.password}
                         onChange={(e) => {
-                          setFormData({ ...formData, password: e.target.value });
-                          clearError('password');
+                          setFormData({
+                            ...formData,
+                            password: e.target.value,
+                          });
+                          clearError("password");
                         }}
                         placeholder="Enter password for protected URL"
                         className={`w-full px-4 py-2 pr-12 bg-white/5 backdrop-blur-sm rounded-lg text-white/90 placeholder-white/40 focus:outline-none transition-all duration-200 hover:bg-white/10 ${
-                          errors.password 
-                            ? 'border border-red-500/50 bg-red-500/5' 
-                            : 'border border-transparent'
+                          errors.password
+                            ? "border border-red-500/50 bg-red-500/5"
+                            : "border border-transparent"
                         }`}
                         required={formData.is_protected}
                       />
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-1">
-                        
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
@@ -268,7 +273,9 @@ const UrlCreationForm: React.FC<
                         </button>
                       </div>
                     </div>
-                    {errors.password && <ErrorMessage message={errors.password} />}
+                    {errors.password && (
+                      <ErrorMessage message={errors.password} />
+                    )}
                   </div>
                 </div>
               )}
@@ -302,20 +309,24 @@ const UrlCreationForm: React.FC<
                       type="date"
                       value={formData.expires_at}
                       onChange={(e) => {
-                        setFormData({ ...formData, expires_at: e.target.value });
-                        clearError('expires_at');
+                        setFormData({
+                          ...formData,
+                          expires_at: e.target.value,
+                        });
+                        clearError("expires_at");
                       }}
                       min={getTodayDate()}
                       className={`w-full px-4 py-3.5 bg-white/5 backdrop-blur-sm rounded-2xl text-white/90 focus:outline-none transition-all duration-200 hover:bg-white/10 [color-scheme:dark] ${
-                        errors.expires_at 
-                          ? 'border border-red-500/50 bg-red-500/5' 
-                          : 'border border-transparent'
+                        errors.expires_at
+                          ? "border border-red-500/50 bg-red-500/5"
+                          : "border border-transparent"
                       }`}
                       required={hasExpiry}
                     />
-                    
                   </div>
-                  {errors.expires_at && <ErrorMessage message={errors.expires_at} />}
+                  {errors.expires_at && (
+                    <ErrorMessage message={errors.expires_at} />
+                  )}
                 </div>
               )}
             </div>
@@ -332,22 +343,26 @@ const UrlCreationForm: React.FC<
                   onChange={(e) => {
                     setFormData({
                       ...formData,
-                      click_limit: Math.min(parseInt(e.target.value) || 0, 10000),
+                      click_limit: Math.min(
+                        parseInt(e.target.value) || 0,
+                        10000,
+                      ),
                     });
-                    clearError('click_limit');
+                    clearError("click_limit");
                   }}
                   placeholder="0 (unlimited clicks)"
                   min="0"
                   max="10000"
                   className={`w-full px-4 py-2 bg-white/5 backdrop-blur-sm rounded-lg text-white/90 placeholder-white/40 focus:outline-none transition-all duration-200 hover:bg-white/10 ${
-                    errors.click_limit 
-                      ? 'border border-red-500/50 bg-red-500/5' 
-                      : 'border border-transparent'
+                    errors.click_limit
+                      ? "border border-red-500/50 bg-red-500/5"
+                      : "border border-transparent"
                   }`}
                 />
-                
               </div>
-              {errors.click_limit && <ErrorMessage message={errors.click_limit} />}
+              {errors.click_limit && (
+                <ErrorMessage message={errors.click_limit} />
+              )}
               <p className="text-xs text-white/50">
                 Set to 0 for unlimited clicks
               </p>

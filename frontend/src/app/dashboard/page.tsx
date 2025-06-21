@@ -19,7 +19,6 @@ import { useTheme } from "../../providers/ThemeProvider";
 import { ErrorDisplay } from "@/component/error/errorModal";
 import { LoadingSkeleton } from "@/component/loading/loadingSkeleton";
 
-
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
