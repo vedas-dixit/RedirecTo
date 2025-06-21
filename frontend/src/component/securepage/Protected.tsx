@@ -51,16 +51,16 @@ const ProtectedLinkPage: React.FC<ProtectedUrlPageProp> = ({
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-black via-gray-950 to-slate-950">
+    <div className="min-h-screen relative overflow-hidden ">
       {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.08]">
+      <div className="absolute inset-0 opacity-[0.08] bg-orange-200">
         <div
           className="w-full h-full"
           style={{
             backgroundImage: `
               radial-gradient(circle at 1px 1px, rgb(255,255,255) 1px, transparent 0)
             `,
-            backgroundSize: "20px 20px",
+            backgroundSize: "40px 40px",
           }}
         />
       </div>
