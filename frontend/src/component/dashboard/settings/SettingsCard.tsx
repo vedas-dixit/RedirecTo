@@ -54,21 +54,27 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
       <SigninModal isOpen={isSigninModalOpen} onClose={closeSigninModal} />
       <UpdateUserModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} />
 
-      <Card className={`${styles.glassmorphicCard('primary')} h-full group`}>
+      <Card className={`${styles.glassmorphicCard("primary")} h-full group`}>
         {/* Orange gradient overlay for extra depth */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`} />
-        
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`}
+        />
+
         <div className="absolute inset-0 opacity-40 dark:opacity-60 group-hover:opacity-60 dark:group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
           <LiquidGlassWrapper>
             <div className="w-full h-full" />
           </LiquidGlassWrapper>
         </div>
-        
+
         {/* Orange glowing accent border */}
-        <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`} />
-        
+        <div
+          className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`}
+        />
+
         <CardHeader className="relative z-10">
-          <CardTitle className={`flex items-center gap-2 text-lg ${styles.text('primary')} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}>
+          <CardTitle
+            className={`flex items-center gap-2 text-lg ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}
+          >
             {isGuest ? "Account Options" : "Settings"}
           </CardTitle>
         </CardHeader>
@@ -79,21 +85,29 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
               <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 rounded-2xl backdrop-blur-sm ">
                 <div className="relative">
                   <div className="w-15 h-15 bg-gradient-to-br from-black/20 to-black/30 dark:from-orange-950/30 dark:to-orange-900/40 rounded-full flex items-center justify-center">
-                    <span className={`font-bold text-xl ${styles.text('primary')}`}>G</span>
+                    <span
+                      className={`font-bold text-xl ${styles.text("primary")}`}
+                    >
+                      G
+                    </span>
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-semibold text-lg truncate ${styles.text('primary')}`}>
+                  <h3
+                    className={`font-semibold text-lg truncate ${styles.text("primary")}`}
+                  >
                     Guest User
                   </h3>
-                  <p className={`text-sm truncate ${styles.text('muted')}`}>No email</p>
+                  <p className={`text-sm truncate ${styles.text("muted")}`}>
+                    No email
+                  </p>
                 </div>
               </div>
 
               {/* Theme Toggle and Login Section */}
               <div className="grid grid-cols-2 gap-4">
                 {/* Theme Toggle */}
-                <div className="bg-gradient-to-br from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 group relative overflow-hidden dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/15">
+                <div className="bg-gradient-to-br from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 group relative overflow-hidden border border-white/30 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/15">
                   <div className="relative z-10 text-center space-y-3">
                     <div className="flex justify-center">
                       <ThemeToggle className="w-10 h-10" />
@@ -108,7 +122,7 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
 
                 {/* Login */}
                 <div
-                  className="bg-gradient-to-br from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:from-black/25 hover:to-black/30 dark:hover:from-orange-950/30 dark:hover:to-orange-900/35 group relative overflow-hidden dark:border-orange-400/10 dark:hover:border-orange-400/15"
+                  className="bg-gradient-to-br from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:from-black/25 hover:to-black/30 dark:hover:from-orange-950/30 dark:hover:to-orange-900/35 group relative overflow-hidden border border-white/30 dark:border-orange-400/10 dark:hover:border-orange-400/15"
                   onClick={handleSignIn}
                 >
                   {/* Glass reflection effect */}
@@ -127,8 +141,6 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       <h4 className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text('primary')}`}>
                         Sign In
                       </h4>
-                      <p>
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -149,17 +161,21 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                     />
                   ) : (
                     <div className="w-15 h-15 bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-950/30 dark:to-orange-900/40 rounded-full flex items-center justify-center border-2 border-white/40 dark:border-orange-400/20">
-                      <span className={`font-bold text-xl ${styles.text('primary')}`}>
+                      <span
+                        className={`font-bold text-xl ${styles.text("primary")}`}
+                      >
                         {getUserDisplayName().charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-semibold text-lg truncate ${styles.text('primary')}`}>
+                  <h3
+                    className={`font-semibold text-lg truncate ${styles.text("primary")}`}
+                  >
                     {getUserDisplayName()}
                   </h3>
-                  <p className={`text-sm truncate ${styles.text('muted')}`}>
+                  <p className={`text-sm truncate ${styles.text("muted")}`}>
                     {user?.email || "No email"}
                   </p>
                 </div>

@@ -6,29 +6,37 @@ import { useThemeStyles } from "../../../hooks/useThemeStyles";
 export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
   const styles = useThemeStyles();
   const gradients = styles.gradientAccents();
-  
+
   return (
-    <Card className={`${styles.glassmorphicCard('primary')} h-full group`}>
+    <Card className={`${styles.glassmorphicCard("primary")} h-full group`}>
       {/* Orange gradient overlay for extra depth */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`} />
-      
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`}
+      />
+
       <div className="absolute inset-0 opacity-40 dark:opacity-60 group-hover:opacity-60 dark:group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
         <LiquidGlassWrapper>
           <div className="w-full h-full" />
         </LiquidGlassWrapper>
       </div>
-      
+
       {/* Orange glowing accent border */}
-      <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`} />
-      
+      <div
+        className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`}
+      />
+
       <CardHeader className="relative z-10">
-        <CardTitle className={`flex items-center text-lg gap-2 ${styles.text('primary')} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}>
+        <CardTitle
+          className={`flex items-center text-lg gap-2 ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}
+        >
           Recent Activity
         </CardTitle>
       </CardHeader>
       <CardContent className="relative z-10">
         {!activities || activities.length === 0 ? (
-          <div className={`flex flex-col items-center justify-center h-80 ${styles.text('muted')}`}>
+          <div
+            className={`flex flex-col items-center justify-center h-80 ${styles.text("muted")}`}
+          >
             <div className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-black/5 to-black/10 dark:from-orange-950/30 dark:to-orange-900/40 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-orange-400/10">
                 <svg
@@ -45,10 +53,12 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
                   />
                 </svg>
               </div>
-              <h3 className={`text-lg font-medium ${styles.text('secondary')} mb-2`}>
+              <h3
+                className={`text-lg font-medium ${styles.text("secondary")} mb-2`}
+              >
                 No Recent Activity
               </h3>
-              <p className={`text-sm ${styles.text('muted')}`}>
+              <p className={`text-sm ${styles.text("muted")}`}>
                 Create some URLs and share them to see recent activity here
               </p>
             </div>
@@ -65,13 +75,23 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
                     {activity.flag}
                   </span>
                   <div>
-                    <p className={`text-sm font-medium ${styles.text('primary')} drop-shadow-sm group-hover:text-white/100 dark:group-hover:text-orange-100 transition-colors duration-300`}>
+                    <p
+                      className={`text-sm font-medium ${styles.text("primary")} drop-shadow-sm group-hover:text-white/100 dark:group-hover:text-orange-100 transition-colors duration-300`}
+                    >
                       {activity.shortUrl}
                     </p>
-                    <p className={`text-xs ${styles.text('muted')} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300`}>{activity.country}</p>
+                    <p
+                      className={`text-xs ${styles.text("muted")} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300`}
+                    >
+                      {activity.country}
+                    </p>
                   </div>
                 </div>
-                <span className={`text-xs ${styles.text('muted')} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300`}>{activity.time}</span>
+                <span
+                  className={`text-xs ${styles.text("muted")} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300`}
+                >
+                  {activity.time}
+                </span>
               </div>
             ))}
           </div>
