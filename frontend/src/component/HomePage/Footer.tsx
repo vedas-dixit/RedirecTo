@@ -98,19 +98,19 @@ function Footer() {
             <span className="text-white font-medium">© RedirectTo</span>
             <div className="flex items-center space-x-4 sm:space-x-6">
               <a
-                href="#"
+                href="https://www.linkedin.com/in/vedasdixit/"
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 linkedin
               </a>
               <a
-                href="#"
+                href="https://github.com/vedas-dixit"
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 GitHub
               </a>
               <a
-                href="#"
+                href="https://vedas-desktop.vercel.app/#"
                 className="text-gray-400 hover:text-white transition-colors text-sm"
               >
                 Kurama
