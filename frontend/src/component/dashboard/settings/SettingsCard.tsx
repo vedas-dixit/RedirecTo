@@ -113,7 +113,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       <ThemeToggle className="w-10 h-10" />
                     </div>
                     <div>
-                      <h4 className={`font-medium text-sm ${styles.text('primary')}`}>
+                      <h4
+                        className={`font-medium text-sm ${styles.text("primary")}`}
+                      >
                         Switch Theme
                       </h4>
                     </div>
@@ -126,7 +128,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                   onClick={handleSignIn}
                 >
                   {/* Glass reflection effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  ></div>
 
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700">
                     <div className="absolute top-1/4 left-1/4 w-2 h-2 border border-white/20 dark:border-orange-300/30 rounded rotate-45 group-hover:animate-spin"></div>
@@ -138,7 +142,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       <LogIn className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-white/100 dark:group-hover:text-orange-100 transition-colors duration-300" />
                     </div>
                     <div>
-                      <h4 className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text('primary')}`}>
+                      <h4
+                        className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text("primary")}`}
+                      >
                         Sign In
                       </h4>
                     </div>
@@ -190,7 +196,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       <ThemeToggle className="w-10 h-10" />
                     </div>
                     <div>
-                      <h4 className={`font-medium text-sm ${styles.text('primary')}`}>
+                      <h4
+                        className={`font-medium text-sm ${styles.text("primary")}`}
+                      >
                         Switch Theme
                       </h4>
                     </div>
@@ -207,7 +215,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       <LogOut className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-red-100 transition-colors duration-300" />
                     </div>
                     <div>
-                      <h4 className={`font-medium text-sm group-hover:text-red-100 transition-colors duration-300 ${styles.text('primary')}`}>
+                      <h4
+                        className={`font-medium text-sm group-hover:text-red-100 transition-colors duration-300 ${styles.text("primary")}`}
+                      >
                         Logout
                       </h4>
                     </div>

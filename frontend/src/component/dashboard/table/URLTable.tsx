@@ -21,7 +21,7 @@ export const URLTable: React.FC<URLTableProps> = ({ urls }) => {
   const { deleteUrl } = useUrlManagement();
   const styles = useThemeStyles();
   const gradients = styles.gradientAccents();
-  
+
   const handleCopy = async (url: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(url);
