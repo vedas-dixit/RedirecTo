@@ -7,26 +7,35 @@ import {
   CardHeader,
   CardTitle,
 } from "../../UI/card";
-import { Copy, Edit, ExternalLink, Shield, Trash2 } from "lucide-react";
+import { Copy, ExternalLink, Shield, Trash2 } from "lucide-react";
 import { Button } from "../../UI/button";
 import { useUrlManagement } from "@/hooks/useUrlQueries";
 import { LiquidGlassWrapper } from "../../UI/LiquidGlassWrapper";
+import GlassyToast from "../../UI/GlassyToast";
+import { useThemeStyles } from "../../../hooks/useThemeStyles";
 
-export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
+export const URLTable: React.FC<URLTableProps> = ({ urls }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [showToast, setShowToast] = useState<boolean>(false);
   const itemsPerPage = 5;
   const { deleteUrl } = useUrlManagement();
+  const styles = useThemeStyles();
+  const gradients = styles.gradientAccents();
+
   const handleCopy = async (url: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(url);
+      setShowToast(true);
+      // Auto-hide toast after 3 seconds
+      setTimeout(() => setShowToast(false), 3000);
     } catch (error) {
       console.error("Failed to copy URL:", error);
     }
   };
 
-  const handleEdit = (id: string): void => {
-    console.log("Edit URL:", id);
-  };
+  // const handleEdit = (id: string): void => {
+  //   console.log("Edit URL:", id);
+  // };
 
   const handleDelete = (id: string): void => {
     console.log("Delete URL:", id);
@@ -45,27 +54,44 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
   const totalPages = Math.ceil(urls.length / itemsPerPage);
 
   return (
-    <Card className="bg-white/5 backdrop-blur-md border border-none shadow-lg shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:shadow-xl hover:shadow-black/30 h-full relative overflow-hidden">
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+    <Card className={`${styles.glassmorphicCard("primary")} h-full group`}>
+      {/* Orange gradient overlay for extra depth */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`}
+      />
+
+      <div className="absolute inset-0 opacity-40 dark:opacity-60 group-hover:opacity-60 dark:group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
         <LiquidGlassWrapper>
           <div className="w-full h-full" />
         </LiquidGlassWrapper>
       </div>
+
+      {/* Orange glowing accent border */}
+      <div
+        className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`}
+      />
+
       <CardHeader className="relative z-10">
-        <CardTitle className="text-white/90 text-lg drop-shadow-sm">
+        <CardTitle
+          className={`text-lg drop-shadow-sm ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}
+        >
           Your URLs
         </CardTitle>
-        <CardDescription className="text-white/70">
-          Manage and track your shortened URLs
+        <CardDescription
+          className={`${styles.text("muted")} group-hover:text-white/90 dark:group-hover:text-orange-200/80 transition-colors duration-300`}
+        >
+          Manage and track your URLs
         </CardDescription>
       </CardHeader>
       <CardContent className="relative z-10">
         {!urls || urls.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-80 text-white/70">
+          <div
+            className={`flex flex-col items-center justify-center h-80 ${styles.text("muted")}`}
+          >
             <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-white/5 to-white/10 dark:from-orange-800/20 dark:to-orange-700/30 flex items-center justify-center backdrop-blur-sm border border-white/30 dark:border-white/20">
                 <svg
-                  className="w-8 h-8 text-white/50"
+                  className="w-8 h-8 text-white/70 dark:text-white/70"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -78,10 +104,12 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-white/80 mb-2">
+              <h3
+                className={`text-lg font-medium mb-2 ${styles.text("secondary")}`}
+              >
                 No URLs Created Yet
               </h3>
-              <p className="text-sm text-white/60">
+              <p className={`text-sm ${styles.text("muted")}`}>
                 Create your first URL to start tracking analytics and managing
                 your links
               </p>
@@ -91,29 +119,45 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-2 text-white/80 font-medium">
-                    Short URL
+                <tr className="border-b border-white/20 dark:border-orange-400/10">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
+                    URL
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     Destination
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     Clicks
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     TTL
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     Status
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     Protected
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     Created
                   </th>
-                  <th className="text-left p-2 text-white/80 font-medium">
+                  <th
+                    className={`text-left p-2 font-medium ${styles.text("secondary")}`}
+                  >
                     Actions
                   </th>
                 </tr>
@@ -122,17 +166,19 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                 {paginatedUrls.map((url) => (
                   <tr
                     key={url.id}
-                    className="border-b border-white/10 hover:bg-white/10 transition-colors"
+                    className="border-b border-white/20 dark:border-orange-400/10 hover:bg-gradient-to-r hover:from-white/5 hover:to-white/10 dark:hover:from-orange-900/20 dark:hover:to-orange-800/25 transition-all duration-300 group"
                   >
                     <td className="p-2">
                       <div className="flex items-center gap-2">
-                        <code className="text-white bg-black/10 px-2 py-1 rounded text-xs border border-white/20 drop-shadow-sm">
+                        <code
+                          className={`bg-gradient-to-r from-black/20 to-black/25 dark:from-orange-900/30 dark:to-orange-800/35 px-2 py-1 rounded text-xs border border-white/30 dark:border-orange-400/20 drop-shadow-sm backdrop-blur-sm ${styles.text("primary")}`}
+                        >
                           {url.shortUrl}
                         </code>
                         <Button
                           size="sm"
                           variant="ghost"
-                          className="text-white/70 hover:text-white hover:bg-white/10"
+                          className={`${styles.text("muted")} hover:text-white/100 dark:hover:text-orange-200 hover:bg-black/20 dark:hover:bg-orange-900/20 border border-white/20 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/30 transition-all duration-300`}
                           onClick={() => handleCopy(url.shortUrl)}
                         >
                           <Copy className="h-3 w-3" />
@@ -141,21 +187,27 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                     </td>
                     <td className="p-2 max-w-xs">
                       <div
-                        className="truncate text-white/80 drop-shadow-sm"
+                        className={`truncate drop-shadow-sm ${styles.text("secondary")} group-hover:text-white/100 dark:group-hover:text-orange-200 transition-colors duration-300`}
                         title={url.destination}
                       >
                         {url.destination}
                       </div>
                     </td>
-                    <td className="p-2 text-white drop-shadow-sm">
+                    <td
+                      className={`p-2 drop-shadow-sm ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-100 transition-colors duration-300`}
+                    >
                       {url.clicks}
                     </td>
-                    <td className="p-2 text-white/80">{url.ttl}</td>
+                    <td
+                      className={`p-2 ${styles.text("secondary")} group-hover:text-white/100 dark:group-hover:text-orange-200 transition-colors duration-300`}
+                    >
+                      {url.ttl}
+                    </td>
                     <td className="p-2">
                       {url.status === "Active" ? (
-                        <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
+                        <div className="flex items-center justify-center w-5 h-5 bg-gradient-to-br from-green-400/80 to-green-500/90 rounded-full shadow-lg shadow-green-400/30">
                           <svg
-                            className="w-4 h-4 text-black"
+                            className="w-4 h-4 text-white"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -169,9 +221,9 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                           </svg>
                         </div>
                       ) : (
-                        <div className="flex items-center justify-center w-5 h-5 bg-white rounded-full">
+                        <div className="flex items-center justify-center w-5 h-5 bg-gradient-to-br from-red-400/80 to-red-500/90 rounded-full shadow-lg shadow-red-400/30">
                           <svg
-                            className="w-4 h-4 text-black"
+                            className="w-4 h-4 text-white"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -188,36 +240,49 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
                     </td>
                     <td className="p-2">
                       {url.protected ? (
-                        <Shield className="h-4 w-4 text-white drop-shadow-sm" />
+                        <Shield
+                          className={`h-4 w-4 drop-shadow-sm ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-200 transition-colors duration-300`}
+                        />
                       ) : (
-                        <span className="text-white/40">—</span>
+                        <span
+                          className={`${styles.text("muted")} group-hover:text-white/100 dark:group-hover:text-orange-300 transition-colors duration-300`}
+                        >
+                          —
+                        </span>
                       )}
                     </td>
-                    <td className="p-2 text-white/80">{url.createdAt}</td>
+                    <td
+                      className={`p-2 ${styles.text("secondary")} group-hover:text-white/100 dark:group-hover:text-orange-200 transition-colors duration-300`}
+                    >
+                      {url.createdAt}
+                    </td>
                     <td className="p-2">
                       <div className="flex gap-1">
                         <Button
+                          key={`visit-${url.id}`}
                           size="sm"
                           variant="ghost"
-                          className="text-white/70 hover:text-white hover:bg-white/10"
+                          className={`${styles.text("muted")} hover:text-white/100 dark:hover:text-orange-200 hover:bg-black/20 dark:hover:bg-orange-900/20 border border-white/20 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/30 transition-all duration-300`}
                           onClick={() => handleVisit(url.shortUrl)}
                         >
                           <ExternalLink className="h-3 w-3" />
                         </Button>
-                        {!isGuest && (
+                        {/* {!isGuest && (
                           <Button
+                            key={`edit-${url.id}`}
                             size="sm"
                             variant="ghost"
-                            className="text-white/70 hover:text-white hover:bg-white/10"
+                            className={`${styles.text("muted")} hover:text-white/100 dark:hover:text-orange-200 hover:bg-black/20 dark:hover:bg-orange-900/20 border border-white/20 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/30 transition-all duration-300`}
                             onClick={() => handleEdit(url.id)}
                           >
                             <Edit className="h-3 w-3" />
                           </Button>
-                        )}
+                        )} */}
                         <Button
+                          key={`delete-${url.id}`}
                           size="sm"
                           variant="ghost"
-                          className="text-white/70 hover:text-red-400 hover:bg-red-600/20"
+                          className={`${styles.text("muted")} hover:text-red-200 hover:bg-red-200/20 dark:hover:bg-red-900/20 border border-white/20 dark:border-orange-400/10 hover:border-red-300/40 dark:hover:border-red-400/30 transition-all duration-300`}
                           onClick={() => handleDelete(url.id)}
                         >
                           <Trash2 className="h-3 w-3" />
@@ -236,19 +301,21 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
             <Button
               variant="outline"
               size="sm"
-              className="border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/30"
+              className={`border-white/40 dark:border-orange-400/30 hover:bg-black/20 dark:hover:bg-orange-900/20 hover:border-white/60 dark:hover:border-orange-400/50 transition-all duration-300 ${styles.text("secondary")} hover:text-white/100 dark:hover:text-orange-200`}
               onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
             >
               Previous
             </Button>
-            <span className="flex items-center px-4 text-sm text-white/70">
+            <span
+              className={`flex items-center px-4 text-sm ${styles.text("muted")}`}
+            >
               Page {currentPage} of {totalPages}
             </span>
             <Button
               variant="outline"
               size="sm"
-              className="border-white/20 text-white/80 hover:bg-white/10 hover:text-white hover:border-white/30"
+              className={`border-white/40 dark:border-orange-400/30 hover:bg-black/20 dark:hover:bg-orange-900/20 hover:border-white/60 dark:hover:border-orange-400/50 transition-all duration-300 ${styles.text("secondary")} hover:text-white/100 dark:hover:text-orange-200`}
               onClick={() =>
                 setCurrentPage(Math.min(totalPages, currentPage + 1))
               }
@@ -259,6 +326,13 @@ export const URLTable: React.FC<URLTableProps> = ({ urls, isGuest }) => {
           </div>
         )}
       </CardContent>
+      {showToast && (
+        <GlassyToast
+          message="URL Copied"
+          type="success"
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </Card>
   );
 };

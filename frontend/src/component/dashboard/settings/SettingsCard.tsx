@@ -1,17 +1,21 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../../UI/card";
 import { SettingsCardProps } from "../types/dashboard.types";
-import { LogOut, Globe, LogIn } from "lucide-react";
+import { LogOut, LogIn } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 import SigninModal from "../../../modals/SigninModal";
 import UpdateUserModal from "../../../modals/UpdateUserModal";
 import Image from "next/image";
 import { LiquidGlassWrapper } from "../../UI/LiquidGlassWrapper";
+import { useThemeStyles } from "../../../hooks/useThemeStyles";
+import { ThemeToggle } from "../../UI/ThemeToggle";
 
 export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
   const { user, signOut } = useAuth();
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const styles = useThemeStyles();
+  const gradients = styles.gradientAccents();
 
   const openSigninModal = () => setIsSigninModalOpen(true);
   const closeSigninModal = () => setIsSigninModalOpen(false);
@@ -50,14 +54,27 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
       <SigninModal isOpen={isSigninModalOpen} onClose={closeSigninModal} />
       <UpdateUserModal isOpen={isUpdateModalOpen} onClose={closeUpdateModal} />
 
-      <Card className="bg-white/5 backdrop-blur-md border border-none shadow-lg shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-xl hover:shadow-black/30 h-full relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30 pointer-events-none">
+      <Card className={`${styles.glassmorphicCard("primary")} h-full group`}>
+        {/* Orange gradient overlay for extra depth */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${gradients.primary} opacity-0 group-hover:opacity-25 transition-opacity duration-500 pointer-events-none`}
+        />
+
+        <div className="absolute inset-0 opacity-40 dark:opacity-60 group-hover:opacity-60 dark:group-hover:opacity-80 transition-opacity duration-500 pointer-events-none">
           <LiquidGlassWrapper>
             <div className="w-full h-full" />
           </LiquidGlassWrapper>
         </div>
+
+        {/* Orange glowing accent border */}
+        <div
+          className={`absolute inset-0 rounded-lg bg-gradient-to-r ${gradients.glow} opacity-0 group-hover:opacity-25 blur-xl transition-opacity duration-500 pointer-events-none`}
+        />
+
         <CardHeader className="relative z-10">
-          <CardTitle className="flex items-center gap-2 text-lg text-white/90">
+          <CardTitle
+            className={`flex items-center gap-2 text-lg ${styles.text("primary")} group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300`}
+          >
             {isGuest ? "Account Options" : "Settings"}
           </CardTitle>
         </CardHeader>
@@ -65,35 +82,72 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
           {isGuest ? (
             <div className="space-y-6">
               {/* Guest User Profile Section */}
-              <div className="flex items-center space-x-4 p-4 bg-black/15 rounded-2xl">
+              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 rounded-2xl backdrop-blur-sm ">
                 <div className="relative">
-                  <div className="w-15 h-15 bg-gradient-to-br from-black/10 to-black/5 rounded-full flex items-center justify-center border-2 border-white/10">
-                    <span className="text-white font-bold text-xl">G</span>
+                  <div className="w-15 h-15 bg-gradient-to-br from-black/20 to-black/30 dark:from-orange-950/30 dark:to-orange-900/40 rounded-full flex items-center justify-center">
+                    <span
+                      className={`font-bold text-xl ${styles.text("primary")}`}
+                    >
+                      G
+                    </span>
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-white/90 font-semibold text-lg truncate">
+                  <h3
+                    className={`font-semibold text-lg truncate ${styles.text("primary")}`}
+                  >
                     Guest User
                   </h3>
-                  <p className="text-white/60 text-sm truncate">No email</p>
+                  <p className={`text-sm truncate ${styles.text("muted")}`}>
+                    No email
+                  </p>
                 </div>
               </div>
-              {/* Logout */}
-              <div
-                className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-red-500/10 group relative overflow-hidden"
-                onClick={handleSignIn}
-              >
-                <div className="relative z-10 text-center space-y-3">
-                  <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-orange-600 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
-                    <LogIn className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
+
+              {/* Theme Toggle and Login Section */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Theme Toggle */}
+                <div className="bg-gradient-to-br from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 group relative overflow-hidden border border-white/30 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/15">
+                  <div className="relative z-10 text-center space-y-3">
+                    <div className="flex justify-center">
+                      <ThemeToggle className="w-10 h-10" />
+                    </div>
+                    <div>
+                      <h4
+                        className={`font-medium text-sm ${styles.text("primary")}`}
+                      >
+                        Switch Theme
+                      </h4>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
-                      LogIn
-                    </h4>
-                    <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                      Sign out safely
-                    </p>
+                </div>
+
+                {/* Login */}
+                <div
+                  className="bg-gradient-to-br from-black/15 to-black/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:from-black/25 hover:to-black/30 dark:hover:from-orange-950/30 dark:hover:to-orange-900/35 group relative overflow-hidden border border-white/30 dark:border-orange-400/10 dark:hover:border-orange-400/15"
+                  onClick={handleSignIn}
+                >
+                  {/* Glass reflection effect */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${gradients.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  ></div>
+
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700">
+                    <div className="absolute top-1/4 left-1/4 w-2 h-2 border border-white/20 dark:border-orange-300/30 rounded rotate-45 group-hover:animate-spin"></div>
+                    <div className="absolute top-3/4 right-1/4 w-1 h-1 border border-white/20 dark:border-orange-300/30 rounded rotate-45 group-hover:animate-spin animation-delay-500"></div>
+                  </div>
+
+                  <div className="relative z-10 text-center space-y-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-red-400/40 to-red/50 dark:from-orange-600/25 dark:to-orange-500/30 backdrop-blur-sm rounded-lg flex items-center justify-center mx-auto group-hover:from-red-400/60 group-hover:to-red-500/70 dark:group-hover:from-orange-600/40 dark:group-hover:to-orange-500/45 group-hover:scale-105 transition-all duration-500 border border-white/40 dark:border-orange-400/20">
+                      <LogIn className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-white/100 dark:group-hover:text-orange-100 transition-colors duration-300" />
+                    </div>
+                    <div>
+                      <h4
+                        className={`font-medium text-sm group-hover:text-white/100 dark:group-hover:text-orange-50 transition-colors duration-300 ${styles.text("primary")}`}
+                      >
+                        Sign In
+                      </h4>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -101,7 +155,7 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
           ) : (
             <div className="space-y-6">
               {/* User Profile Section */}
-              <div className="flex items-center space-x-4 p-4 bg-black/15 rounded-2xl">
+              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-white/15 to-white/20 dark:from-orange-950/20 dark:to-orange-900/25 rounded-2xl backdrop-blur-sm border border-white/30 dark:border-orange-400/10">
                 <div className="relative">
                   {getUserAvatar() ? (
                     <Image
@@ -109,79 +163,63 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({ isGuest }) => {
                       alt="User Avatar"
                       width={70}
                       height={70}
-                      className="rounded-full border-2 border-black/20"
+                      className="rounded-full border-2 border-white/40 dark:border-orange-400/20"
                     />
                   ) : (
-                    <div className="w-15 h-15 bg-gradient-to-br from-black/10 to-black/5 rounded-full flex items-center justify-center border-2 border-white/10">
-                      <span className="text-white font-bold text-xl">
+                    <div className="w-15 h-15 bg-gradient-to-br from-white/20 to-white/30 dark:from-orange-950/30 dark:to-orange-900/40 rounded-full flex items-center justify-center border-2 border-white/40 dark:border-orange-400/20">
+                      <span
+                        className={`font-bold text-xl ${styles.text("primary")}`}
+                      >
                         {getUserDisplayName().charAt(0).toUpperCase()}
                       </span>
                     </div>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-white/90 font-semibold text-lg truncate">
+                  <h3
+                    className={`font-semibold text-lg truncate ${styles.text("primary")}`}
+                  >
                     {getUserDisplayName()}
                   </h3>
-                  <p className="text-white/60 text-sm truncate">
+                  <p className={`text-sm truncate ${styles.text("muted")}`}>
                     {user?.email || "No email"}
                   </p>
                 </div>
               </div>
 
-              {/* Bento Grid Actions */}
+              {/* Theme Toggle and Logout Section */}
               <div className="grid grid-cols-2 gap-4">
-                {/* Global Network (replacing country flag) */}
-                <div className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-white/5 group relative overflow-hidden">
-                  {/* Subtle floating dots */}
-                  <div className="absolute top-2 left-2 w-2 h-2 bg-blue-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-pulse"></div>
-                  <div className="absolute top-3 right-3 w-1 h-1 bg-cyan-400/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-300 group-hover:animate-pulse"></div>
-                  <div className="absolute bottom-3 left-3 w-1.5 h-1.5 bg-blue-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-500 group-hover:animate-pulse"></div>
-
-                  {/* Glass reflection effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
+                {/* Theme Toggle */}
+                <div className="bg-gradient-to-br from-white/15 to-white/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 group relative overflow-hidden border border-white/30 dark:border-orange-400/10 hover:border-white/40 dark:hover:border-orange-400/15">
                   <div className="relative z-10 text-center space-y-3">
-                    <div className="w-12 h-12 bg-blue-200/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-blue-400/30 group-hover:scale-105 transition-all duration-500 border border-white/10">
-                      <Globe className="h-6 w-6 text-blue-200 group-hover:text-blue-100 transition-all duration-300 group-hover:rotate-12" />
+                    <div className="flex justify-center">
+                      <ThemeToggle className="w-10 h-10" />
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
-                        Global Network
+                      <h4
+                        className={`font-medium text-sm ${styles.text("primary")}`}
+                      >
+                        Switch Theme
                       </h4>
-                      <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                        Worldwide reach
-                      </p>
                     </div>
                   </div>
                 </div>
 
                 {/* Logout */}
                 <div
-                  className="bg-black/15 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:bg-red-500/10 group relative overflow-hidden"
+                  className="bg-gradient-to-br from-white/15 to-white/20 dark:from-orange-950/20 dark:to-orange-900/25 backdrop-blur-sm rounded-2xl p-6 transition-all duration-500 cursor-pointer hover:from-red-200/25 hover:to-red-300/30 dark:hover:from-red-900/35 dark:hover:to-red-800/45 group relative overflow-hidden border border-white/30 dark:border-orange-400/10 hover:border-red-300/40 dark:hover:border-red-400/40"
                   onClick={handleLogout}
                 >
-                  {/* Glass reflection effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                  {/* Subtle floating particles */}
-                  <div className="absolute top-2 right-2 w-1 h-1 bg-red-300/40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 group-hover:animate-bounce"></div>
-                  <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-red-400/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200 group-hover:animate-bounce"></div>
-
-                  {/* Ripple effect */}
-                  <div className="absolute inset-0 rounded-2xl bg-red-400/5 scale-0 group-hover:scale-100 transition-transform duration-700 ease-out"></div>
-
                   <div className="relative z-10 text-center space-y-3">
-                    <div className="w-12 h-12 bg-red-400/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto group-hover:bg-red-500/30 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500 border border-white/10">
-                      <LogOut className="h-6 w-6 text-red-200 group-hover:text-red-100 transition-colors duration-300" />
+                    <div className="w-12 h-12 bg-gradient-to-br from-white/40 to-white/50 dark:from-orange-600/20 dark:to-orange-500/25 backdrop-blur-sm rounded-lg flex items-center justify-center mx-auto group-hover:from-red-500/50 group-hover:to-red-600/60 group-hover:scale-105 transition-all duration-500 border border-white/40 dark:border-orange-400/20 group-hover:border-red-400/40">
+                      <LogOut className="h-6 w-6 text-white/80 dark:text-orange-200/80 group-hover:text-red-100 transition-colors duration-300" />
                     </div>
                     <div>
-                      <h4 className="text-white/90 font-medium text-sm group-hover:text-white transition-colors duration-300">
+                      <h4
+                        className={`font-medium text-sm group-hover:text-red-100 transition-colors duration-300 ${styles.text("primary")}`}
+                      >
                         Logout
                       </h4>
-                      <p className="text-white/50 text-xs opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                        Sign out safely
-                      </p>
                     </div>
                   </div>
                 </div>

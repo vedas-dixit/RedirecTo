@@ -19,7 +19,7 @@ const GlassyToast: React.FC<GlassyToastProps> = ({
 }) => {
   return (
     <div
-      className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[99999] min-w-[240px] max-w-xs px-6 py-3 rounded-2xl shadow-xl border backdrop-blur-lg glassy-loader-box animate-fade-in flex items-center gap-3 ${typeStyles[type]}`}
+      className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[99999] min-w-[240px] max-w-xs px-6 py-3 rounded-lg shadow-xl border backdrop-blur-lg glassy-loader-box animate-fade-in flex items-center gap-3 ${typeStyles[type]}`}
       role="alert"
     >
       <span className="flex-1 text-sm font-medium">{message}</span>

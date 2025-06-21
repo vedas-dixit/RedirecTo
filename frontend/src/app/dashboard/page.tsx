@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Link, BarChart3, Clock, Shield, AlertCircle } from "lucide-react";
+import { Link, BarChart3, Clock, Shield } from "lucide-react";
 
 import { URLTable } from "../../component/dashboard/table/URLTable";
 import { ActivityFeed } from "../../component/dashboard/activity/ActivityFeed";
@@ -15,75 +15,17 @@ import { useAuth } from "../../hooks/useAuth";
 import SigninModal from "../../modals/SigninModal";
 import ChartSection from "../../../component/dashboard/chart/ChartSection";
 import CountryDistribution from "../../../component/dashboard/distribution/CountryDistribution";
-
-const LoadingSkeleton: React.FC = () => (
-  <div
-    className="min-h-screen"
-    style={{
-      backgroundImage: "url('/images/background.jpeg')",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      backgroundAttachment: "fixed",
-    }}
-  >
-    <div className="p-4 max-w-9xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
-          <div className="h-8 w-48 bg-white/10 rounded animate-pulse mb-2"></div>
-          <div className="h-4 w-64 bg-white/10 rounded animate-pulse"></div>
-        </div>
-        <div className="h-12 w-32 bg-white/10 rounded animate-pulse"></div>
-      </div>
-
-      {/* Summary Cards Skeleton */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={i}
-            className="h-40 bg-white/10 rounded-lg animate-pulse"
-          ></div>
-        ))}
-      </div>
-
-      {/* Charts Skeleton */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {[...Array(2)].map((_, i) => (
-          <div
-            key={i}
-            className="h-120 bg-white/10 rounded-lg animate-pulse"
-          ></div>
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
-// Error Component
-const ErrorDisplay: React.FC<{ error: string; onRetry: () => void }> = ({
-  error,
-  onRetry,
-}) => (
-  <div className="min-h-screen bg-black text-white flex items-center justify-center">
-    <div className="text-center space-y-4">
-      <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
-      <h2 className="text-xl font-semibold">Failed to load dashboard</h2>
-      <p className="text-zinc-400">{error}</p>
-      <button
-        onClick={onRetry}
-        className="px-4 py-2 bg-orange-600 hover:bg-orange-700 rounded-lg transition-colors"
-      >
-        Try Again
-      </button>
-    </div>
-  </div>
-);
+import { useTheme } from "../../providers/ThemeProvider";
+import { ErrorDisplay } from "@/component/error/errorModal";
+import { LoadingSkeleton } from "@/component/loading/loadingSkeleton";
 
 // Main Dashboard Component
 const URLShortenerDashboard: React.FC = () => {
   const [isSigninModalOpen, setIsSigninModalOpen] = useState(false);
-  const { user } = useAuth();
   const [isUrlFormOpen, setIsUrlFormOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { user } = useAuth();
+  const { theme } = useTheme();
 
   // Guest user state
   const isGuest = !user;
@@ -106,12 +48,22 @@ const URLShortenerDashboard: React.FC = () => {
     resetCreateState,
   } = useUrlManagement();
 
+  // Handle hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Reset create state when form closes
   useEffect(() => {
     if (!isUrlFormOpen && createSuccess) {
       resetCreateState();
     }
   }, [isUrlFormOpen, createSuccess, resetCreateState]);
+
+  // Prevent hydration mismatch by showing loading until mounted
+  if (!mounted) {
+    return <LoadingSkeleton />;
+  }
 
   // Show loading state
   if (isDashboardLoading) {
@@ -145,7 +97,7 @@ const URLShortenerDashboard: React.FC = () => {
       <div
         className="min-h-screen"
         style={{
-          backgroundImage: "url('/images/background.jpeg')",
+          backgroundImage: `url('/images/${theme === "dark" ? "background-dark.png" : "background.jpeg"}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -161,9 +113,11 @@ const URLShortenerDashboard: React.FC = () => {
                 {"Welcome back! Here's your URL analytics."}
               </p>
             </div>
-            <AnimatedStarButton className="p-3" onClick={handleOpenUrlForm}>
-              Create URL
-            </AnimatedStarButton>
+            <div className="flex items-center gap-3">
+              <AnimatedStarButton className="p-3" onClick={handleOpenUrlForm}>
+                Create URL
+              </AnimatedStarButton>
+            </div>
           </div>
           <UrlCreationForm
             isOpen={isUrlFormOpen}
@@ -182,7 +136,7 @@ const URLShortenerDashboard: React.FC = () => {
           {/* Summary Cards */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             <SummaryCard
-              title="Total Short URLs"
+              title="Total URLs"
               value={summary.totalUrls}
               subtitle={`${summary.totalUrls === 1 ? "1 URL" : `${summary.totalUrls} URLs`} created`}
               icon={Link}

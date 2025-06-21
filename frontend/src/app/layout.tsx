@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "RedirecTo. | Modern Link Shortening & Analytics Platform",
+  title: "RedirecTo - Modern URL Protection & Analytics Platform",
   description:
     "Create links instantly. Monitor traffic effortlessly. RedirecTo. is your modern platform for intelligent link shortening. Get custom URLs, detailed click analytics, blazing-fast redirects, and powerful link management tools — all in one place.",
   keywords: [
@@ -123,10 +124,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryProvider>
-          {/* Your other providers */}
-          {children}
-        </QueryProvider>
+        <ThemeProvider>
+          <QueryProvider>
+            {/* Your other providers */}
+            {children}
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

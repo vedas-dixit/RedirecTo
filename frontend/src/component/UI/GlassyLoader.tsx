@@ -37,7 +37,7 @@ const GlassyLoader: React.FC<GlassyLoaderProps> = ({ loading }) => {
 
   return (
     <div className="fixed bottom-6 right-6 z-[9999]">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg px-6 py-3 flex items-center min-w-[180px] glassy-loader-box animate-fade-in">
+      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-lg shadow-lg px-6 py-3 flex items-center min-w-[180px] glassy-loader-box animate-fade-in">
         <span className="font-mono text-white text-base tracking-wider">
           Loading{randomChars}...
         </span>
