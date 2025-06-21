@@ -260,18 +260,6 @@ const Header = () => {
                           </p>
                           <p className="text-xs text-white/60">{user.email}</p>
                         </div>
-                        <a
-                          href="/profile"
-                          className="block px-4 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white"
-                        >
-                          Profile
-                        </a>
-                        <a
-                          href="/settings"
-                          className="block px-4 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white"
-                        >
-                          Settings
-                        </a>
                         <button
                           onClick={handleSignOut}
                           className="block w-full text-left px-4 py-2 text-sm text-white/80 hover:bg-white/10 hover:text-white"
